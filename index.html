@@ -1,1050 +1,944 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>North Star OS — ระบบชีวิตสำหรับคนที่จริงจัง | AUDIKUNG</title>
-  <meta name="description" content="หยุด Adrift. เริ่ม Anchored. North Star OS คือระบบ Notion ที่ออกแบบมาเพื่อจัดการชีวิต การเงิน คอนเทนต์ และธุรกิจในที่เดียว" />
-  <meta property="og:title" content="North Star OS | AUDIKUNG" />
-  <meta property="og:description" content="ระบบชีวิตสำหรับคนที่จริงจัง — หยุด Adrift เริ่ม Anchored" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AUDIKUNG — ระบบ การเงิน โซโลพรีเนอร์ สำหรับคนที่อยากออกแบบชีวิตตัวเองได้จริง">
+    <title>AUDIKUNG — ระบบ · การเงิน · โซโลพรีเนอร์</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030712;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --bg-card-hover: rgba(255, 255, 255, 0.07);
+            --border: rgba(255, 255, 255, 0.08);
+            --gold: #c9a84c;
+            --gold-light: #E5C586;
+            --gold-glow: rgba(201, 168, 76, 0.5);
+            --blue: #7AB7F0;
+            --blue-glow: rgba(122, 183, 240, 0.5);
+            --purple: #9b7fd4;
+            --purple-glow: rgba(155, 127, 212, 0.5);
+            --text: #f0f0f5;
+            --text-muted: #8888a0;
+            --font-head: 'Kanit', sans-serif;
+            --font-body: 'Sarabun', sans-serif;
+        }
 
-  <style>
-    /* ─── RESET & BASE ─── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Sarabun', sans-serif;
-      background: #060d1f;
-      color: #e8eaf6;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
-    /* ─── CSS VARIABLES ─── */
-    :root {
-      --navy:       #060d1f;
-      --navy-mid:   #0d1b38;
-      --navy-light: #1a2f55;
-      --gold:       #f0b429;
-      --gold-dim:   #c48a10;
-      --storm:      #1e2a4a;
-      --text:       #e8eaf6;
-      --text-dim:   #8892b0;
-      --border:     rgba(240,180,41,0.15);
-      --glass:      rgba(255,255,255,0.04);
-      --radius:     12px;
-      --transition: 0.3s ease;
-    }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
 
-    /* ─── STARS ─── */
-    .stars {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-    }
-    .stars span {
-      position: absolute;
-      background: #fff;
-      border-radius: 50%;
-      animation: twinkle var(--dur, 4s) ease-in-out infinite;
-      opacity: 0;
-    }
-    @keyframes twinkle {
-      0%, 100% { opacity: 0; transform: scale(0.8); }
-      50%       { opacity: var(--op, 0.7); transform: scale(1); }
-    }
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            height: 64px;
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
 
-    /* ─── NAV ─── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 1rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: background var(--transition), backdrop-filter var(--transition);
-    }
-    nav.scrolled {
-      background: rgba(6,13,31,0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-    .nav-logo {
-      font-size: 1.2rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      color: var(--gold);
-    }
-    .nav-logo span { color: var(--text); }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      list-style: none;
-    }
-    .nav-links a {
-      font-size: 0.9rem;
-      color: var(--text-dim);
-      transition: color var(--transition);
-    }
-    .nav-links a:hover { color: var(--text); }
-    .btn-nav {
-      background: var(--gold);
-      color: #060d1f !important;
-      font-weight: 700;
-      padding: 0.5rem 1.25rem;
-      border-radius: 50px;
-      font-size: 0.85rem;
-      transition: background var(--transition), transform var(--transition);
-    }
-    .btn-nav:hover { background: #ffd166; transform: translateY(-1px); }
+        .nav-logo {
+            font-family: var(--font-head);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px var(--gold-glow);
+        }
 
-    /* Hamburger */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 4px;
-    }
-    .hamburger span {
-      display: block;
-      width: 24px; height: 2px;
-      background: var(--text);
-      border-radius: 2px;
-      transition: var(--transition);
-    }
-    .mobile-menu {
-      display: none;
-      flex-direction: column;
-      position: fixed;
-      top: 60px; left: 0; right: 0;
-      background: rgba(6,13,31,0.98);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      padding: 1.5rem 2rem;
-      gap: 1.25rem;
-      z-index: 99;
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a { color: var(--text-dim); font-size: 1rem; }
-    .mobile-menu .btn-nav { text-align: center; }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
 
-    /* ─── HERO ─── */
-    #hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 8rem 1.5rem 5rem;
-      background: radial-gradient(ellipse at 50% 0%, #0d2052 0%, #060d1f 65%);
-      overflow: hidden;
-    }
-    .north-star {
-      position: absolute;
-      top: 12%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 6px; height: 6px;
-      background: #fff;
-      border-radius: 50%;
-      box-shadow:
-        0 0 6px 2px #fff,
-        0 0 20px 6px var(--gold),
-        0 0 60px 20px rgba(240,180,41,0.4),
-        0 0 120px 50px rgba(240,180,41,0.15);
-      animation: pulse-star 3s ease-in-out infinite;
-    }
-    @keyframes pulse-star {
-      0%, 100% { box-shadow: 0 0 6px 2px #fff, 0 0 20px 6px var(--gold), 0 0 60px 20px rgba(240,180,41,0.4), 0 0 120px 50px rgba(240,180,41,0.15); }
-      50%       { box-shadow: 0 0 8px 4px #fff, 0 0 30px 10px var(--gold), 0 0 80px 30px rgba(240,180,41,0.5), 0 0 150px 70px rgba(240,180,41,0.2); }
-    }
-    /* Star rays */
-    .north-star::before, .north-star::after {
-      content: '';
-      position: absolute;
-      background: linear-gradient(transparent, var(--gold), transparent);
-      left: 50%; top: 50%;
-      transform: translate(-50%, -50%);
-    }
-    .north-star::before { width: 1px; height: 80px; }
-    .north-star::after  { width: 80px; height: 1px; }
+        .nav-links a {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
 
-    .hero-content { position: relative; z-index: 1; max-width: 780px; }
-    .hero-badge {
-      display: inline-block;
-      background: var(--border);
-      border: 1px solid var(--border);
-      color: var(--gold);
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.4rem 1rem;
-      border-radius: 50px;
-      margin-bottom: 2rem;
-    }
-    .hero-headline {
-      font-size: clamp(2.2rem, 5vw, 3.8rem);
-      font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 1.5rem;
-    }
-    .hero-headline .gold { color: var(--gold); }
-    .hero-sub {
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      color: var(--text-dim);
-      max-width: 580px;
-      margin: 0 auto 2.5rem;
-      font-weight: 400;
-    }
-    .hero-ctas {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .btn-primary {
-      background: var(--gold);
-      color: #060d1f;
-      font-weight: 700;
-      padding: 0.9rem 2rem;
-      border-radius: 50px;
-      font-size: 1rem;
-      font-family: 'Sarabun', sans-serif;
-      border: none;
-      cursor: pointer;
-      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
-      display: inline-block;
-    }
-    .btn-primary:hover {
-      background: #ffd166;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(240,180,41,0.35);
-    }
-    .btn-ghost {
-      background: transparent;
-      color: var(--text-dim);
-      font-weight: 600;
-      padding: 0.9rem 2rem;
-      border-radius: 50px;
-      font-size: 1rem;
-      border: 1px solid rgba(255,255,255,0.15);
-      cursor: pointer;
-      font-family: 'Sarabun', sans-serif;
-      transition: border-color var(--transition), color var(--transition);
-      display: inline-block;
-    }
-    .btn-ghost:hover { border-color: var(--gold); color: var(--text); }
+        .nav-links a:hover { color: var(--text); }
 
-    /* Wave divider */
-    .wave-divider { display: block; width: 100%; overflow: hidden; line-height: 0; }
-    .wave-divider svg { display: block; }
+        .nav-cta {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #030712 !important;
+            background: var(--gold);
+            padding: 0.45rem 1.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background 0.2s, box-shadow 0.2s !important;
+        }
 
-    /* ─── SECTIONS ─── */
-    section { position: relative; z-index: 1; }
-    .section-inner { max-width: 1100px; margin: 0 auto; padding: 5rem 1.5rem; }
-    .section-tag {
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.75rem;
-    }
-    .section-title {
-      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-      font-weight: 800;
-      line-height: 1.25;
-      margin-bottom: 1rem;
-    }
-    .section-sub {
-      font-size: 1.05rem;
-      color: var(--text-dim);
-      max-width: 600px;
-      margin-bottom: 3rem;
-    }
+        .nav-cta:hover {
+            background: var(--gold-light) !important;
+            box-shadow: 0 0 18px var(--gold-glow);
+        }
 
-    /* ─── STORM (PAIN) ─── */
-    #storm { background: var(--navy); }
-    .pain-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.25rem;
-      margin-top: 2.5rem;
-    }
-    .pain-card {
-      background: var(--glass);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: var(--radius);
-      padding: 1.75rem;
-      transition: border-color var(--transition), transform var(--transition);
-    }
-    .pain-card:hover {
-      border-color: rgba(240,180,41,0.3);
-      transform: translateY(-3px);
-    }
-    .pain-icon { font-size: 2rem; margin-bottom: 1rem; }
-    .pain-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .pain-card p { font-size: 0.9rem; color: var(--text-dim); line-height: 1.6; }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+        }
 
-    /* ─── SOLUTION ─── */
-    #solution { background: linear-gradient(180deg, var(--navy) 0%, var(--navy-mid) 100%); }
-    .solution-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
-      margin-top: 2rem;
-    }
-    .solution-pillars {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-    .pillar {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      background: var(--glass);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1rem 1.25rem;
-    }
-    .pillar-icon { font-size: 1.5rem; flex-shrink: 0; }
-    .pillar h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.15rem; }
-    .pillar p  { font-size: 0.82rem; color: var(--text-dim); }
-    .solution-visual {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .ship-visual {
-      width: 100%;
-      max-width: 380px;
-      aspect-ratio: 1;
-      background: radial-gradient(ellipse at center, #1a2f55 0%, #060d1f 70%);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 7rem;
-      border: 1px solid var(--border);
-      box-shadow: 0 0 60px rgba(240,180,41,0.08);
-      animation: float 4s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-12px); }
-    }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
 
-    /* ─── PRODUCTS ─── */
-    #products { background: var(--navy-mid); }
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2.5rem;
-    }
-    .product-card {
-      background: var(--glass);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: var(--radius);
-      padding: 2rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-    .product-card:hover {
-      border-color: rgba(240,180,41,0.35);
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
-    }
-    .product-card.best {
-      border-color: var(--gold);
-      background: linear-gradient(135deg, rgba(240,180,41,0.08) 0%, var(--glass) 60%);
-    }
-    .best-badge {
-      position: absolute;
-      top: 0; right: 0;
-      background: var(--gold);
-      color: #060d1f;
-      font-size: 0.7rem;
-      font-weight: 800;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.35rem 0.9rem;
-      border-bottom-left-radius: var(--radius);
-    }
-    .tier-label {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.5rem;
-    }
-    .tier-name {
-      font-size: 1.4rem;
-      font-weight: 800;
-      margin-bottom: 0.25rem;
-    }
-    .tier-tagline {
-      font-size: 0.85rem;
-      color: var(--text-dim);
-      margin-bottom: 1.5rem;
-    }
-    .tier-price {
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: var(--gold);
-      margin-bottom: 0.25rem;
-    }
-    .tier-price span {
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--text-dim);
-    }
-    .tier-original {
-      font-size: 0.85rem;
-      color: var(--text-dim);
-      text-decoration: line-through;
-      margin-bottom: 1.5rem;
-    }
-    .tier-features {
-      list-style: none;
-      flex: 1;
-      margin-bottom: 2rem;
-    }
-    .tier-features li {
-      font-size: 0.88rem;
-      color: var(--text-dim);
-      padding: 0.4rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
-    }
-    .tier-features li::before {
-      content: '⚓';
-      font-size: 0.75rem;
-      flex-shrink: 0;
-      margin-top: 0.1rem;
-    }
-    .tier-features li.gold-item { color: var(--text); }
-    .roi-line {
-      font-size: 0.8rem;
-      color: var(--gold);
-      font-style: italic;
-      margin-bottom: 1.25rem;
-      line-height: 1.5;
-    }
-    .btn-tier {
-      display: block;
-      text-align: center;
-      width: 100%;
-      padding: 0.85rem;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      font-family: 'Sarabun', sans-serif;
-      border: none;
-      cursor: pointer;
-      transition: var(--transition);
-    }
-    .btn-tier.gold { background: var(--gold); color: #060d1f; }
-    .btn-tier.gold:hover { background: #ffd166; transform: translateY(-1px); }
-    .btn-tier.outline {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-    .btn-tier.outline:hover { border-color: var(--gold); color: var(--gold); }
+        /* ── MOBILE MENU ── */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 64px; left: 0; right: 0;
+            background: rgba(3, 7, 18, 0.97);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem 5%;
+            flex-direction: column;
+            gap: 1.25rem;
+            z-index: 99;
+        }
 
-    /* ─── PROOF ─── */
-    #proof { background: var(--navy); }
-    .proof-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2.5rem;
-    }
-    .proof-card {
-      background: var(--glass);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: var(--radius);
-      padding: 1.75rem;
-    }
-    .proof-stars { color: var(--gold); font-size: 1rem; margin-bottom: 1rem; }
-    .proof-text {
-      font-size: 0.92rem;
-      color: var(--text-dim);
-      line-height: 1.7;
-      margin-bottom: 1.25rem;
-    }
-    .proof-author {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    .proof-avatar {
-      width: 38px; height: 38px;
-      border-radius: 50%;
-      background: var(--navy-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      flex-shrink: 0;
-    }
-    .proof-name { font-size: 0.88rem; font-weight: 700; }
-    .proof-role { font-size: 0.78rem; color: var(--text-dim); }
+        .mobile-menu.open { display: flex; }
 
-    /* ─── FAQ ─── */
-    #faq { background: var(--navy-mid); }
-    .faq-list {
-      max-width: 720px;
-      margin: 2.5rem auto 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-    .faq-item {
-      background: var(--glass);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-    .faq-q {
-      width: 100%;
-      text-align: left;
-      background: none;
-      border: none;
-      padding: 1.25rem 1.5rem;
-      color: var(--text);
-      font-family: 'Sarabun', sans-serif;
-      font-size: 0.97rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-    }
-    .faq-q:hover { color: var(--gold); }
-    .faq-arrow {
-      color: var(--gold);
-      font-size: 1.1rem;
-      transition: transform var(--transition);
-      flex-shrink: 0;
-    }
-    .faq-item.open .faq-arrow { transform: rotate(180deg); }
-    .faq-a {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.35s ease, padding 0.35s ease;
-    }
-    .faq-item.open .faq-a { max-height: 300px; }
-    .faq-a p {
-      padding: 0 1.5rem 1.25rem;
-      font-size: 0.9rem;
-      color: var(--text-dim);
-      line-height: 1.7;
-    }
+        .mobile-menu a {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
 
-    /* ─── FINAL CTA ─── */
-    #final-cta {
-      background: radial-gradient(ellipse at 50% 100%, #0d2052 0%, #060d1f 65%);
-      text-align: center;
-      padding: 6rem 1.5rem;
-      position: relative;
-      overflow: hidden;
-    }
-    #final-cta .north-star {
-      top: 15%;
-      animation-duration: 2.5s;
-    }
-    #final-cta .section-title { max-width: 680px; margin: 0 auto 1rem; }
-    #final-cta .section-sub  { max-width: 520px; margin: 0 auto 2.5rem; }
+        .mobile-menu a:hover { color: var(--text); }
+        .mobile-menu .nav-cta { align-self: flex-start; color: #030712 !important; }
 
-    /* ─── FOOTER ─── */
-    footer {
-      background: #040912;
-      padding: 2.5rem 1.5rem;
-      text-align: center;
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
-    .footer-logo { font-size: 1.1rem; font-weight: 800; color: var(--gold); margin-bottom: 1rem; }
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.5rem;
-    }
-    .footer-links a { font-size: 0.85rem; color: var(--text-dim); transition: color var(--transition); }
-    .footer-links a:hover { color: var(--gold); }
-    footer p { font-size: 0.78rem; color: rgba(136,146,176,0.5); }
+        /* ── HERO ── */
+        #hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 5% 100px;
+            overflow: hidden;
+            background: radial-gradient(ellipse at 50% 0%, #0d1a3a 0%, var(--bg) 65%);
+        }
 
-    /* ─── SCROLL REVEAL ─── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+        #starfield {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
 
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-      .solution-grid { grid-template-columns: 1fr; }
-      .solution-visual { display: none; }
-      .ship-visual { max-width: 240px; }
-      .product-grid { grid-template-columns: 1fr; max-width: 380px; margin-left: auto; margin-right: auto; }
-    }
-  </style>
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background: white;
+        }
+
+        /* North Star */
+        .north-star {
+            position: absolute;
+            top: 14%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .north-star-core {
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            box-shadow:
+                0 0 6px 2px white,
+                0 0 18px 6px rgba(229, 197, 134, 0.7),
+                0 0 40px 14px rgba(201, 168, 76, 0.35);
+            animation: northPulse 4s ease-in-out infinite;
+            position: relative;
+        }
+
+        .north-star-ray-v,
+        .north-star-ray-h {
+            position: absolute;
+            background: linear-gradient(transparent, rgba(229,197,134,0.6), transparent);
+            border-radius: 2px;
+        }
+
+        .north-star-ray-v {
+            width: 1px;
+            height: 50px;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .north-star-ray-h {
+            width: 50px;
+            height: 1px;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes northPulse {
+            0%, 100% {
+                box-shadow: 0 0 6px 2px white, 0 0 18px 6px rgba(229,197,134,0.7), 0 0 40px 14px rgba(201,168,76,0.35);
+                opacity: 1;
+            }
+            50% {
+                box-shadow: 0 0 10px 4px white, 0 0 28px 10px rgba(229,197,134,0.9), 0 0 60px 22px rgba(201,168,76,0.55);
+                opacity: 0.82;
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-eyebrow {
+            font-family: var(--font-body);
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-brand {
+            font-family: var(--font-head);
+            font-size: clamp(3.5rem, 12vw, 7.5rem);
+            font-weight: 900;
+            line-height: 1;
+            color: var(--gold-light);
+            text-shadow:
+                0 0 30px var(--gold-glow),
+                0 0 70px rgba(201, 168, 76, 0.2),
+                0 0 120px rgba(201, 168, 76, 0.08);
+            letter-spacing: 5px;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-tagline {
+            font-family: var(--font-head);
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            font-weight: 400;
+            color: var(--text-muted);
+            letter-spacing: 5px;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-tagline .pill {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .hero-sub {
+            font-family: var(--font-body);
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            color: #030712;
+            background: var(--gold);
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            box-shadow: 0 0 28px var(--gold-glow);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+            background: transparent;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+        }
+
+        .btn-secondary:hover {
+            border-color: rgba(255,255,255,0.25);
+            box-shadow: 0 0 16px rgba(255,255,255,0.04);
+            transform: translateY(-2px);
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-family: var(--font-body);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: scrollBounce 2.5s ease-in-out infinite;
+        }
+
+        .scroll-hint svg { width: 14px; height: 14px; }
+
+        @keyframes scrollBounce {
+            0%, 100% { opacity: 0.35; transform: translateX(-50%) translateY(0); }
+            50% { opacity: 0.7; transform: translateX(-50%) translateY(7px); }
+        }
+
+        /* ── SHARED SECTION ── */
+        section { padding: 6rem 5%; }
+
+        .section-label {
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 0.6rem;
+        }
+
+        .section-title {
+            font-family: var(--font-head);
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.75rem;
+        }
+
+        .section-sub {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 520px;
+            line-height: 1.8;
+        }
+
+        /* ── PRODUCTS ── */
+        #products {
+            background: linear-gradient(180deg, var(--bg) 0%, #070d24 100%);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1100px;
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.25s;
+            display: block;
+        }
+
+        .product-card.clickable:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-5px);
+        }
+
+        .product-card.gold.clickable:hover { border-color: rgba(201,168,76,0.4); box-shadow: 0 10px 40px rgba(201,168,76,0.12); }
+        .product-card.blue { cursor: default; }
+        .product-card.purple { cursor: default; }
+
+        .product-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+
+        .product-badge {
+            display: inline-block;
+            font-family: var(--font-body);
+            font-size: 0.68rem;
+            font-weight: 600;
+            padding: 0.18rem 0.6rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .badge-live { background: rgba(201,168,76,0.15); color: var(--gold); }
+        .badge-soon { background: rgba(255,255,255,0.06); color: var(--text-muted); }
+
+        .product-name {
+            font-family: var(--font-head);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-card.gold .product-name { color: var(--gold-light); }
+        .product-card.blue .product-name { color: var(--blue); }
+        .product-card.purple .product-name { color: var(--purple); }
+
+        .product-desc {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.75;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-tiers {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .tier-tag {
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            padding: 0.15rem 0.5rem;
+            border: 1px solid rgba(201,168,76,0.3);
+            color: var(--gold);
+            border-radius: 4px;
+        }
+
+        .product-link {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .product-note {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* ── ARTICLES ── */
+        #articles { background: #070d24; }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1100px;
+        }
+
+        .article-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.25s;
+        }
+
+        .article-card:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(122,183,240,0.3);
+            box-shadow: 0 8px 32px rgba(122,183,240,0.08);
+            transform: translateY(-4px);
+        }
+
+        .article-icon { font-size: 2rem; margin-bottom: 1rem; }
+
+        .article-name {
+            font-family: var(--font-head);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--blue);
+            margin-bottom: 0.75rem;
+        }
+
+        .article-topics {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-link {
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--blue);
+        }
+
+        /* ── COMMUNITY ── */
+        #community {
+            background: linear-gradient(180deg, #070d24 0%, var(--bg) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .community-block {
+            max-width: 660px;
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid rgba(155,127,212,0.2);
+            border-radius: 20px;
+            padding: 3.5rem 3rem;
+            text-align: center;
+            box-shadow: 0 0 60px rgba(155,127,212,0.06);
+        }
+
+        .community-block .comm-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+
+        .community-block h3 {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--purple);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 24px var(--purple-glow);
+        }
+
+        .community-block p {
+            font-family: var(--font-body);
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        /* ── CHANNELS ── */
+        #channels { background: var(--bg); }
+
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            max-width: 1100px;
+        }
+
+        .channel-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.1rem 1.25rem;
+            text-decoration: none;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .channel-card:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+        }
+
+        .channel-platform { font-size: 1.4rem; flex-shrink: 0; }
+
+        .channel-name {
+            font-family: var(--font-head);
+            font-size: 0.92rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .channel-handle {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: #020510;
+            border-top: 1px solid var(--border);
+            padding: 2rem 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-brand {
+            font-family: var(--font-head);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 2px;
+        }
+
+        .footer-copy {
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: var(--text); }
+
+        /* ── ANIMATIONS ── */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.15; }
+            50% { opacity: 0.9; }
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 960px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .products-grid { grid-template-columns: 1fr; max-width: 480px; }
+            .articles-grid { grid-template-columns: 1fr; max-width: 480px; }
+            .channels-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            section { padding: 4rem 5%; }
+            .channels-grid { grid-template-columns: 1fr; }
+            .community-block { padding: 2.5rem 1.5rem; }
+            footer { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
 </head>
-
 <body>
 
-  <!-- ── STAR FIELD ── -->
-  <div class="stars" id="stars"></div>
-
-  <!-- ── NAV ── -->
-  <nav id="navbar">
-    <div class="nav-logo">★ AUDI<span>KUNG</span></div>
+<!-- ── NAV ── -->
+<nav>
+    <a href="index.html" class="nav-logo">AUDIKUNG</a>
     <ul class="nav-links">
-      <li><a href="#storm">ปัญหาของคุณ</a></li>
-      <li><a href="#solution">คืออะไร</a></li>
-      <li><a href="#products">ราคา</a></li>
-      <li><a href="#faq">FAQ</a></li>
-      <li><a href="https://lin.ee/hUm9gSp" target="_blank" class="btn-nav">สมัคร LINE OA ฟรี</a></li>
+        <li><a href="#products">สินค้า</a></li>
+        <li><a href="#articles">บทความ</a></li>
+        <li><a href="#channels">ช่องทาง</a></li>
+        <li><a href="about.html">เกี่ยวกับ</a></li>
+        <li><a href="https://lin.ee/UTD2Lpo" target="_blank" rel="noopener" class="nav-cta">ทักมาเลย</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="เมนู">
-      <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
     </button>
-  </nav>
+</nav>
 
-  <!-- ── MOBILE MENU ── -->
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#storm"    onclick="closeMobile()">ปัญหาของคุณ</a>
-    <a href="#solution" onclick="closeMobile()">North Star OS คืออะไร</a>
-    <a href="#products" onclick="closeMobile()">เลือก Tier</a>
-    <a href="#faq"      onclick="closeMobile()">FAQ</a>
-    <a href="https://lin.ee/hUm9gSp" target="_blank" class="btn-nav" onclick="closeMobile()">สมัคร LINE OA ฟรี</a>
-  </div>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="#products">สินค้า</a>
+    <a href="#articles">บทความ</a>
+    <a href="#channels">ช่องทาง</a>
+    <a href="about.html">เกี่ยวกับ</a>
+    <a href="https://lin.ee/UTD2Lpo" target="_blank" rel="noopener" class="nav-cta">ทักมาเลย</a>
+</div>
 
-  <!-- ══════════════════════════════════
-       HERO
-  ══════════════════════════════════ -->
-  <section id="hero">
-    <div class="north-star"></div>
+<!-- ── HERO ── -->
+<section id="hero">
+    <div id="starfield"></div>
+
+    <div class="north-star">
+        <div class="north-star-core">
+            <div class="north-star-ray-v"></div>
+            <div class="north-star-ray-h"></div>
+        </div>
+    </div>
+
     <div class="hero-content">
-      <div class="hero-badge">★ North Star OS — Notion Life System</div>
-      <h1 class="hero-headline">
-        คุณกำลัง <span class="gold">Adrift</span> อยู่ไหม?<br/>
-        หรือพร้อมจะ <span class="gold">Anchored</span> แล้ว
-      </h1>
-      <p class="hero-sub">
-        ชีวิตที่ไม่มีระบบ คือการแล่นเรือในพายุโดยไม่มีดาวนำทาง<br/>
-        North Star OS คือระบบที่เปลี่ยน Notion ให้กลายเป็นสมองที่สองของคุณ
-      </p>
-      <div class="hero-ctas">
-        <a href="https://lin.ee/hUm9gSp" target="_blank" class="btn-primary">⚓ รับ LITE ฟรีทันที</a>
-        <a href="#products" class="btn-ghost">ดู Tier ทั้งหมด →</a>
-      </div>
+        <p class="hero-eyebrow">ยินดีต้อนรับสู่โลกของ</p>
+        <h1 class="hero-brand">AUDIKUNG</h1>
+        <p class="hero-tagline">
+            <span class="pill">ระบบ</span> &nbsp;·&nbsp;
+            <span class="pill">การเงิน</span> &nbsp;·&nbsp;
+            <span class="pill">โซโลพรีเนอร์</span>
+        </p>
+        <p class="hero-sub">สำหรับคนที่อยากออกแบบชีวิตตัวเองได้จริง</p>
+        <div class="hero-buttons">
+            <a href="#products" class="btn-primary">ดูสินค้าทั้งหมด</a>
+            <a href="https://lin.ee/UTD2Lpo" target="_blank" rel="noopener" class="btn-secondary">ทักมาเลย</a>
+        </div>
     </div>
-  </section>
 
-  <!-- wave -->
-  <div class="wave-divider">
-    <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="height:60px;width:100%">
-      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#060d1f"/>
-    </svg>
-  </div>
-
-  <!-- ══════════════════════════════════
-       STORM — PAIN
-  ══════════════════════════════════ -->
-  <section id="storm">
-    <div class="section-inner">
-      <p class="section-tag reveal">⛈ The Storm — พายุที่คุณกำลังเผชิญ</p>
-      <h2 class="section-title reveal">ถ้าคุณเคยรู้สึกแบบนี้<br/>คุณไม่ได้อยู่คนเดียว</h2>
-      <p class="section-sub reveal">ทุกคนที่ประสบความสำเร็จเคยผ่านพายุเหล่านี้ — ความต่างคือพวกเขามีระบบนำทาง</p>
-      <div class="pain-grid">
-        <div class="pain-card reveal">
-          <div class="pain-icon">🌀</div>
-          <h3>ทำงานเยอะ แต่ไม่รู้สึกว่าไปถึงไหน</h3>
-          <p>วันๆ หนึ่ง Busy ตลอด แต่พอถามว่าวันนี้ทำอะไรสำเร็จ ตอบไม่ได้ เหมือนแล่นเรือเต็มแรงโดยไม่มีทิศ</p>
-        </div>
-        <div class="pain-card reveal">
-          <div class="pain-icon">💸</div>
-          <h3>เงินเข้า — แต่ไม่รู้ว่าหายไปไหน</h3>
-          <p>รายได้มีอยู่ แต่ไม่รู้ว่ารั่วตรงไหน ไม่มีระบบติดตาม ทำให้การวางแผนการเงินเป็นเรื่องของโชค ไม่ใช่ระบบ</p>
-        </div>
-        <div class="pain-card reveal">
-          <div class="pain-icon">📱</div>
-          <h3>Idea เยอะ แต่ไม่มี Content ออกมา</h3>
-          <p>คิดไว้เต็มหัว แต่พอนั่งทำจริง ไม่รู้จะเริ่มตรงไหน Pipeline ไม่มี ทุกอย่างอยู่ในหัว ไม่ออกมาเป็นชิ้นงาน</p>
-        </div>
-        <div class="pain-card reveal">
-          <div class="pain-icon">🔋</div>
-          <h3>เหนื่อยกับการ Juggle ทุกอย่างคนเดียว</h3>
-          <p>งาน ชีวิต การเงิน สุขภาพ ธุรกิจ — ทุกอย่างอยู่คนละที่ ไม่มีศูนย์กลาง เหนื่อยแค่คิดว่าจะเริ่มตรงไหน</p>
-        </div>
-      </div>
+    <div class="scroll-hint">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 5v14M5 12l7 7 7-7"/>
+        </svg>
+        เลื่อนลง
     </div>
-  </section>
+</section>
 
-  <!-- ══════════════════════════════════
-       SOLUTION
-  ══════════════════════════════════ -->
-  <section id="solution">
-    <div class="section-inner">
-      <div class="solution-grid">
-        <div>
-          <p class="section-tag reveal">⚓ North Star OS</p>
-          <h2 class="section-title reveal">ระบบที่ทำให้คุณ<br/><span style="color:var(--gold)">Anchored</span> ในทุกพายุ</h2>
-          <p class="section-sub reveal" style="margin-bottom:1.5rem">
-            North Star OS ไม่ใช่แค่เทมเพลต Notion<br/>
-            มันคือ Operating System ของชีวิตคุณ — สร้างมาจากระบบจริงที่ใช้งานได้จริงทุกวัน
-          </p>
-          <div class="solution-pillars">
-            <div class="pillar reveal">
-              <div class="pillar-icon">🧭</div>
-              <div>
-                <h4>Life OS — ระบบชีวิต</h4>
-                <p>เป้าหมาย, นิสัย, ตารางชีวิต ทุกอย่างในที่เดียว</p>
-              </div>
+<!-- ── PRODUCTS ── -->
+<section id="products">
+    <p class="section-label">สินค้าของผม</p>
+    <h2 class="section-title">เลือกเครื่องมือที่ใช่สำหรับคุณ</h2>
+    <p class="section-sub">ทุกอย่างที่ผมสร้างมาจากประสบการณ์จริง ใช้เองก่อน แล้วค่อยแชร์</p>
+
+    <div class="products-grid">
+        <a href="northstar.html" class="product-card gold clickable fade-up">
+            <div class="product-icon">⭐</div>
+            <span class="product-badge badge-live">Live Now</span>
+            <h3 class="product-name">North Star OS</h3>
+            <p class="product-desc">ระบบออกแบบชีวิตสำหรับคนที่อยากหยุด "สุ่ม" และเริ่มใช้ชีวิตแบบมีทิศทาง ตั้งแต่เป้าหมาย การเงิน ไปจนถึงคอนเทนต์</p>
+            <div class="product-tiers">
+                <span class="tier-tag">BASIC ฿590</span>
+                <span class="tier-tag">PRO ฿1,190</span>
+                <span class="tier-tag">VIP ฿4,900</span>
             </div>
-            <div class="pillar reveal">
-              <div class="pillar-icon">💰</div>
-              <div>
-                <h4>Finance OS — ระบบการเงิน</h4>
-                <p>ติดตามรายรับ-รายจ่าย อุดรอยรั่ว วางแผนลงทุน</p>
-              </div>
-            </div>
-            <div class="pillar reveal">
-              <div class="pillar-icon">🎬</div>
-              <div>
-                <h4>Content OS — ระบบคอนเทนต์</h4>
-                <p>Pipeline ตั้งแต่ Idea จนถึง Published ในคลิกเดียว</p>
-              </div>
-            </div>
-            <div class="pillar reveal">
-              <div class="pillar-icon">🚀</div>
-              <div>
-                <h4>Business OS — ระบบธุรกิจ</h4>
-                <p>CRM, Product Pipeline, Revenue Dashboard ครบจบ</p>
-              </div>
-            </div>
-          </div>
+            <span class="product-link">ดูรายละเอียด →</span>
+        </a>
+
+        <div class="product-card blue fade-up">
+            <div class="product-icon">📖</div>
+            <span class="product-badge badge-soon">เร็วๆ นี้</span>
+            <h3 class="product-name">E-Book</h3>
+            <p class="product-desc">คู่มือฉบับย่อจากประสบการณ์จริง เรื่องการเงิน การลงทุน และการสร้างระบบชีวิต อ่านจบในครั้งเดียว นำไปใช้ได้เลย</p>
+            <p class="product-note">กำลังมา — ติดตามได้ที่ LINE OA</p>
         </div>
-        <div class="solution-visual">
-          <div class="ship-visual">🚢</div>
+
+        <div class="product-card purple fade-up">
+            <div class="product-icon">🎓</div>
+            <span class="product-badge badge-soon">เร็วๆ นี้</span>
+            <h3 class="product-name">Online Course</h3>
+            <p class="product-desc">คอร์สออนไลน์แบบ Step-by-Step ที่จะพาคุณจาก 0 ถึงมีระบบ ไม่ว่าจะเรื่องการลงทุน การเงิน หรือการสร้างธุรกิจโซโลพรีเนอร์</p>
+            <p class="product-note">กำลังมา — ติดตามได้ที่ LINE OA</p>
         </div>
-      </div>
     </div>
-  </section>
+</section>
 
-  <!-- wave -->
-  <div class="wave-divider">
-    <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="height:60px;width:100%">
-      <path d="M0,20 C480,60 960,0 1440,40 L1440,60 L0,60 Z" fill="#0d1b38"/>
-    </svg>
-  </div>
+<!-- ── ARTICLES ── -->
+<section id="articles">
+    <p class="section-label">บทความ</p>
+    <h2 class="section-title">อ่านเพื่อเปลี่ยนมุมมอง</h2>
+    <p class="section-sub">บทความที่ผมเขียนจากสิ่งที่เรียนรู้ ทดลอง และใช้จริงในชีวิตตัวเอง</p>
 
-  <!-- ══════════════════════════════════
-       PRODUCTS
-  ══════════════════════════════════ -->
-  <section id="products">
-    <div class="section-inner" style="text-align:center">
-      <p class="section-tag reveal">★ เลือก Tier ของคุณ</p>
-      <h2 class="section-title reveal">เลือกระดับที่ใช่สำหรับคุณ</h2>
-      <p class="section-sub reveal" style="margin:0 auto 2.5rem">ทุก Tier ใช้กับ Notion Plan ฟรีได้ 100% ไม่มีค่าใช้จ่ายเพิ่ม</p>
+    <div class="articles-grid">
+        <a href="articles.html#self-improvement" class="article-card fade-up">
+            <div class="article-icon">🧠</div>
+            <h3 class="article-name">Self-Improvement</h3>
+            <p class="article-topics">AI Tools & Tactics · Meta-Learning · Productivity · Time Management · Life Optimization</p>
+            <span class="article-link">อ่านบทความ →</span>
+        </a>
 
-      <div class="product-grid">
+        <a href="articles.html#finance" class="article-card fade-up">
+            <div class="article-icon">📈</div>
+            <h3 class="article-name">Finance</h3>
+            <p class="article-topics">Personal Finance · การลงทุน · US Stocks · Financial News · ประวัติศาสตร์การเงิน</p>
+            <span class="article-link">อ่านบทความ →</span>
+        </a>
 
-        <!-- LITE -->
-        <div class="product-card reveal">
-          <p class="tier-label">LITE</p>
-          <h3 class="tier-name">The Compass</h3>
-          <p class="tier-tagline">จุดเริ่มต้นสำหรับทุกคน</p>
-          <div class="tier-price">ฟรี <span>ตลอดไป</span></div>
-          <div class="tier-original">&nbsp;</div>
-          <ul class="tier-features">
-            <li class="gold-item">North Star OS: LITE (Stripped-down version)</li>
-            <li class="gold-item">AI Command Center — ระบบจัดการ AI</li>
-            <li class="gold-item">AI Prompt 101 — Prompt Pack พื้นฐาน</li>
-            <li>เหมาะสำหรับคนที่เพิ่งเริ่มต้น</li>
-          </ul>
-          <p class="roi-line">"ลองก่อน แล้วคุณจะเข้าใจเองว่าทำไมถึงต้อง Upgrade"</p>
-          <a href="https://lin.ee/hUm9gSp" target="_blank" class="btn-tier outline">รับฟรีทันที →</a>
-        </div>
-
-        <!-- BASIC -->
-        <div class="product-card reveal">
-          <p class="tier-label">BASIC</p>
-          <h3 class="tier-name">The Entry Point</h3>
-          <p class="tier-tagline">ระบบชีวิตพื้นฐานครบจบ</p>
-          <div class="tier-price">590 <span>THB</span></div>
-          <div class="tier-original">จาก 1,290 บาท</div>
-          <ul class="tier-features">
-            <li class="gold-item">North Star OS Full Version</li>
-            <li class="gold-item">Life OS + Goal Tracker</li>
-            <li class="gold-item">Finance OS พื้นฐาน</li>
-            <li>คู่มือ 30-Day Fast Track</li>
-            <li>อัปเกรดเป็น PRO ได้ทีหลัง (จ่ายส่วนต่าง)</li>
-          </ul>
-          <p class="roi-line">"ราคาเท่ากับกาแฟ 3 แก้ว — แต่ได้ระบบที่ใช้ได้ตลอดชีวิต"</p>
-          <a href="https://lin.ee/hUm9gSp" target="_blank" class="btn-tier outline">สั่งซื้อผ่าน LINE →</a>
-        </div>
-
-        <!-- PRO -->
-        <div class="product-card best reveal">
-          <div class="best-badge">🔥 Best Seller</div>
-          <p class="tier-label">PRO</p>
-          <h3 class="tier-name">The Growth Engine</h3>
-          <p class="tier-tagline">สำหรับ Creator & Solopreneur</p>
-          <div class="tier-price">1,190 <span>THB</span></div>
-          <div class="tier-original">จาก 2,590 บาท</div>
-          <ul class="tier-features">
-            <li class="gold-item">ทุกอย่างใน BASIC +</li>
-            <li class="gold-item">Content OS — Pipeline ครบวงจร</li>
-            <li class="gold-item">Business OS — CRM + Revenue Dashboard</li>
-            <li class="gold-item">Finance OS Advanced — ติดตามการลงทุน</li>
-            <li class="gold-item">เข้า Simply Dock Community</li>
-          </ul>
-          <p class="roi-line">"เพิ่มแค่ 600 บาทจาก BASIC — ได้เครื่องจักรทำคอนเทนต์และระบบบัญชีที่อุดรอยรั่วตลอดชีพ"</p>
-          <a href="https://lin.ee/hUm9gSp" target="_blank" class="btn-tier gold">สั่งซื้อผ่าน LINE →</a>
-        </div>
-
-        <!-- VIP -->
-        <div class="product-card reveal">
-          <p class="tier-label">VIP</p>
-          <h3 class="tier-name">The Empire Builder</h3>
-          <p class="tier-tagline">สำหรับคนที่จริงจังกับธุรกิจ</p>
-          <div class="tier-price">4,900 <span>THB</span></div>
-          <div class="tier-original">จาก 9,900 บาท</div>
-          <ul class="tier-features">
-            <li class="gold-item">ทุกอย่างใน PRO +</li>
-            <li class="gold-item">1-on-1 System Consultation กับ Audi</li>
-            <li class="gold-item">VIP War Room — Simply Dock Zone 60</li>
-            <li class="gold-item">Custom System Build สำหรับธุรกิจของคุณ</li>
-            <li class="gold-item">Priority Support ตลอดชีพ</li>
-          </ul>
-          <p class="roi-line">"ถ้าคุณจริงจังกับการสร้างธุรกิจ — นี่คือต้นทุนที่คืนทุนเร็วที่สุดที่คุณเคยจ่าย"</p>
-          <a href="https://lin.ee/hUm9gSp" target="_blank" class="btn-tier outline">สอบถาม VIP →</a>
-        </div>
-
-      </div>
-
-      <p style="margin-top:2rem;font-size:0.85rem;color:var(--text-dim)">
-        ✅ ใช้กับ Notion Free Plan ได้ 100%&nbsp;&nbsp;|&nbsp;&nbsp;✅ Sync ทุกอุปกรณ์&nbsp;&nbsp;|&nbsp;&nbsp;✅ อัปเกรด Tier ทีหลังได้ (จ่ายส่วนต่าง)
-      </p>
+        <a href="articles.html#solopreneur" class="article-card fade-up">
+            <div class="article-icon">🚀</div>
+            <h3 class="article-name">Solopreneur & Personal Branding</h3>
+            <p class="article-topics">สร้างธุรกิจโซโล · Personal Branding · Content Strategy · หาเงินออนไลน์</p>
+            <span class="article-link">อ่านบทความ →</span>
+        </a>
     </div>
-  </section>
+</section>
 
-  <!-- ══════════════════════════════════
-       TESTIMONIALS
-  ══════════════════════════════════ -->
-  <section id="proof">
-    <div class="section-inner" style="text-align:center">
-      <p class="section-tag reveal">⭐ The Crew — เสียงจากผู้ใช้จริง</p>
-      <h2 class="section-title reveal">คนที่ Anchored แล้ว<br/>พูดว่าอะไร</h2>
+<!-- ── COMMUNITY ── -->
+<section id="community">
+    <div class="community-block fade-up">
+        <div class="comm-icon">⚓</div>
+        <h3>Simply Dock</h3>
+        <p>คอมมูนิตี้สำหรับคนที่อยากเติบโตด้วยกัน<br>แชร์ความรู้ อัปเดตตลาด และช่วยกันสร้างระบบชีวิต<br>ไม่ว่าจะเรื่องการเงิน หรือโซโลพรีเนอร์</p>
+        <a href="https://discord.gg/dXZzUdtunE" target="_blank" rel="noopener" class="btn-primary">เข้าร่วม Simply Dock</a>
+    </div>
+</section>
 
-      <div class="proof-grid" style="margin-top:2.5rem">
-        <div class="proof-card reveal">
-          <div class="proof-stars">★★★★★</div>
-          <p class="proof-text">"ก่อนหน้านี้ใช้ Notion มา 2 ปี แต่ไม่เคย Setup ได้ดีเลย พอมาใช้ North Star OS ใช้เวลาไม่ถึงอาทิตย์ก็รู้สึกว่าชีวิตเป็นระเบียบขึ้นมากจริงๆ"</p>
-          <div class="proof-author">
-            <div class="proof-avatar">👩‍💼</div>
+<!-- ── CHANNELS ── -->
+<section id="channels">
+    <p class="section-label">ติดตามผม</p>
+    <h2 class="section-title">ช่องทางทั้งหมด</h2>
+    <p class="section-sub">เลือกช่องทางที่ชอบ ผมอยู่ที่นั่น</p>
+
+    <div class="channels-grid">
+        <a href="https://www.youtube.com/@Audikung.official" target="_blank" rel="noopener" class="channel-card fade-up">
+            <span class="channel-platform">▶️</span>
             <div>
-              <div class="proof-name">นิ — Freelance Designer</div>
-              <div class="proof-role">PRO Tier | Bangkok</div>
+                <div class="channel-name">AUDIKUNG</div>
+                <div class="channel-handle">YouTube</div>
             </div>
-          </div>
-        </div>
-        <div class="proof-card reveal">
-          <div class="proof-stars">★★★★★</div>
-          <p class="proof-text">"Finance OS เปลี่ยนชีวิตมากเลยครับ เพิ่งรู้ว่าตัวเองรั่วเดือนละ 4,000+ บาทโดยไม่รู้ตัว หลังจาก Track ครบเดือนแรก เซฟเงินได้ทันทีเลย"</p>
-          <div class="proof-author">
-            <div class="proof-avatar">👨‍💻</div>
+        </a>
+
+        <a href="https://www.tiktok.com/@audikung.tk" target="_blank" rel="noopener" class="channel-card fade-up">
+            <span class="channel-platform">🎵</span>
             <div>
-              <div class="proof-name">เอก — Digital Marketer</div>
-              <div class="proof-role">PRO Tier | Chiang Mai</div>
+                <div class="channel-name">AUDIKUNG</div>
+                <div class="channel-handle">TikTok · @audikung.tk</div>
             </div>
-          </div>
-        </div>
-        <div class="proof-card reveal">
-          <div class="proof-stars">★★★★★</div>
-          <p class="proof-text">"Content Pipeline ทำให้ผมโพสได้สม่ำเสมอขึ้นมากครับ ก่อนหน้านี้ไอเดียหายตลอด ตอนนี้มี Backlog ยาว 3 เดือน ไม่เคยไม่มีอะไรโพสแล้ว"</p>
-          <div class="proof-author">
-            <div class="proof-avatar">🎬</div>
+        </a>
+
+        <a href="https://www.tiktok.com/@audikungfinance" target="_blank" rel="noopener" class="channel-card fade-up">
+            <span class="channel-platform">🎵</span>
             <div>
-              <div class="proof-name">ปิ่น — YouTube Creator</div>
-              <div class="proof-role">PRO Tier | Online</div>
+                <div class="channel-name">การเงินกุ้งๆ</div>
+                <div class="channel-handle">TikTok · @audikungfinance</div>
             </div>
-          </div>
-        </div>
-      </div>
+        </a>
+
+        <a href="https://www.tiktok.com/@pksmsm" target="_blank" rel="noopener" class="channel-card fade-up">
+            <span class="channel-platform">🎵</span>
+            <div>
+                <div class="channel-name">ออดี้กุ้ง</div>
+                <div class="channel-handle">TikTok · @pksmsm</div>
+            </div>
+        </a>
+
+        <a href="https://www.instagram.com/audikung.exe" target="_blank" rel="noopener" class="channel-card fade-up">
+            <span class="channel-platform">📸</span>
+            <div>
+                <div class="channel-name">AUDIKUNG</div>
+                <div class="channel-handle">Instagram · @audikung.exe</div>
+            </div>
+        </a>
+
+        <a href="https://discord.gg/dXZzUdtunE" target="_blank" rel="noopener" class="channel-card fade-up">
+            <span class="channel-platform">💬</span>
+            <div>
+                <div class="channel-name">Simply Dock</div>
+                <div class="channel-handle">Discord Community</div>
+            </div>
+        </a>
+
+        <a href="https://linktr.ee/audikung" target="_blank" rel="noopener" class="channel-card fade-up">
+            <span class="channel-platform">🌿</span>
+            <div>
+                <div class="channel-name">AUDIKUNG</div>
+                <div class="channel-handle">Linktree</div>
+            </div>
+        </a>
     </div>
-  </section>
+</section>
 
-  <!-- ══════════════════════════════════
-       FAQ
-  ══════════════════════════════════ -->
-  <section id="faq">
-    <div class="section-inner" style="text-align:center">
-      <p class="section-tag reveal">❓ FAQ</p>
-      <h2 class="section-title reveal">คำถามที่ถามบ่อย</h2>
-
-      <div class="faq-list">
-
-        <div class="faq-item reveal">
-          <button class="faq-q" onclick="toggleFaq(this)">
-            North Star OS ใช้กับ Notion Plan ไหน — ต้องเสียเงินไหม?
-            <span class="faq-arrow">▾</span>
-          </button>
-          <div class="faq-a"><p>ใช้กับ <strong>Notion Free Plan ได้ 100%</strong> ครับ ไม่จำเป็นต้อง Upgrade Notion Plan เลย ทุก Tier ของ North Star OS ออกแบบมาให้ทำงานได้บน Free Plan อย่างสมบูรณ์</p></div>
-        </div>
-
-        <div class="faq-item reveal">
-          <button class="faq-q" onclick="toggleFaq(this)">
-            ไม่เคยใช้ Notion มาก่อนเลย เริ่มต้นได้ไหม?
-            <span class="faq-arrow">▾</span>
-          </button>
-          <div class="faq-a"><p>ได้ครับ ทุก Tier มาพร้อม <strong>คู่มือ 30-Day Fast Track</strong> ที่จะจับมือคุณทำทีละขั้นตอน ออกแบบสำหรับคนที่ไม่มีพื้นฐาน Notion มาก่อนโดยเฉพาะ</p></div>
-        </div>
-
-        <div class="faq-item reveal">
-          <button class="faq-q" onclick="toggleFaq(this)">
-            หลังจากสั่งซื้อแล้วได้รับอะไรบ้าง และได้รับเมื่อไหร่?
-            <span class="faq-arrow">▾</span>
-          </button>
-          <div class="faq-a"><p>หลังจาก Confirm การชำระเงินผ่าน LINE OA คุณจะได้รับ <strong>ลิงก์ Duplicate สำหรับ Notion + คู่มือ Fast Track ภายใน 24 ชั่วโมง</strong> (ปกติเร็วกว่านั้นมาก) ผ่านทาง LINE OA เลยครับ</p></div>
-        </div>
-
-        <div class="faq-item reveal">
-          <button class="faq-q" onclick="toggleFaq(this)">
-            ซื้อ BASIC แล้ว Upgrade เป็น PRO หรือ VIP ทีหลังได้ไหม?
-            <span class="faq-arrow">▾</span>
-          </button>
-          <div class="faq-a"><p>ได้ครับ เพียง<strong>จ่ายส่วนต่าง</strong>เท่านั้น ไม่ต้องซื้อใหม่ทั้งชุด เช่น ถ้าซื้อ BASIC ไปแล้ว อยากเป็น PRO ก็จ่ายเพิ่มแค่ 600 บาท แจ้งผ่าน LINE OA ได้เลยครับ</p></div>
-        </div>
-
-        <div class="faq-item reveal">
-          <button class="faq-q" onclick="toggleFaq(this)">
-            ใช้บน Mobile ได้ไหม — มีทุกอุปกรณ์ไหม?
-            <span class="faq-arrow">▾</span>
-          </button>
-          <div class="faq-a"><p>Notion Sync แบบ Real-time ทุกอุปกรณ์ครับ — <strong>Windows, Mac, iPad, iPhone, Android</strong> ทั้งหมด ใช้ได้บนทุกอุปกรณ์จาก Account เดียวกันเลย</p></div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════
-       FINAL CTA
-  ══════════════════════════════════ -->
-  <section id="final-cta">
-    <div class="north-star" style="top:18%"></div>
-    <p class="section-tag reveal" style="text-align:center">★ Set Course</p>
-    <h2 class="section-title reveal" style="text-align:center;max-width:640px;margin:0 auto 1rem">
-      พร้อมแล้วไหม<br/>ที่จะ <span style="color:var(--gold)">Anchored</span>?
-    </h2>
-    <p class="section-sub reveal" style="text-align:center;max-width:480px;margin:0 auto 2.5rem">
-      เริ่มด้วย LITE ฟรี — ไม่ต้องใช้บัตรเครดิต ไม่มีข้อผูกมัด<br/>สมัคร LINE OA แล้วรับ System ได้เลยวันนี้
-    </p>
-    <div style="text-align:center;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-      <a href="https://lin.ee/hUm9gSp" target="_blank" class="btn-primary reveal">⚓ สมัคร LINE OA — รับ LITE ฟรี</a>
-      <a href="https://lin.ee/hUm9gSp" target="_blank" class="btn-ghost reveal">ดู PRO Tier →</a>
-    </div>
-  </section>
-
-  <!-- ── FOOTER ── -->
-  <footer>
-    <div class="footer-logo">★ AUDIKUNG</div>
+<!-- ── FOOTER ── -->
+<footer>
+    <span class="footer-brand">AUDIKUNG</span>
+    <span class="footer-copy">© 2026 AUDIKUNG. All rights reserved.</span>
     <div class="footer-links">
-      <a href="https://lin.ee/hUm9gSp" target="_blank">LINE OA</a>
-      <a href="https://discord.gg/dXZzUdtunE" target="_blank">Simply Dock</a>
-      <a href="#products">ราคา</a>
-      <a href="#faq">FAQ</a>
+        <a href="#products">สินค้า</a>
+        <a href="#articles">บทความ</a>
+        <a href="about.html">เกี่ยวกับ</a>
+        <a href="https://lin.ee/UTD2Lpo" target="_blank" rel="noopener">LINE OA</a>
     </div>
-    <p>© 2026 AUDIKUNG · North Star OS · ทำด้วย Zero Friction</p>
-  </footer>
+</footer>
 
-  <script>
-    /* ── Generate Stars ── */
-    (function() {
-      const container = document.getElementById('stars');
-      for (let i = 0; i < 120; i++) {
-        const s = document.createElement('span');
-        const size = Math.random() * 2.5 + 0.5;
+<script>
+    // Starfield
+    const starfield = document.getElementById('starfield');
+    for (let i = 0; i < 200; i++) {
+        const s = document.createElement('div');
+        s.className = 'star';
+        const size = Math.random() * 2.2 + 0.4;
         s.style.cssText = `
-          width:${size}px; height:${size}px;
-          top:${Math.random()*100}%;
-          left:${Math.random()*100}%;
-          --dur:${Math.random()*4+2}s;
-          --op:${Math.random()*0.6+0.2};
-          animation-delay:${Math.random()*5}s;
+            width:${size}px; height:${size}px;
+            top:${Math.random() * 100}%;
+            left:${Math.random() * 100}%;
+            opacity:${Math.random() * 0.65 + 0.1};
+            animation: twinkle ${(Math.random() * 4 + 2).toFixed(1)}s ${(Math.random() * 5).toFixed(1)}s ease-in-out infinite;
         `;
-        container.appendChild(s);
-      }
-    })();
-
-    /* ── Nav scroll ── */
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 40);
-    });
-
-    /* ── Hamburger ── */
-    const ham = document.getElementById('hamburger');
-    const mob = document.getElementById('mobileMenu');
-    ham.addEventListener('click', () => mob.classList.toggle('open'));
-    function closeMobile() { mob.classList.remove('open'); }
-
-    /* ── FAQ accordion ── */
-    function toggleFaq(btn) {
-      const item = btn.closest('.faq-item');
-      const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
-      if (!isOpen) item.classList.add('open');
+        starfield.appendChild(s);
     }
 
-    /* ── Scroll reveal ── */
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          observer.unobserve(e.target);
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+
+    document.addEventListener('click', (e) => {
+        if (mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+            mobileMenu.classList.remove('open');
         }
-      });
-    }, { threshold: 0.12 });
-    reveals.forEach(el => observer.observe(el));
-  </script>
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+
+    // Fade-up on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
