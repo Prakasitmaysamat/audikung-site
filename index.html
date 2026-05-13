@@ -380,9 +380,9 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 1.5rem;
-            max-width: 1100px;
+            max-width: 900px;
         }
 
         .product-card {
@@ -404,6 +404,15 @@
         .product-card.gold.clickable:hover { border-color: rgba(201,168,76,0.4); box-shadow: 0 10px 40px rgba(201,168,76,0.12); }
         .product-card.blue { cursor: default; }
         .product-card.purple { cursor: default; }
+        .product-card.teal { cursor: default; }
+        .product-card.teal .product-name { color: #4DD2C8; }
+
+        .channel-platform img {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
 
         .product-icon { font-size: 2.2rem; margin-bottom: 1rem; }
 
@@ -567,9 +576,9 @@
 
         .channels-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 1rem;
-            max-width: 1100px;
+            max-width: 900px;
         }
 
         .channel-card {
@@ -780,6 +789,14 @@
             <p class="product-desc">คอร์สออนไลน์แบบ Step-by-Step ที่จะพาคุณจาก 0 ถึงมีระบบ ไม่ว่าจะเรื่องการลงทุน การเงิน หรือการสร้างธุรกิจโซโลพรีเนอร์</p>
             <p class="product-note">กำลังมา — ติดตามได้ที่ LINE OA</p>
         </div>
+
+        <div class="product-card teal fade-up">
+            <div class="product-icon">🤝</div>
+            <span class="product-badge badge-soon">เร็วๆ นี้</span>
+            <h3 class="product-name">Consulting</h3>
+            <p class="product-desc">บริการให้คำปรึกษาส่วนตัว สำหรับคนที่อยากสร้างระบบชีวิต วางแผนการเงิน หรือเริ่มต้นธุรกิจโซโลพรีเนอร์อย่างจริงจัง</p>
+            <p class="product-note">กำลังมา — ติดตามได้ที่ LINE OA</p>
+        </div>
     </div>
 </section>
 
@@ -790,21 +807,21 @@
     <p class="section-sub">บทความที่ผมเขียนจากสิ่งที่เรียนรู้ ทดลอง และใช้จริงในชีวิตตัวเอง</p>
 
     <div class="articles-grid">
-        <a href="articles.html#self-improvement" class="article-card fade-up">
+        <a href="https://www.notion.so/SELF-IMPROVEMENT-35f76f6c959680c2a9ece4134d1805db" target="_blank" rel="noopener" class="article-card fade-up">
             <div class="article-icon">🧠</div>
             <h3 class="article-name">Self-Improvement</h3>
             <p class="article-topics">AI Tools & Tactics · Meta-Learning · Productivity · Time Management · Life Optimization</p>
             <span class="article-link">อ่านบทความ →</span>
         </a>
 
-        <a href="articles.html#finance" class="article-card fade-up">
+        <a href="https://www.notion.so/FINANCE-INVESTING-35f76f6c959680709f16fd151fdc2018" target="_blank" rel="noopener" class="article-card fade-up">
             <div class="article-icon">📈</div>
             <h3 class="article-name">Finance</h3>
             <p class="article-topics">Personal Finance · การลงทุน · US Stocks · Financial News · ประวัติศาสตร์การเงิน</p>
             <span class="article-link">อ่านบทความ →</span>
         </a>
 
-        <a href="articles.html#solopreneur" class="article-card fade-up">
+        <a href="https://www.notion.so/SOLOPRENEUR-PERSONAL-BRAND-35f76f6c9596804e97ebdb2af92cbcec" target="_blank" rel="noopener" class="article-card fade-up">
             <div class="article-icon">🚀</div>
             <h3 class="article-name">Solopreneur & Personal Branding</h3>
             <p class="article-topics">สร้างธุรกิจโซโล · Personal Branding · Content Strategy · หาเงินออนไลน์</p>
@@ -816,7 +833,7 @@
 <!-- ── COMMUNITY ── -->
 <section id="community">
     <div class="community-block fade-up">
-        <div class="comm-icon">⚓</div>
+        <img src="https://i.ibb.co/3yLBm997/Gemini-Generated-Image-g46tk3g46tk3g46t.png" alt="Simply Dock" style="width:110px;height:auto;margin-bottom:1.25rem;border-radius:12px;opacity:0.92;">
         <h3>Simply Dock</h3>
         <p>คอมมูนิตี้สำหรับคนที่อยากเติบโตด้วยกัน<br>แชร์ความรู้ อัปเดตตลาด และช่วยกันสร้างระบบชีวิต<br>ไม่ว่าจะเรื่องการเงิน หรือโซโลพรีเนอร์</p>
         <a href="https://discord.gg/dXZzUdtunE" target="_blank" rel="noopener" class="btn-primary">เข้าร่วม Simply Dock</a>
@@ -831,7 +848,7 @@
 
     <div class="channels-grid">
         <a href="https://www.youtube.com/@Audikung.official" target="_blank" rel="noopener" class="channel-card fade-up">
-            <span class="channel-platform">▶️</span>
+            <span class="channel-platform"><img src="https://i.ibb.co/8DcXWj1q/You-Tube-full-color-icon-2017-svg.png" alt="YouTube"></span>
             <div>
                 <div class="channel-name">AUDIKUNG</div>
                 <div class="channel-handle">YouTube</div>
@@ -839,7 +856,7 @@
         </a>
 
         <a href="https://www.tiktok.com/@audikung.tk" target="_blank" rel="noopener" class="channel-card fade-up">
-            <span class="channel-platform">🎵</span>
+            <span class="channel-platform"><img src="https://i.ibb.co/mrP1gpqJ/tiktok-logo-tik-tok-logo-icon-png-svg.png" alt="TikTok"></span>
             <div>
                 <div class="channel-name">AUDIKUNG</div>
                 <div class="channel-handle">TikTok · @audikung.tk</div>
@@ -847,23 +864,15 @@
         </a>
 
         <a href="https://www.tiktok.com/@audikungfinance" target="_blank" rel="noopener" class="channel-card fade-up">
-            <span class="channel-platform">🎵</span>
+            <span class="channel-platform"><img src="https://i.ibb.co/mrP1gpqJ/tiktok-logo-tik-tok-logo-icon-png-svg.png" alt="TikTok"></span>
             <div>
                 <div class="channel-name">การเงินกุ้งๆ</div>
                 <div class="channel-handle">TikTok · @audikungfinance</div>
             </div>
         </a>
 
-        <a href="https://www.tiktok.com/@pksmsm" target="_blank" rel="noopener" class="channel-card fade-up">
-            <span class="channel-platform">🎵</span>
-            <div>
-                <div class="channel-name">ออดี้กุ้ง</div>
-                <div class="channel-handle">TikTok · @pksmsm</div>
-            </div>
-        </a>
-
         <a href="https://www.instagram.com/audikung.exe" target="_blank" rel="noopener" class="channel-card fade-up">
-            <span class="channel-platform">📸</span>
+            <span class="channel-platform"><img src="https://i.ibb.co/My7Tmg2w/Instagram-icon.png" alt="Instagram"></span>
             <div>
                 <div class="channel-name">AUDIKUNG</div>
                 <div class="channel-handle">Instagram · @audikung.exe</div>
@@ -871,7 +880,7 @@
         </a>
 
         <a href="https://discord.gg/dXZzUdtunE" target="_blank" rel="noopener" class="channel-card fade-up">
-            <span class="channel-platform">💬</span>
+            <span class="channel-platform"><img src="https://i.ibb.co/0yJQNBRt/discord-logo-discord-logo-transparent-discord-icon-transparent-free-free-png.webp" alt="Discord"></span>
             <div>
                 <div class="channel-name">Simply Dock</div>
                 <div class="channel-handle">Discord Community</div>
@@ -879,7 +888,7 @@
         </a>
 
         <a href="https://linktr.ee/audikung" target="_blank" rel="noopener" class="channel-card fade-up">
-            <span class="channel-platform">🌿</span>
+            <span class="channel-platform"><img src="https://i.ibb.co/LdLCWBvJ/linktree-logo-icon-linktree-app-transparent-background-free-png.webp" alt="Linktree"></span>
             <div>
                 <div class="channel-name">AUDIKUNG</div>
                 <div class="channel-handle">Linktree</div>
