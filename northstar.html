@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="North Star OS — ระบบออกแบบชีวิต สำหรับคนที่อยากหยุดใช้ชีวิตแบบสุ่ม และเริ่มต้นมีทิศทาง">
+    <title>North Star OS — ระบบออกแบบชีวิต | AUDIKUNG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0A0B10;
+            --bg-card: rgba(255,255,255,0.04);
+            --bg-card-hover: rgba(255,255,255,0.07);
+            --border: rgba(255,255,255,0.08);
+            --gold: #c9a84c;
+            --gold-light: #f0d080;
+            --gold-glow: rgba(201,168,76,0.5);
+            --blue: #5090F0;
+            --purple: #9b7fd4;
+            --green: #4ade80;
+            --red: #ff6b6b;
+            --text: #f0f0f5;
+            --text-muted: #8888a0;
+            --font-head: 'Kanit', sans-serif;
+            --font-body: 'Sarabun', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+
+        /* NAV */
+        nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 64px; background: rgba(10,11,16,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+        .nav-logo { font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; color: var(--gold); text-decoration: none; letter-spacing: 2px; display: flex; align-items: center; gap: 0.5rem; }
+        .nav-logo img { height: 28px; width: 28px; object-fit: contain; border-radius: 4px; }
+        .nav-links { display: flex; align-items: center; gap: 1.75rem; list-style: none; }
+        .nav-links a { font-family: var(--font-body); font-size: 0.9rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--text); }
+        .nav-cta { font-size: 0.88rem !important; font-weight: 600; color: #0A0B10 !important; background: var(--gold); padding: 0.4rem 1.1rem; border-radius: 6px; transition: background 0.2s, box-shadow 0.2s !important; }
+        .nav-cta:hover { background: var(--gold-light) !important; box-shadow: 0 0 16px var(--gold-glow); }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+        .hamburger span { display: block; width: 24px; height: 2px; background: var(--text); border-radius: 2px; transition: all 0.3s; }
+        .mobile-menu { display: none; position: fixed; top: 64px; left: 0; right: 0; background: rgba(10,11,16,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 1.5rem 5%; flex-direction: column; gap: 1.25rem; z-index: 99; }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a { font-family: var(--font-body); font-size: 1rem; color: var(--text-muted); text-decoration: none; }
+        .mobile-menu .nav-cta { align-self: flex-start; color: #0A0B10 !important; }
+
+        /* HERO */
+        #hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 5% 80px; overflow: hidden; background: radial-gradient(ellipse at 50% 0%, #0d1a3a 0%, var(--bg) 70%); }
+        #starfield { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+        .star { position: absolute; border-radius: 50%; background: white; }
+        .north-star-wrap { position: absolute; top: 12%; left: 50%; transform: translateX(-50%); z-index: 1; }
+        .north-star-core { width: 6px; height: 6px; background: white; border-radius: 50%; box-shadow: 0 0 6px 2px white, 0 0 18px 6px rgba(229,197,134,0.7), 0 0 40px 14px rgba(201,168,76,0.35); animation: northPulse 4s ease-in-out infinite; position: relative; }
+        .north-star-ray-v, .north-star-ray-h { position: absolute; background: linear-gradient(transparent, rgba(229,197,134,0.6), transparent); border-radius: 2px; }
+        .north-star-ray-v { width: 1px; height: 50px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+        .north-star-ray-h { width: 50px; height: 1px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+        @keyframes northPulse {
+            0%,100% { box-shadow: 0 0 6px 2px white, 0 0 18px 6px rgba(229,197,134,0.7), 0 0 40px 14px rgba(201,168,76,0.35); }
+            50% { box-shadow: 0 0 10px 4px white, 0 0 28px 10px rgba(229,197,134,0.9), 0 0 60px 22px rgba(201,168,76,0.55); }
+        }
+        .hero-content { position: relative; z-index: 2; max-width: 820px; }
+        .hero-logo { width: 100px; height: 100px; object-fit: contain; border-radius: 18px; margin-bottom: 1.5rem; filter: drop-shadow(0 0 24px rgba(201,168,76,0.35)); }
+        .hero-eyebrow { font-family: var(--font-body); font-size: 0.82rem; font-weight: 500; color: var(--text-muted); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 1rem; }
+        .hero-brand { font-family: var(--font-head); font-size: clamp(2.8rem, 9vw, 5.5rem); font-weight: 900; line-height: 1.05; color: var(--gold-light); text-shadow: 0 0 30px var(--gold-glow), 0 0 70px rgba(201,168,76,0.2); letter-spacing: 3px; margin-bottom: 1rem; }
+        .hero-tagline { font-family: var(--font-head); font-size: clamp(1rem, 2.5vw, 1.3rem); color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.6; }
+        .hero-sub { font-family: var(--font-body); font-size: clamp(0.95rem, 2vw, 1.1rem); color: var(--text-muted); margin: 0 auto 2.5rem; max-width: 560px; }
+        .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
+        .btn-primary { font-family: var(--font-body); font-size: 1rem; font-weight: 600; color: #0A0B10; background: var(--gold); padding: 0.85rem 2.2rem; border-radius: 8px; text-decoration: none; transition: background 0.2s, box-shadow 0.2s, transform 0.15s; }
+        .btn-primary:hover { background: var(--gold-light); box-shadow: 0 0 28px var(--gold-glow); transform: translateY(-2px); }
+        .btn-secondary { font-family: var(--font-body); font-size: 1rem; font-weight: 600; color: var(--text); background: transparent; padding: 0.85rem 2.2rem; border-radius: 8px; text-decoration: none; border: 1px solid var(--border); transition: border-color 0.2s, transform 0.15s; }
+        .btn-secondary:hover { border-color: rgba(255,255,255,0.25); transform: translateY(-2px); }
+        .hero-ship { position: relative; z-index: 2; margin-top: 1.5rem; }
+        .hero-ship img { width: min(400px, 80vw); opacity: 0.82; filter: drop-shadow(0 0 40px rgba(201,168,76,0.18)); }
+        .scroll-hint { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.4rem; color: var(--text-muted); font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; animation: scrollBounce 2.5s ease-in-out infinite; }
+        .scroll-hint svg { width: 14px; height: 14px; }
+        @keyframes scrollBounce { 0%,100% { opacity:0.35; transform:translateX(-50%) translateY(0); } 50% { opacity:0.7; transform:translateX(-50%) translateY(7px); } }
+
+        /* SHARED */
+        section { padding: 6rem 5%; }
+        .section-label { font-family: var(--font-body); font-size: 0.78rem; font-weight: 600; color: var(--gold); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 0.6rem; text-align: center; }
+        .section-title { font-family: var(--font-head); font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; color: var(--text); margin-bottom: 0.75rem; text-align: center; }
+        .section-sub { font-family: var(--font-body); font-size: 1rem; color: var(--text-muted); margin: 0 auto 3rem; max-width: 520px; line-height: 1.8; text-align: center; }
+
+        /* PROOF BAR */
+        #proof { background: rgba(255,255,255,0.02); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 2.5rem 5%; }
+        .proof-grid { display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap; max-width: 860px; margin: 0 auto; }
+        .proof-item { text-align: center; }
+        .proof-number { font-family: var(--font-head); font-size: 2.4rem; font-weight: 800; color: var(--gold-light); line-height: 1; margin-bottom: 0.35rem; }
+        .proof-label { font-family: var(--font-body); font-size: 0.85rem; color: var(--text-muted); }
+
+        /* AVATAR */
+        #avatar { background: linear-gradient(180deg, var(--bg) 0%, #070d24 100%); }
+        .avatar-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 900px; margin: 0 auto; }
+        .avatar-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; }
+        .avatar-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+        .avatar-type { font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; color: var(--gold-light); margin-bottom: 0.5rem; }
+        .avatar-pain { font-family: var(--font-body); font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 0.75rem; }
+        .avatar-promise { font-family: var(--font-body); font-size: 0.88rem; color: var(--green); font-weight: 500; }
+
+        /* PAIN */
+        #pain { background: #070d24; }
+        .pain-list { max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem; }
+        .pain-item { display: flex; align-items: flex-start; gap: 1rem; background: var(--bg-card); border: 1px solid rgba(255,107,107,0.1); border-radius: 12px; padding: 1.25rem 1.5rem; }
+        .pain-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 0.1rem; }
+        .pain-text { font-family: var(--font-body); font-size: 1rem; color: var(--text-muted); line-height: 1.7; }
+        .pain-text strong { color: var(--text); }
+
+        /* SOLUTION */
+        #solution { background: linear-gradient(180deg, #070d24 0%, var(--bg) 100%); text-align: center; }
+        .solution-divider { width: 60px; height: 2px; background: var(--gold); margin: 0 auto 2.5rem; border-radius: 2px; }
+        .solution-text { font-family: var(--font-head); font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 600; color: var(--text); max-width: 700px; margin: 0 auto 1.25rem; line-height: 1.6; }
+        .solution-accent { color: var(--gold-light); }
+        .solution-sub { font-family: var(--font-body); font-size: 1rem; color: var(--text-muted); max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.8; }
+
+        /* SYSTEMS */
+        #systems { background: var(--bg); }
+        .systems-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+        .system-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; transition: background 0.25s, border-color 0.25s; }
+        .system-card:hover { background: var(--bg-card-hover); border-color: rgba(201,168,76,0.2); }
+        .system-num { font-family: var(--font-body); font-size: 0.72rem; font-weight: 600; color: var(--gold); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 0.75rem; }
+        .system-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+        .system-name { font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 0.75rem; }
+        .system-desc { font-family: var(--font-body); font-size: 0.88rem; color: var(--text-muted); line-height: 1.75; }
+        .system-bullets { list-style: none; margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.35rem; }
+        .system-bullets li { font-family: var(--font-body); font-size: 0.85rem; color: var(--text-muted); padding-left: 1rem; position: relative; }
+        .system-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
+
+        /* COMPARE */
+        #compare { background: linear-gradient(180deg, var(--bg) 0%, #070d24 100%); }
+        .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 900px; margin: 0 auto; }
+        .compare-card { border-radius: 16px; padding: 2.5rem; }
+        .compare-card.before { background: rgba(255,107,107,0.05); border: 1px solid rgba(255,107,107,0.15); }
+        .compare-card.after { background: rgba(74,222,128,0.05); border: 1px solid rgba(74,222,128,0.15); }
+        .compare-label { font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; margin-bottom: 1.5rem; }
+        .compare-card.before .compare-label { color: var(--red); }
+        .compare-card.after .compare-label { color: var(--green); }
+        .compare-list { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+        .compare-list li { font-family: var(--font-body); font-size: 0.95rem; color: var(--text-muted); padding-left: 1.5rem; position: relative; line-height: 1.6; }
+        .compare-card.before .compare-list li::before { content: '✗'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+        .compare-card.after .compare-list li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+
+        /* FOUNDER */
+        #founder { background: #070d24; }
+        .founder-block { display: flex; align-items: center; gap: 4rem; max-width: 900px; margin: 0 auto; }
+        .founder-photo { width: 220px; height: 220px; object-fit: cover; border-radius: 50%; border: 2px solid rgba(201,168,76,0.3); box-shadow: 0 0 40px rgba(201,168,76,0.1); flex-shrink: 0; }
+        .founder-name { font-family: var(--font-head); font-size: 1.8rem; font-weight: 800; color: var(--gold-light); margin-bottom: 0.4rem; }
+        .founder-role { font-family: var(--font-body); font-size: 0.82rem; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 1.25rem; }
+        .founder-story p { font-family: var(--font-body); font-size: 1rem; color: var(--text-muted); line-height: 1.85; margin-bottom: 1rem; }
+
+        /* PRICING */
+        #pricing { background: linear-gradient(180deg, #070d24 0%, var(--bg) 100%); }
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1000px; margin: 0 auto; align-items: start; }
+        .pricing-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 2.25rem; text-align: center; position: relative; }
+        .pricing-card.pro { background: rgba(201,168,76,0.06); border-color: rgba(201,168,76,0.35); box-shadow: 0 0 60px rgba(201,168,76,0.1); transform: scale(1.04); }
+        .pricing-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gold); color: #0A0B10; font-family: var(--font-body); font-size: 0.7rem; font-weight: 700; padding: 0.2rem 1rem; border-radius: 20px; letter-spacing: 1.5px; text-transform: uppercase; white-space: nowrap; }
+        .pricing-tier { font-family: var(--font-head); font-size: 0.85rem; font-weight: 600; color: var(--text-muted); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 1rem; }
+        .pricing-card.pro .pricing-tier { color: var(--gold); }
+        .pricing-price-old { font-family: var(--font-body); font-size: 0.9rem; color: var(--text-muted); text-decoration: line-through; margin-bottom: 0.25rem; }
+        .pricing-price { font-family: var(--font-head); font-size: 3rem; font-weight: 900; color: var(--text); line-height: 1; margin-bottom: 0.3rem; }
+        .pricing-card.pro .pricing-price { color: var(--gold-light); }
+        .pricing-currency { font-family: var(--font-body); font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+        .pricing-roi { font-family: var(--font-body); font-size: 0.82rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.75rem; font-style: italic; min-height: 68px; }
+        .pricing-features { list-style: none; text-align: left; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 0.65rem; }
+        .pricing-features li { font-family: var(--font-body); font-size: 0.88rem; color: var(--text-muted); padding-left: 1.5rem; position: relative; line-height: 1.5; }
+        .pricing-features li::before { content: '✓'; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
+        .pricing-cta { display: block; font-family: var(--font-body); font-size: 1rem; font-weight: 700; color: var(--text); background: rgba(255,255,255,0.07); border: 1px solid var(--border); padding: 0.85rem; border-radius: 10px; text-decoration: none; transition: all 0.2s; }
+        .pricing-card.pro .pricing-cta { color: #0A0B10; background: var(--gold); border-color: var(--gold); }
+        .pricing-cta:hover { opacity: 0.85; transform: translateY(-2px); }
+
+        /* TESTIMONIALS */
+        #testimonials { background: var(--bg); }
+        .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; max-width: 1100px; margin: 0 auto; }
+        .testimonial-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; }
+        .testi-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+        .testi-avatar { width: 36px; height: 36px; background: rgba(201,168,76,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+        .testi-name { font-family: var(--font-head); font-size: 0.9rem; font-weight: 600; color: var(--text); }
+        .testi-tier { font-family: var(--font-body); font-size: 0.72rem; color: var(--gold); }
+        .testi-bubble { background: rgba(74,222,128,0.06); border: 1px solid rgba(74,222,128,0.12); border-radius: 12px; border-top-left-radius: 4px; padding: 1rem 1.1rem; }
+        .testi-text { font-family: var(--font-body); font-size: 0.92rem; color: var(--text-muted); line-height: 1.7; }
+        .testi-stars { color: var(--gold); font-size: 0.85rem; margin-top: 0.6rem; }
+
+        /* FAQ */
+        #faq { background: #070d24; }
+        .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
+        .faq-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+        .faq-question { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; cursor: pointer; font-family: var(--font-head); font-size: 1rem; font-weight: 600; color: var(--text); gap: 1rem; user-select: none; }
+        .faq-question:hover { color: var(--gold-light); }
+        .faq-icon { font-size: 1.3rem; color: var(--gold); flex-shrink: 0; transition: transform 0.3s; }
+        .faq-item.open .faq-icon { transform: rotate(45deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+        .faq-answer-inner { padding: 0 1.5rem 1.25rem; font-family: var(--font-body); font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; border-top: 1px solid var(--border); padding-top: 1rem; }
+        .faq-item.open .faq-answer { max-height: 300px; }
+
+        /* VIDEO */
+        #video { background: var(--bg); }
+        .video-wrap { max-width: 760px; margin: 0 auto; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); aspect-ratio: 16/9; background: rgba(255,255,255,0.03); display: flex; align-items: center; justify-content: center; }
+        .video-placeholder { font-family: var(--font-body); font-size: 0.95rem; color: var(--text-muted); text-align: center; }
+
+        /* FINAL CTA */
+        #final-cta { background: radial-gradient(ellipse at 50% 0%, #0d1a3a 0%, var(--bg) 70%); text-align: center; padding: 8rem 5%; }
+        .cta-star { display: inline-block; margin-bottom: 2rem; }
+        .cta-star-core { width: 6px; height: 6px; background: white; border-radius: 50%; box-shadow: 0 0 6px 2px white, 0 0 18px 6px rgba(229,197,134,0.7), 0 0 40px 14px rgba(201,168,76,0.35); animation: northPulse 4s ease-in-out infinite; position: relative; margin: 0 auto; }
+        .cta-star-ray-v, .cta-star-ray-h { position: absolute; background: linear-gradient(transparent, rgba(229,197,134,0.6), transparent); border-radius: 2px; }
+        .cta-star-ray-v { width: 1px; height: 50px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+        .cta-star-ray-h { width: 50px; height: 1px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+        .cta-headline { font-family: var(--font-head); font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; color: var(--gold-light); margin-bottom: 1.25rem; text-shadow: 0 0 30px var(--gold-glow); line-height: 1.15; }
+        .cta-sub { font-family: var(--font-body); font-size: 1.1rem; color: var(--text-muted); max-width: 500px; margin: 0 auto 2.5rem; line-height: 1.8; }
+        .cta-note { font-family: var(--font-body); font-size: 0.85rem; color: var(--text-muted); margin-top: 1.25rem; }
+
+        /* FOOTER */
+        footer { background: #050509; border-top: 1px solid var(--border); padding: 2rem 5%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+        .footer-brand { font-family: var(--font-head); font-size: 1rem; font-weight: 700; color: var(--gold); letter-spacing: 2px; display: flex; align-items: center; gap: 0.4rem; flex: 1; }
+        .footer-brand img { height: 24px; width: 24px; object-fit: contain; border-radius: 4px; }
+        .footer-copy { font-family: var(--font-body); font-size: 0.78rem; color: var(--text-muted); flex: 1; text-align: center; }
+        .footer-links { display: flex; gap: 1.5rem; flex: 1; justify-content: flex-end; }
+        .footer-links a { font-family: var(--font-body); font-size: 0.85rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--text); }
+
+        /* ANIMATIONS */
+        @keyframes twinkle { 0%,100% { opacity:0.15; } 50% { opacity:0.9; } }
+        .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* RESPONSIVE */
+        @media (max-width: 960px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .systems-grid { grid-template-columns: repeat(2, 1fr); }
+            .pricing-grid { grid-template-columns: 1fr; max-width: 420px; }
+            .pricing-card.pro { transform: scale(1); }
+            .testimonials-grid { grid-template-columns: 1fr; max-width: 480px; }
+            .founder-block { flex-direction: column; gap: 2rem; }
+            .avatar-grid { grid-template-columns: 1fr; max-width: 480px; }
+            .compare-grid { grid-template-columns: 1fr; max-width: 480px; }
+        }
+        @media (max-width: 600px) {
+            section { padding: 4rem 5%; }
+            .systems-grid { grid-template-columns: 1fr; }
+            .proof-grid { gap: 2rem; }
+            footer { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <a href="index.html" class="nav-logo">
+        <img src="https://i.ibb.co/n8mTK17F/Minimal-Geometric-Logo-for-AUDIKUNG.png" alt="AUDIKUNG">
+        AUDIKUNG
+    </a>
+    <ul class="nav-links">
+        <li><a href="#systems">ระบบ</a></li>
+        <li><a href="#pricing">ราคา</a></li>
+        <li><a href="#testimonials">รีวิว</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="https://lin.ee/hUm9gSp" target="_blank" rel="noopener" class="nav-cta">สั่งซื้อเลย</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="เมนู">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+    <a href="#systems">ระบบ</a>
+    <a href="#pricing">ราคา</a>
+    <a href="#testimonials">รีวิว</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://lin.ee/hUm9gSp" target="_blank" rel="noopener" class="nav-cta">สั่งซื้อเลย</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+    <div id="starfield"></div>
+    <div class="north-star-wrap">
+        <div class="north-star-core">
+            <div class="north-star-ray-v"></div>
+            <div class="north-star-ray-h"></div>
+        </div>
+    </div>
+
+    <div class="hero-content">
+        <img src="https://i.ibb.co/fYjrNTH6/LITE-1.png" alt="North Star OS" class="hero-logo">
+        <p class="hero-eyebrow">ระบบออกแบบชีวิต</p>
+        <h1 class="hero-brand">North Star OS</h1>
+        <p class="hero-tagline">หยุดใช้ชีวิตแบบ "เดา" — เริ่มต้นมีระบบได้วันนี้</p>
+        <p class="hero-sub">ระบบ Notion ที่รวม เป้าหมาย · การเงิน · คอนเทนต์ · ธุรกิจโซโล ไว้ในที่เดียว ก็อปแล้วใช้ได้เลย</p>
+        <div class="hero-buttons">
+            <a href="https://lin.ee/hUm9gSp" target="_blank" rel="noopener" class="btn-primary">สั่งซื้อเลย — เริ่มต้น ฿590</a>
+            <a href="https://lin.ee/UTD2Lpo" target="_blank" rel="noopener" class="btn-secondary">ถามก่อนได้เลย</a>
+        </div>
+    </div>
+
+    <div class="hero-ship">
+        <img src="https://i.ibb.co/Hf1ykBGr/Gemini-Generated-Image-pjwz23pjwz23pjwz.png" alt="North Star OS">
+    </div>
+
+    <div class="scroll-hint">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        เลื่อนลง
+    </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section id="proof">
+    <div class="proof-grid">
+        <div class="proof-item fade-up">
+            <div class="proof-number">200+</div>
+            <div class="proof-label">คนที่ใช้ระบบนี้อยู่</div>
+        </div>
+        <div class="proof-item fade-up">
+            <div class="proof-number">3</div>
+            <div class="proof-label">Tier ให้เลือกตามงบและเป้าหมาย</div>
+        </div>
+        <div class="proof-item fade-up">
+            <div class="proof-number">6</div>
+            <div class="proof-label">ระบบหลักในชุดเดียว</div>
+        </div>
+        <div class="proof-item fade-up">
+            <div class="proof-number">∞</div>
+            <div class="proof-label">อัปเดตฟรีตลอดชีพ</div>
+        </div>
+    </div>
+</section>
+
+<!-- AVATAR -->
+<section id="avatar">
+    <p class="section-label">สำหรับคุณ</p>
+    <h2 class="section-title">คนแบบนี้เหมาะกับ North Star OS</h2>
+    <p class="section-sub">ถ้าคุณเป็นคนแบบนี้คนใดคนหนึ่ง — ระบบนี้ออกแบบมาเพื่อคุณ</p>
+
+    <div class="avatar-grid">
+        <div class="avatar-card fade-up">
+            <div class="avatar-icon">🎯</div>
+            <div class="avatar-type">มีเป้าหมายในหัว แต่ไม่เคยลงมือจริงจัง</div>
+            <p class="avatar-pain">รู้ว่าอยากทำอะไร แต่ทุกวันผ่านไปโดยไม่ได้ใกล้เป้าหมายขึ้นเลย</p>
+            <div class="avatar-promise">→ Navigator System ทำให้รู้ว่าต้องทำอะไรทุกวัน</div>
+        </div>
+        <div class="avatar-card fade-up">
+            <div class="avatar-icon">💸</div>
+            <div class="avatar-type">มีรายได้ แต่ไม่รู้ว่าเงินหายไปไหน</div>
+            <p class="avatar-pain">ทำงานหนักทุกเดือน แต่พอสิ้นเดือนเงินก็หมดโดยไม่รู้ไปไหน</p>
+            <div class="avatar-promise">→ Finance System ให้เห็นภาพเงินทั้งหมดในที่เดียว</div>
+        </div>
+        <div class="avatar-card fade-up">
+            <div class="avatar-icon">📱</div>
+            <div class="avatar-type">อยากสร้างคอนเทนต์ แต่ทำๆ หยุดๆ ไม่ต่อเนื่อง</div>
+            <p class="avatar-pain">มีไอเดียเยอะ แต่ไม่มีระบบ เลยผลิตได้แค่ตอนมีแรงบันดาลใจ</p>
+            <div class="avatar-promise">→ Creator Pipeline ให้ผลิตคอนเทนต์ได้โดยไม่รอแรงบันดาลใจ</div>
+        </div>
+        <div class="avatar-card fade-up">
+            <div class="avatar-icon">🚀</div>
+            <div class="avatar-type">อยากสร้างรายได้เพิ่ม แต่ยังไม่มีระบบธุรกิจ</div>
+            <p class="avatar-pain">รู้ว่าอยากเป็นโซโลพรีเนอร์ แต่ไม่รู้จะจัดการตัวเองและธุรกิจยังไง</p>
+            <div class="avatar-promise">→ Solopreneur Command Center คือเครื่องจักรธุรกิจในตัวเดียว</div>
+        </div>
+    </div>
+</section>
+
+<!-- PAIN -->
+<section id="pain">
+    <p class="section-label">ก่อนใช้ระบบนี้</p>
+    <h2 class="section-title">คุณรู้สึกแบบนี้ไหม?</h2>
+    <p class="section-sub">ถ้าใช่ — คุณไม่ได้ขี้เกียจ คุณแค่ยังไม่มีระบบ</p>
+
+    <div class="pain-list">
+        <div class="pain-item fade-up">
+            <div class="pain-icon">😵</div>
+            <p class="pain-text"><strong>ตื่นขึ้นมาทุกวัน ไม่รู้ว่าวันนี้ควรทำอะไรก่อน</strong> — มีงานเยอะในหัว แต่ไม่รู้จะเริ่มจากตรงไหน เลยทำแต่งานด่วน แทนที่จะทำงานสำคัญ</p>
+        </div>
+        <div class="pain-item fade-up">
+            <div class="pain-icon">📋</div>
+            <p class="pain-text"><strong>มีแผนในหัวเยอะมาก แต่ไม่เคยทำสำเร็จสักแผน</strong> — ตั้งเป้าหมายทุกต้นปี ทุกต้นเดือน แต่พอสิ้นเดือนก็ลืมไปแล้วว่าตั้งไว้ว่าอะไร</p>
+        </div>
+        <div class="pain-item fade-up">
+            <div class="pain-icon">💰</div>
+            <p class="pain-text"><strong>เงินเดือนออก แล้วก็หายไปโดยไม่รู้ไปไหน</strong> — ไม่ได้ซื้ออะไรใหญ่โต แต่ทำไมเงินถึงไม่พอ ไม่รู้จะเริ่มออมหรือลงทุนจากตรงไหน</p>
+        </div>
+        <div class="pain-item fade-up">
+            <div class="pain-icon">🎬</div>
+            <p class="pain-text"><strong>อยากทำคอนเทนต์ แต่ไม่มีระบบ เลยทำๆ หยุดๆ</strong> — มีไอเดียเยอะ แต่พอถึงเวลาทำจริงก็ไม่รู้จะเริ่มยังไง เลยผัดวันไปเรื่อยๆ</p>
+        </div>
+        <div class="pain-item fade-up">
+            <div class="pain-icon">⚡</div>
+            <p class="pain-text"><strong>รู้สึกว่าตัวเองยุ่งตลอด แต่ชีวิตไม่ได้ขยับไปข้างหน้า</strong> — ทำงานหนักทุกวัน แต่พอมองย้อนกลับก็ไม่รู้ว่าปีที่ผ่านมาได้อะไรจากชีวิตบ้าง</p>
+        </div>
+    </div>
+</section>
+
+<!-- SOLUTION -->
+<section id="solution">
+    <div class="solution-divider"></div>
+    <p class="solution-text">ปัญหาเหล่านี้ไม่ได้เกิดจากความขี้เกียจ<br>มันเกิดจาก <span class="solution-accent">การไม่มีระบบ</span></p>
+    <p class="solution-sub">North Star OS คือระบบที่ผมสร้างขึ้นเพื่อแก้ปัญหาเหล่านี้ทั้งหมด<br>ใน Notion เดียว ก็อปแล้วใช้ได้เลย ไม่ต้องสร้างเอง</p>
+    <a href="#pricing" class="btn-primary">ดูราคาและแพ็กเกจ</a>
+</section>
+
+<!-- SYSTEMS -->
+<section id="systems">
+    <p class="section-label">6 ระบบหลัก</p>
+    <h2 class="section-title">ทุกอย่างที่คุณต้องการ อยู่ในที่เดียว</h2>
+    <p class="section-sub">North Star OS ประกอบด้วย 6 ระบบที่ครอบคลุมทุกด้านของชีวิตและธุรกิจ</p>
+
+    <div class="systems-grid">
+        <div class="system-card fade-up">
+            <div class="system-num">SYSTEM 01</div>
+            <div class="system-icon">🧭</div>
+            <div class="system-name">Navigator System</div>
+            <p class="system-desc">ระบบตั้งเป้าหมายและจัดทิศทางชีวิต ทำให้คุณรู้ว่าชีวิตกำลังมุ่งไปทางไหน และต้องทำอะไรทุกวัน</p>
+            <ul class="system-bullets">
+                <li>North Star Vision Board</li>
+                <li>OKR ปี → ไตรมาส → เดือน → สัปดาห์</li>
+                <li>Daily Compass — ทำอะไรก่อนทุกวัน</li>
+            </ul>
+        </div>
+        <div class="system-card fade-up">
+            <div class="system-num">SYSTEM 02</div>
+            <div class="system-icon">🎬</div>
+            <div class="system-name">Creator Pipeline</div>
+            <p class="system-desc">ระบบสร้างคอนเทนต์ตั้งแต่ไอเดียจนถึงโพสต์ ผลิตได้สม่ำเสมอโดยไม่ต้องรอแรงบันดาลใจ</p>
+            <ul class="system-bullets">
+                <li>Idea Capture → Script → Production SOP</li>
+                <li>Content Calendar แบบ Visual</li>
+                <li>Hook & CTA Library</li>
+            </ul>
+        </div>
+        <div class="system-card fade-up">
+            <div class="system-num">SYSTEM 03</div>
+            <div class="system-icon">⚙️</div>
+            <div class="system-name">Lifestyle Design</div>
+            <p class="system-desc">ระบบออกแบบชีวิตประจำวัน ตั้งแต่ Morning Routine ไปจนถึง Time Architecture</p>
+            <ul class="system-bullets">
+                <li>Morning / Evening Routine Template</li>
+                <li>Weekly Review Framework</li>
+                <li>Identity & Habit Tracker</li>
+            </ul>
+        </div>
+        <div class="system-card fade-up">
+            <div class="system-num">SYSTEM 04</div>
+            <div class="system-icon">💰</div>
+            <div class="system-name">Finance System</div>
+            <p class="system-desc">ระบบจัดการเงินส่วนตัว ตั้งแต่ติดตามรายรับรายจ่าย ไปจนถึงวางแผนออมและลงทุน</p>
+            <ul class="system-bullets">
+                <li>Income & Expense Tracker</li>
+                <li>Budget Allocation Framework</li>
+                <li>Financial Goal Dashboard</li>
+            </ul>
+        </div>
+        <div class="system-card fade-up">
+            <div class="system-num">SYSTEM 05</div>
+            <div class="system-icon">🏢</div>
+            <div class="system-name">Solopreneur Command Center</div>
+            <p class="system-desc">ระบบบริหารธุรกิจโซโลพรีเนอร์ ตั้งแต่จัดการสินค้า ติดตามลูกค้า ไปจนถึง Pipeline การขาย</p>
+            <ul class="system-bullets">
+                <li>Product & Offer Manager</li>
+                <li>Sales Pipeline Tracker</li>
+                <li>Project & Task Command Board</li>
+            </ul>
+        </div>
+        <div class="system-card fade-up">
+            <div class="system-num">SYSTEM 06</div>
+            <div class="system-icon">📈</div>
+            <div class="system-name">Investment Intelligence</div>
+            <p class="system-desc">ระบบติดตามพอร์ตและวางแผนการลงทุน สำหรับคนที่อยากจัดระบบการลงทุนให้เป็นมืออาชีพ</p>
+            <ul class="system-bullets">
+                <li>Portfolio Tracker (US Stocks / Crypto)</li>
+                <li>Investment Thesis Journal</li>
+                <li>Asset Allocation Framework</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- COMPARE -->
+<section id="compare">
+    <p class="section-label">ก่อน vs หลัง</p>
+    <h2 class="section-title">ชีวิตเปลี่ยนยังไง</h2>
+    <p class="section-sub">เปรียบเทียบง่ายๆ ว่าชีวิตก่อนและหลังมีระบบต่างกันยังไง</p>
+
+    <div class="compare-grid">
+        <div class="compare-card before fade-up">
+            <div class="compare-label">😵 ก่อนมีระบบ</div>
+            <ul class="compare-list">
+                <li>ตื่นขึ้นมาไม่รู้จะทำอะไรก่อน</li>
+                <li>เป้าหมายอยู่ในหัว ไม่เคยลงมือจริง</li>
+                <li>เงินหมดทุกเดือนโดยไม่รู้สาเหตุ</li>
+                <li>คอนเทนต์ทำๆ หยุดๆ ไม่ต่อเนื่อง</li>
+                <li>ยุ่งตลอด แต่ชีวิตไม่ขยับไปไหน</li>
+                <li>รู้สึก overwhelmed ทุกวัน</li>
+            </ul>
+        </div>
+        <div class="compare-card after fade-up">
+            <div class="compare-label">🌟 หลังใช้ North Star OS</div>
+            <ul class="compare-list">
+                <li>รู้ทันทีว่าวันนี้ต้องทำอะไรก่อน</li>
+                <li>เป้าหมายถูก breakdown ไปจนถึง daily action</li>
+                <li>เห็นภาพเงินทั้งหมดในที่เดียว</li>
+                <li>คอนเทนต์ไหล มีระบบ ไม่รอแรงบันดาลใจ</li>
+                <li>ทำน้อยลง แต่ได้ผลมากขึ้น</li>
+                <li>ชีวิตมีทิศทาง รู้สึก in control</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- FOUNDER -->
+<section id="founder">
+    <p class="section-label">ผู้สร้าง</p>
+    <h2 class="section-title">ทำไมถึงสร้าง North Star OS</h2>
+
+    <div class="founder-block fade-up">
+        <img src="https://i.ibb.co/PGtkZXTM/S-25370627.jpg" alt="Audi" class="founder-photo">
+        <div>
+            <div class="founder-name">AUDIKUNG</div>
+            <div class="founder-role">Founder · Solopreneur · Content Creator</div>
+            <div class="founder-story">
+                <p>ผมเป็นคนที่ใช้ชีวิตแบบ "สุ่ม" มาหลายปี — มีเป้าหมายในหัวเยอะ มีไอเดียเยอะ แต่ไม่เคยทำสำเร็จจริงๆ สักอย่าง</p>
+                <p>จุดเปลี่ยนคือวันที่ผมตัดสินใจจะเลิกพึ่ง "แรงบันดาลใจ" และเริ่มสร้างระบบแทน ผมใช้เวลาหลายเดือนทดลอง ล้มเหลว และปรับแต่ง จนได้ระบบที่ใช้งานได้จริงในชีวิตตัวเอง</p>
+                <p>North Star OS คือระบบนั้น — ที่ผมใช้เองทุกวัน และแชร์ให้คนอื่นใช้ด้วย ปัจจุบันผมทำงานประจำควบคู่กับสร้างธุรกิจโซโลพรีเนอร์ และบริหารคอมมูนิตี้ Simply Dock</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+    <p class="section-label">แพ็กเกจ</p>
+    <h2 class="section-title">เลือก Tier ที่ใช่สำหรับคุณ</h2>
+    <p class="section-sub">ทุก Tier ใช้ได้ตลอดชีพ อัปเดตฟรี และอัปเกรดได้ทีหลังโดยจ่ายแค่ส่วนต่าง</p>
+
+    <div class="pricing-grid">
+        <div class="pricing-card fade-up">
+            <div class="pricing-tier">BASIC</div>
+            <div class="pricing-price-old">฿1,290</div>
+            <div class="pricing-price">590</div>
+            <div class="pricing-currency">บาท · จ่ายครั้งเดียว</div>
+            <p class="pricing-roi">"ราคาเท่ากับกาแฟ 3 แก้ว — แต่ได้ระบบที่ใช้ได้ตลอดชีวิต"</p>
+            <ul class="pricing-features">
+                <li>Navigator System</li>
+                <li>Lifestyle Design</li>
+                <li>Finance System (Basic)</li>
+                <li>Notion Setup Guide</li>
+                <li>30-Day Fast Track Manual</li>
+            </ul>
+            <a href="https://lin.ee/hUm9gSp" target="_blank" rel="noopener" class="pricing-cta">ซื้อ BASIC</a>
+        </div>
+
+        <div class="pricing-card pro fade-up">
+            <div class="pricing-badge">🔥 Best Seller</div>
+            <div class="pricing-tier">PRO</div>
+            <div class="pricing-price-old">฿2,590</div>
+            <div class="pricing-price">1,190</div>
+            <div class="pricing-currency">บาท · จ่ายครั้งเดียว</div>
+            <p class="pricing-roi">"เพิ่มแค่ 600 บาทจาก BASIC — ได้เครื่องจักรทำคอนเทนต์และระบบบัญชีที่จะอุดรอยรั่วการเงินตลอดชีพ"</p>
+            <ul class="pricing-features">
+                <li>ทุกอย่างใน BASIC</li>
+                <li>Creator Pipeline (Full)</li>
+                <li>Finance System (Advanced)</li>
+                <li>Solopreneur Command Center</li>
+                <li>Investment Intelligence</li>
+                <li>Priority LINE OA Support</li>
+            </ul>
+            <a href="https://lin.ee/hUm9gSp" target="_blank" rel="noopener" class="pricing-cta">ซื้อ PRO — แนะนำ</a>
+        </div>
+
+        <div class="pricing-card fade-up">
+            <div class="pricing-tier">VIP</div>
+            <div class="pricing-price-old">฿9,900</div>
+            <div class="pricing-price">4,900</div>
+            <div class="pricing-currency">บาท · จ่ายครั้งเดียว</div>
+            <p class="pricing-roi">"ถ้าคุณจริงจังกับการสร้างธุรกิจ — นี่คือต้นทุนที่คืนทุนเร็วที่สุดที่คุณเคยจ่าย"</p>
+            <ul class="pricing-features">
+                <li>ทุกอย่างใน PRO</li>
+                <li>1-on-1 Onboarding กับ Audi (1 ชั่วโมง)</li>
+                <li>Custom Setup สำหรับธุรกิจคุณ</li>
+                <li>Simply Dock VIP Access</li>
+                <li>Direct LINE Support 30 วัน</li>
+                <li>Lifetime Update Priority</li>
+            </ul>
+            <a href="https://lin.ee/hUm9gSp" target="_blank" rel="noopener" class="pricing-cta">ซื้อ VIP</a>
+        </div>
+    </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+    <p class="section-label">รีวิวจากผู้ใช้จริง</p>
+    <h2 class="section-title">คนอื่นพูดถึงยังไง</h2>
+    <p class="section-sub">รีวิวจากสมาชิกและลูกค้าจริง <!-- TODO: แทนด้วยรีวิวจริงเมื่อพร้อม --></p>
+
+    <div class="testimonials-grid">
+        <div class="testimonial-card fade-up">
+            <div class="testi-header">
+                <div class="testi-avatar">🧑</div>
+                <div><div class="testi-name">ภูมิ ส.</div><div class="testi-tier">PRO Tier</div></div>
+            </div>
+            <div class="testi-bubble">
+                <p class="testi-text">ใช้ได้แค่ 2 อาทิตย์ รู้สึกชีวิตเป็นระเบียบขึ้นมากเลยครับ ก่อนหน้านี้โน้ตกระจายอยู่หลาย app ตอนนี้อยู่ที่เดียวหมดเลย</p>
+                <div class="testi-stars">★★★★★</div>
+            </div>
+        </div>
+        <div class="testimonial-card fade-up">
+            <div class="testi-header">
+                <div class="testi-avatar">👩</div>
+                <div><div class="testi-name">มิ้นท์</div><div class="testi-tier">BASIC Tier</div></div>
+            </div>
+            <div class="testi-bubble">
+                <p class="testi-text">ชอบส่วน Finance มากเลยค่ะ ไม่เคยรู้เลยว่าเงินหายไปไหน พอใช้แล้วเห็นเลยว่าจ่ายค่าอะไรไปบ้าง</p>
+                <div class="testi-stars">★★★★★</div>
+            </div>
+        </div>
+        <div class="testimonial-card fade-up">
+            <div class="testi-header">
+                <div class="testi-avatar">🧑</div>
+                <div><div class="testi-name">ต้น Creator</div><div class="testi-tier">PRO Tier</div></div>
+            </div>
+            <div class="testi-bubble">
+                <p class="testi-text">Creator Pipeline ช่วยได้เยอะมากครับ เมื่อก่อนทำคอนเทนต์แบบ random มาก ตอนนี้ post ได้สม่ำเสมอขึ้น</p>
+                <div class="testi-stars">★★★★★</div>
+            </div>
+        </div>
+        <div class="testimonial-card fade-up">
+            <div class="testi-header">
+                <div class="testi-avatar">👩</div>
+                <div><div class="testi-name">แนน</div><div class="testi-tier">PRO (Upgrade จาก BASIC)</div></div>
+            </div>
+            <div class="testi-bubble">
+                <p class="testi-text">เริ่มจาก BASIC ก่อน แล้วอัปเกรดเป็น PRO หลังใช้ไปเดือนนึง ไม่เสียใจเลยค่ะ จ่ายแค่ส่วนต่างด้วย</p>
+                <div class="testi-stars">★★★★★</div>
+            </div>
+        </div>
+        <div class="testimonial-card fade-up">
+            <div class="testi-header">
+                <div class="testi-avatar">🧑</div>
+                <div><div class="testi-name">กอล์ฟ</div><div class="testi-tier">VIP Tier</div></div>
+            </div>
+            <div class="testi-bubble">
+                <p class="testi-text">VIP แพงแต่คุ้มมากครับ ได้คุยกับออดี้โดยตรง 1 ชั่วโมง ช่วย setup ระบบให้ fit กับธุรกิจผมเลย</p>
+                <div class="testi-stars">★★★★★</div>
+            </div>
+        </div>
+        <div class="testimonial-card fade-up">
+            <div class="testi-header">
+                <div class="testi-avatar">👩</div>
+                <div><div class="testi-name">เฟิร์น</div><div class="testi-tier">BASIC Tier</div></div>
+            </div>
+            <div class="testi-bubble">
+                <p class="testi-text">แค่ช่วยให้รู้ว่าวันนี้ต้องทำอะไรก่อน ก็คุ้มแล้วค่ะ รู้สึก calm และ in control มากขึ้นเยอะ</p>
+                <div class="testi-stars">★★★★★</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+    <p class="section-label">คำถามที่พบบ่อย</p>
+    <h2 class="section-title">FAQ</h2>
+    <p class="section-sub">ถ้าไม่เจอคำตอบที่ต้องการ ทักมาถามได้เลยที่ LINE OA</p>
+
+    <div class="faq-list">
+        <div class="faq-item">
+            <div class="faq-question">ต้องเสียค่า Notion ไหม?<span class="faq-icon">+</span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">ไม่ต้องเลยครับ Notion Free Plan ใช้ได้ 100% ไม่มีฟีเจอร์ไหนที่ต้องการ Notion Plus หรือ Pro</div></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">ต้องรู้จัก Notion มาก่อนไหม?<span class="faq-icon">+</span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">ไม่ต้องครับ มาพร้อม 30-Day Fast Track Manual ที่สอนตั้งแต่การ Duplicate Template ยังไง ไปจนถึงการใช้แต่ละระบบ มือใหม่ก็ใช้ได้</div></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">ซื้อแล้วได้รับของอะไรบ้าง และยังไง?<span class="faq-icon">+</span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">หลังสั่งซื้อผ่าน LINE OA ระบบจะส่ง Duplicate Link + คู่มือให้อัตโนมัติครับ กด Duplicate แล้วใช้งานได้เลย</div></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">อัปเกรด Tier ทีหลังได้ไหม?<span class="faq-icon">+</span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">ได้ครับ อัปเกรดได้ตลอดเวลา โดยจ่ายแค่ส่วนต่างระหว่าง Tier เช่น BASIC → PRO จ่ายเพิ่มแค่ 600 บาท ไม่ต้องซื้อใหม่ทั้งหมด</div></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">ใช้ได้บนมือถือไหม?<span class="faq-icon">+</span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">ได้ครับ Notion Sync ทุกอุปกรณ์ Real-time ไม่ว่าจะ Windows, Mac, iPad หรือ Android / iOS</div></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">มีอัปเดตในอนาคตไหม?<span class="faq-icon">+</span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">มีครับ ทุก Tier ได้รับ Update ฟรีตลอดชีพ เมื่อผมปรับปรุงระบบหรือเพิ่มฟีเจอร์ใหม่ ลูกค้าทุกคนได้รับอัตโนมัติ ไม่มีค่าใช้จ่ายเพิ่ม</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- VIDEO -->
+<section id="video">
+    <p class="section-label">ดูก่อนตัดสินใจ</p>
+    <h2 class="section-title">รู้จักผมและระบบนี้ให้มากขึ้น</h2>
+    <p class="section-sub">ดูวิดีโอนี้ก่อนตัดสินใจ เพื่อให้รู้ว่าระบบนี้เหมาะกับคุณไหม</p>
+    <div class="video-wrap">
+        <!-- TODO: แทน src ด้วย YouTube embed URL จริง เช่น https://www.youtube.com/embed/VIDEO_ID -->
+        <div class="video-placeholder">[ วิดีโอแนะนำ North Star OS ]<br><small>เพิ่ม YouTube Embed URL ที่นี่</small></div>
+    </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="final-cta">
+    <div class="cta-star">
+        <div class="cta-star-core">
+            <div class="cta-star-ray-v"></div>
+            <div class="cta-star-ray-h"></div>
+        </div>
+    </div>
+    <h2 class="cta-headline">พร้อมเริ่มต้นแล้วไหม?</h2>
+    <p class="cta-sub">คุณแค่ต้องการระบบ — และระบบนั้นรอคุณอยู่แล้ว เริ่มได้วันนี้ ราคาเริ่มต้นแค่ 590 บาท</p>
+    <div class="hero-buttons">
+        <a href="https://lin.ee/hUm9gSp" target="_blank" rel="noopener" class="btn-primary">สั่งซื้อเลย — เริ่มต้น ฿590</a>
+        <a href="https://lin.ee/UTD2Lpo" target="_blank" rel="noopener" class="btn-secondary">ถามก่อนได้เลย</a>
+    </div>
+    <p class="cta-note">จ่ายครั้งเดียว ใช้ตลอดชีพ · Notion Free Plan ก็ใช้ได้ · อัปเกรดได้ทีหลัง</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <span class="footer-brand">
+        <img src="https://i.ibb.co/n8mTK17F/Minimal-Geometric-Logo-for-AUDIKUNG.png" alt="AUDIKUNG logo">
+        AUDIKUNG
+    </span>
+    <span class="footer-copy">© 2026 AUDIKUNG. All rights reserved.</span>
+    <div class="footer-links">
+        <a href="index.html">หน้าหลัก</a>
+        <a href="https://www.youtube.com/@Audikung.official" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://discord.gg/dXZzUdtunE" target="_blank" rel="noopener">Simply Dock</a>
+        <a href="https://lin.ee/UTD2Lpo" target="_blank" rel="noopener">LINE OA</a>
+    </div>
+</footer>
+
+<script>
+    // Starfield
+    const starfield = document.getElementById('starfield');
+    for (let i = 0; i < 220; i++) {
+        const s = document.createElement('div');
+        s.className = 'star';
+        const size = Math.random() * 2.2 + 0.4;
+        s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*100}%;left:${Math.random()*100}%;opacity:${Math.random()*0.65+0.1};animation:twinkle ${(Math.random()*4+2).toFixed(1)}s ${(Math.random()*5).toFixed(1)}s ease-in-out infinite;`;
+        starfield.appendChild(s);
+    }
+
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+    document.addEventListener('click', (e) => {
+        if (mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+            mobileMenu.classList.remove('open');
+        }
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+    // FAQ Accordion
+    document.querySelectorAll('.faq-item').forEach(item => {
+        item.querySelector('.faq-question').addEventListener('click', () => {
+            const isOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+            if (!isOpen) item.classList.add('open');
+        });
+    });
+
+    // Fade-up
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
