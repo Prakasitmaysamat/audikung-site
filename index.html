@@ -419,10 +419,13 @@
         }
 
         .product-card.gold.clickable:hover { border-color: rgba(201,168,76,0.4); box-shadow: 0 10px 40px rgba(201,168,76,0.12); }
-        .product-card.blue { cursor: default; }
-        .product-card.purple { cursor: default; }
-        .product-card.teal { cursor: default; }
+        .product-card.blue.clickable:hover { border-color: rgba(122,183,240,0.4); box-shadow: 0 10px 40px rgba(122,183,240,0.12); }
+        .product-card.purple.clickable:hover { border-color: rgba(155,127,212,0.4); box-shadow: 0 10px 40px rgba(155,127,212,0.12); }
+        .product-card.teal.clickable:hover { border-color: rgba(77,210,200,0.4); box-shadow: 0 10px 40px rgba(77,210,200,0.12); }
         .product-card.teal .product-name { color: #4DD2C8; }
+        .product-card.blue .product-link { color: var(--blue); }
+        .product-card.purple .product-link { color: var(--purple); }
+        .product-card.teal .product-link { color: #4DD2C8; }
 
         .channel-platform img {
             width: 28px;
@@ -660,6 +663,7 @@
             display: flex;
             align-items: center;
             gap: 0.4rem;
+            flex: 1;
         }
 
         .footer-brand img {
@@ -674,11 +678,15 @@
             font-family: var(--font-body);
             font-size: 0.78rem;
             color: var(--text-muted);
+            flex: 1;
+            text-align: center;
         }
 
         .footer-links {
             display: flex;
             gap: 1.5rem;
+            flex: 1;
+            justify-content: flex-end;
         }
 
         .footer-links a {
@@ -807,29 +815,29 @@
             <span class="product-link">ดูรายละเอียด →</span>
         </a>
 
-        <div class="product-card blue fade-up">
+        <a href="https://lin.ee/UTD2Lpo" target="_blank" rel="noopener" class="product-card blue clickable fade-up">
             <div class="product-icon">📖</div>
             <span class="product-badge badge-soon">เร็วๆ นี้</span>
             <h3 class="product-name">E-Book</h3>
             <p class="product-desc">คู่มือฉบับย่อจากประสบการณ์จริง เรื่องการเงิน การลงทุน และการสร้างระบบชีวิต อ่านจบในครั้งเดียว นำไปใช้ได้เลย</p>
-            <p class="product-note">กำลังมา — ติดตามได้ที่ LINE OA</p>
-        </div>
+            <span class="product-link">ติดตามที่ LINE OA →</span>
+        </a>
 
-        <div class="product-card purple fade-up">
+        <a href="https://lin.ee/UTD2Lpo" target="_blank" rel="noopener" class="product-card purple clickable fade-up">
             <div class="product-icon">🎓</div>
             <span class="product-badge badge-soon">เร็วๆ นี้</span>
             <h3 class="product-name">Online Course</h3>
             <p class="product-desc">คอร์สออนไลน์แบบ Step-by-Step ที่จะพาคุณจาก 0 ถึงมีระบบ ไม่ว่าจะเรื่องการลงทุน การเงิน หรือการสร้างธุรกิจโซโลพรีเนอร์</p>
-            <p class="product-note">กำลังมา — ติดตามได้ที่ LINE OA</p>
-        </div>
+            <span class="product-link">ติดตามที่ LINE OA →</span>
+        </a>
 
-        <div class="product-card teal fade-up">
+        <a href="https://lin.ee/UTD2Lpo" target="_blank" rel="noopener" class="product-card teal clickable fade-up">
             <div class="product-icon">🤝</div>
             <span class="product-badge badge-soon">เร็วๆ นี้</span>
             <h3 class="product-name">Consulting</h3>
             <p class="product-desc">บริการให้คำปรึกษาส่วนตัว สำหรับคนที่อยากสร้างระบบชีวิต วางแผนการเงิน หรือเริ่มต้นธุรกิจโซโลพรีเนอร์อย่างจริงจัง</p>
-            <p class="product-note">กำลังมา — ติดตามได้ที่ LINE OA</p>
-        </div>
+            <span class="product-link">ติดตามที่ LINE OA →</span>
+        </a>
     </div>
 </section>
 
