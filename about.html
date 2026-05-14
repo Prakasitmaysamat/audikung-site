@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="เกี่ยวกับออดี้ — AUDIKUNG เรื่องราว ระบบ และวิธีคิดของผม">
+    <title>เกี่ยวกับออดี้ — AUDIKUNG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030712;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --bg-card-hover: rgba(255, 255, 255, 0.07);
+            --border: rgba(255, 255, 255, 0.08);
+            --gold: #c9a84c;
+            --gold-light: #E5C586;
+            --gold-glow: rgba(201, 168, 76, 0.5);
+            --blue: #7AB7F0;
+            --blue-glow: rgba(122, 183, 240, 0.5);
+            --purple: #9b7fd4;
+            --purple-glow: rgba(155, 127, 212, 0.5);
+            --green: #4DD2A0;
+            --text: #f0f0f5;
+            --text-muted: #8888a0;
+            --font-head: 'Kanit', sans-serif;
+            --font-body: 'Sarabun', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 16px;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            height: 64px;
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            font-family: var(--font-head);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px var(--gold-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a.active { color: var(--text); }
+
+        .nav-cta {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #030712 !important;
+            background: var(--gold);
+            padding: 0.45rem 1.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background 0.2s, box-shadow 0.2s !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--gold-light) !important;
+            box-shadow: 0 0 18px var(--gold-glow);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 64px; left: 0; right: 0;
+            background: rgba(3, 7, 18, 0.97);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem 5%;
+            flex-direction: column;
+            gap: 1.25rem;
+            z-index: 99;
+        }
+
+        .mobile-menu.open { display: flex; }
+
+        .mobile-menu a {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .mobile-menu a:hover { color: var(--text); }
+        .mobile-menu .nav-cta { align-self: flex-start; color: #030712 !important; }
+
+        /* ── HERO ── */
+        #hero {
+            position: relative;
+            min-height: 65vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 130px 5% 80px;
+            overflow: hidden;
+            background: radial-gradient(ellipse at 50% 0%, #0d1a3a 0%, var(--bg) 65%);
+        }
+
+        #starfield {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            border-radius: 50%;
+            background: white;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.15; }
+            50% { opacity: 0.9; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+        }
+
+        .hero-eyebrow {
+            font-family: var(--font-body);
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .hero-name {
+            font-family: var(--font-head);
+            font-size: clamp(2.8rem, 9vw, 5.5rem);
+            font-weight: 900;
+            line-height: 1;
+            color: var(--gold-light);
+            text-shadow:
+                0 0 30px var(--gold-glow),
+                0 0 70px rgba(201, 168, 76, 0.2);
+            letter-spacing: 4px;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-tagline {
+            font-family: var(--font-head);
+            font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+            font-weight: 400;
+            color: var(--text-muted);
+            letter-spacing: 4px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-tagline .pill {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .hero-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center top;
+            border: 2px solid rgba(201, 168, 76, 0.4);
+            box-shadow: 0 0 32px rgba(201, 168, 76, 0.2);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-intro {
+            font-family: var(--font-body);
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            color: var(--text-muted);
+            line-height: 1.8;
+            max-width: 560px;
+            margin: 0 auto;
+        }
+
+        /* ── SHARED SECTION ── */
+        section { padding: 5rem 5%; }
+
+        .section-label {
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 0.6rem;
+        }
+
+        .section-label.blue { color: var(--blue); }
+        .section-label.purple { color: var(--purple); }
+        .section-label.green { color: var(--green); }
+
+        .section-title {
+            font-family: var(--font-head);
+            font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.75rem;
+        }
+
+        /* ── STORY SECTION ── */
+        #story {
+            background: linear-gradient(180deg, var(--bg) 0%, #070d24 100%);
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 5%;
+            padding-right: 5%;
+        }
+
+        .story-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 5rem;
+            align-items: start;
+            max-width: 1000px;
+        }
+
+        .story-sticky {
+            position: sticky;
+            top: 100px;
+        }
+
+        .story-tag {
+            display: inline-block;
+            font-family: var(--font-body);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            background: rgba(201, 168, 76, 0.1);
+            color: var(--gold);
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            margin-bottom: 1.5rem;
+        }
+
+        .story-chapter {
+            margin-bottom: 3rem;
+        }
+
+        .story-chapter:last-child { margin-bottom: 0; }
+
+        .chapter-label {
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 0.6rem;
+        }
+
+        .chapter-title {
+            font-family: var(--font-head);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .chapter-body {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.9;
+        }
+
+        .chapter-body p { margin-bottom: 1rem; }
+        .chapter-body p:last-child { margin-bottom: 0; }
+
+        .chapter-body strong {
+            color: var(--gold-light);
+            font-weight: 600;
+        }
+
+        .chapter-body em {
+            color: var(--text);
+            font-style: normal;
+        }
+
+        /* ── QUOTE BLOCK ── */
+        .quote-block {
+            border-left: 3px solid var(--gold);
+            padding: 1.5rem 2rem;
+            background: rgba(201, 168, 76, 0.04);
+            border-radius: 0 12px 12px 0;
+            margin: 2rem 0;
+        }
+
+        .quote-block p {
+            font-family: var(--font-head);
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--gold-light);
+            line-height: 1.75;
+            margin-bottom: 0 !important;
+        }
+
+        /* ── SYSTEM SECTION ── */
+        #system {
+            background: #070d24;
+        }
+
+        .system-intro {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.9;
+            max-width: 600px;
+            margin-bottom: 3rem;
+        }
+
+        .system-intro strong { color: var(--blue); }
+
+        .system-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            max-width: 1000px;
+            margin-bottom: 3rem;
+        }
+
+        .system-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.75rem;
+            transition: all 0.25s;
+        }
+
+        .system-card:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(122, 183, 240, 0.2);
+        }
+
+        .system-icon { font-size: 2rem; margin-bottom: 1rem; }
+
+        .system-name {
+            font-family: var(--font-head);
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .system-desc {
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.75;
+        }
+
+        /* ── PIPELINE ── */
+        .pipeline {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem 2.5rem;
+            max-width: 1000px;
+        }
+
+        .pipeline-label {
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--blue);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+        }
+
+        .pipeline-steps {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .pipeline-step {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(122, 183, 240, 0.07);
+            border: 1px solid rgba(122, 183, 240, 0.15);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--text);
+        }
+
+        .pipeline-step .step-icon { font-size: 1rem; }
+
+        .pipeline-arrow {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .pipeline-result {
+            margin-top: 1.25rem;
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .pipeline-result strong { color: var(--green); }
+
+        /* ── BELIEF SECTION ── */
+        #belief {
+            background: linear-gradient(180deg, #070d24 0%, var(--bg) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .belief-block {
+            max-width: 720px;
+            width: 100%;
+        }
+
+        .belief-quote {
+            font-family: var(--font-head);
+            font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+            font-weight: 600;
+            color: var(--gold-light);
+            line-height: 1.75;
+            margin: 2rem 0;
+            padding: 2.5rem;
+            background: rgba(201, 168, 76, 0.04);
+            border: 1px solid rgba(201, 168, 76, 0.12);
+            border-radius: 16px;
+            position: relative;
+        }
+
+        .belief-quote::before {
+            content: '"';
+            font-family: var(--font-head);
+            font-size: 5rem;
+            color: rgba(201, 168, 76, 0.15);
+            position: absolute;
+            top: -1rem;
+            left: 1.5rem;
+            line-height: 1;
+        }
+
+        .belief-body {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.9;
+            margin-bottom: 1rem;
+        }
+
+        /* ── CTA SECTION ── */
+        #cta {
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-top: 2rem;
+        }
+
+        .cta-block {
+            max-width: 560px;
+            width: 100%;
+        }
+
+        .cta-block h2 {
+            font-family: var(--font-head);
+            font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .cta-block p {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            color: #030712;
+            background: var(--gold);
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            box-shadow: 0 0 28px var(--gold-glow);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+            background: transparent;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+        }
+
+        .btn-secondary:hover {
+            border-color: rgba(255,255,255,0.25);
+            transform: translateY(-2px);
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: #020510;
+            border-top: 1px solid var(--border);
+            padding: 2rem 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-brand {
+            font-family: var(--font-head);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 2px;
+        }
+
+        .footer-copy {
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: var(--text); }
+
+        /* ── ANIMATIONS ── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.65s ease, transform 0.65s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 960px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .story-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+            .story-sticky { position: static; }
+            .system-grid { grid-template-columns: repeat(2, 1fr); }
+            .pipeline-steps { flex-direction: column; align-items: flex-start; }
+            .pipeline-arrow { transform: rotate(90deg); }
+        }
+
+        @media (max-width: 600px) {
+            section { padding: 4rem 5%; }
+            .system-grid { grid-template-columns: 1fr; }
+            .pipeline { padding: 1.5rem; }
+            footer { flex-direction: column; align-items: flex-start; }
+            .quote-block { padding: 1.25rem 1.25rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+    <a href="index.html" class="nav-logo">AUDIKUNG</a>
+    <ul class="nav-links">
+        <li><a href="index.html#products">สินค้า</a></li>
+        <li><a href="index.html#articles">บทความ</a></li>
+        <li><a href="index.html#channels">ช่องทาง</a></li>
+        <li><a href="about.html" class="active">เกี่ยวกับ</a></li>
+        <li><a href="https://lin.ee/UTD2Lpo" target="_blank" rel="noopener" class="nav-cta">ทักมาเลย</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="เมนู">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+    <a href="index.html#products">สินค้า</a>
+    <a href="index.html#articles">บทความ</a>
+    <a href="index.html#channels">ช่องทาง</a>
+    <a href="about.html">เกี่ยวกับ</a>
+    <a href="https://lin.ee/UTD2Lpo" target="_blank" rel="noopener" class="nav-cta">ทักมาเลย</a>
+</div>
+
+<!-- ── HERO ── -->
+<section id="hero">
+    <div id="starfield"></div>
+    <div class="hero-content fade-up">
+        <img src="https://i.ibb.co/PGtkZXTM/S-25370627.jpg" alt="Audi — AUDIKUNG" class="hero-photo">
+        <p class="hero-eyebrow">สวัสดีครับ ผมชื่อ</p>
+        <h1 class="hero-name">AUDI</h1>
+        <p class="hero-tagline">
+            <span class="pill">ระบบ</span> &nbsp;·&nbsp;
+            <span class="pill">การเงิน</span> &nbsp;·&nbsp;
+            <span class="pill">โซโลพรีเนอร์</span>
+        </p>
+        <p class="hero-intro">
+            อดีตเด็กติดเกมที่ไม่มีทิศทาง → ปัจจุบันสร้างระบบ AI ที่ผลิตคอนเทนต์ 50 ชิ้น/สัปดาห์
+            ผ่าน 5 ช่องทาง ด้วยตัวคนเดียว
+        </p>
+    </div>
+</section>
+
+<!-- ── STORY ── -->
+<section id="story">
+    <div class="story-layout">
+        <div class="story-sticky fade-up">
+            <span class="story-tag">เรื่องราวของผม</span>
+            <p class="section-label">จากไม่มีอะไร</p>
+            <h2 class="section-title">ถึงสร้างระบบได้เอง</h2>
+        </div>
+
+        <div class="fade-up">
+            <div class="story-chapter">
+                <p class="chapter-label">Chapter 01 — จุดเริ่มต้น</p>
+                <h3 class="chapter-title">เด็กติดเกมที่ทำให้พ่อแม่ผิดหวัง</h3>
+                <div class="chapter-body">
+                    <p>
+                        ผมชื่อออดี้ เรียนจบบัญชีจากมหาวิทยาลัยเกษตรศาสตร์
+                        แต่ก่อนจะมาถึงวันนั้น ผมไม่ได้ดีเด่มาตั้งแต่ต้น
+                    </p>
+                    <p>
+                        ย้อนกลับไปตอนเด็ก ผมเป็น <strong>"เด็กติดเกม"</strong> ที่ใช้ชีวิตไร้ทิศทาง
+                        ไม่มีเป้าหมาย ปล่อยให้เวลาไหลไปวันๆ ไม่ตั้งใจเรียน
+                        ทำให้พ่อแม่ต้องผิดหวังมาหลายครั้ง ทำอะไรก็ไม่เคยสำเร็จ
+                        สอบที่ไหนก็ไม่ติด
+                    </p>
+                    <p>
+                        จนจับพลัดจับผลูสอบเข้ามหาลัยได้เพราะ <em>"โชคช่วย"</em> — มั่วข้อสอบถูก — ล้วนๆ
+                    </p>
+                </div>
+            </div>
+
+            <div class="story-chapter">
+                <p class="chapter-label">Chapter 02 — จุดเปลี่ยน</p>
+                <h3 class="chapter-title">ความเสียดายที่เปลี่ยนทุกอย่าง</h3>
+                <div class="chapter-body">
+                    <p>
+                        ความรู้สึกเสียดายเวลาและเสียใจในวันนั้น ทำให้ผมเริ่มตั้งคำถามกับตัวเองอย่างหนัก
+                        ทำไมคนที่เก่งกว่าผมถึงมีเยอะแยะ? แล้วผมขาดอะไรไป?
+                    </p>
+                    <div class="quote-block">
+                        <p>
+                            "บนโลกนี้ไม่มีหรอกครับ คนที่ 'ไม่เก่ง'
+                            มีแต่คนที่ยังไม่รู้เป้าหมายในชีวิต
+                            และขาด 'ระบบ' การลงมือทำที่มั่นคงต่างหาก"
+                        </p>
+                    </div>
+                    <p>
+                        ผมจึงเริ่มหันมาพัฒนาตัวเองอย่างจริงจัง
+                        นำพื้นฐานความรู้วิชาบัญชีและการเงินมาผสมผสานกับการลองผิดลองถูก
+                        เพื่อสร้างระบบและประกอบร่างเป้าหมายในชีวิตขึ้นมาใหม่
+                    </p>
+                </div>
+            </div>
+
+            <div class="story-chapter">
+                <p class="chapter-label">Chapter 03 — ปัจจุบัน</p>
+                <h3 class="chapter-title">โซโลพรีเนอร์ที่สร้างทุกอย่างด้วยตัวเอง</h3>
+                <div class="chapter-body">
+                    <p>
+                        วันนี้ผมทำงานเป็นโซโลพรีเนอร์เต็มตัว
+                        สร้างคอนเทนต์เรื่อง <strong>ระบบ การเงิน และโซโลพรีเนอร์</strong>
+                        ผ่าน 5 ช่องทางพร้อมกัน ด้วยระบบ AI ที่ผมสร้างและปรับแต่งเอง
+                    </p>
+                    <p>
+                        ผมเชื่อว่าการชอบเล่นเกมไม่ใช่ปัญหา — ปัญหาคือการขาดระบบที่ช่วยให้ลงมือทำได้
+                        นั่นคือสิ่งที่ผมอยากถ่ายทอดให้คนอื่น
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── SYSTEM ── -->
+<section id="system">
+    <p class="section-label blue">วิธีที่ผมทำงาน</p>
+    <h2 class="section-title">ระบบ AI ที่ผมสร้างเอง</h2>
+    <p class="system-intro">
+        ผมไม่ได้ใช้ AI แค่พิมพ์คำถาม — ผมสร้าง <strong>ระบบอัตโนมัติ</strong> ที่เชื่อมต่อเครื่องมือหลายตัวเข้าหากัน
+        ทำให้สามารถผลิตคอนเทนต์คุณภาพสูงจำนวนมากได้โดยไม่ต้องทำทุกอย่างด้วยมือ
+    </p>
+
+    <div class="system-grid">
+        <div class="system-card fade-up">
+            <div class="system-icon">🧠</div>
+            <div class="system-name">Claude AI + Claude Code</div>
+            <div class="system-desc">
+                ใช้ Claude เป็น "สมองหลัก" ในการคิด เขียน วิเคราะห์ และสร้างคอนเทนต์
+                Claude Code ช่วยให้ผม build ระบบและ automate workflow ด้วย code จริงๆ
+            </div>
+        </div>
+
+        <div class="system-card fade-up">
+            <div class="system-icon">⚙️</div>
+            <div class="system-name">Make.com Automation</div>
+            <div class="system-desc">
+                เส้นเลือดของระบบทั้งหมด — เชื่อม Discord → AI → Google Drive → ช่องทางต่างๆ
+                โดยอัตโนมัติ ลด manual work ลงกว่า 80%
+            </div>
+        </div>
+
+        <div class="system-card fade-up">
+            <div class="system-icon">💎</div>
+            <div class="system-name">Obsidian Second Brain</div>
+            <div class="system-desc">
+                คลัง "ความรู้ที่มีชีวิต" ที่ sync ผ่าน Google Drive
+                ทุก idea บทความ และ insight ถูก capture และเชื่อมกันเป็นระบบ
+            </div>
+        </div>
+
+        <div class="system-card fade-up">
+            <div class="system-icon">📡</div>
+            <div class="system-name">Discord Input Pipeline</div>
+            <div class="system-desc">
+                Discord ทำหน้าที่เป็น "กล่องรับ input" — ผมส่ง idea หรือ rough draft เข้า
+                แล้ว Make.com รับไปประมวลผลกับ AI ต่อโดยอัตโนมัติ
+            </div>
+        </div>
+
+        <div class="system-card fade-up">
+            <div class="system-icon">☁️</div>
+            <div class="system-name">Google Drive Sync</div>
+            <div class="system-desc">
+                ไฟล์ทุกอย่างอยู่บน Google Drive — ทำให้ระบบทำงานได้ทุกที่ทุกเวลา
+                และ backup อัตโนมัติโดยไม่ต้องกังวล
+            </div>
+        </div>
+
+        <div class="system-card fade-up">
+            <div class="system-icon">📊</div>
+            <div class="system-name">North Star OS</div>
+            <div class="system-desc">
+                ระบบออกแบบชีวิตที่ผมสร้างจากประสบการณ์จริง ครอบคลุมทั้งเป้าหมาย
+                การเงิน และคอนเทนต์ — ผมใช้เองก่อน แล้วค่อยแชร์ให้คนอื่น
+            </div>
+        </div>
+    </div>
+
+    <div class="pipeline fade-up">
+        <p class="pipeline-label">Content Pipeline — 50 outputs/week</p>
+        <div class="pipeline-steps">
+            <div class="pipeline-step">
+                <span class="step-icon">💡</span>
+                <span>Idea / Draft</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+                <span class="step-icon">📡</span>
+                <span>Discord Input</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+                <span class="step-icon">⚙️</span>
+                <span>Make.com</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+                <span class="step-icon">🧠</span>
+                <span>Claude AI</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+                <span class="step-icon">💎</span>
+                <span>Obsidian</span>
+            </div>
+            <span class="pipeline-arrow">→</span>
+            <div class="pipeline-step">
+                <span class="step-icon">📤</span>
+                <span>5 ช่องทาง</span>
+            </div>
+        </div>
+        <p class="pipeline-result">ผลลัพธ์: <strong>50+ outputs/week</strong> — YouTube · TikTok (×2) · Instagram · Affiliate — ด้วยตัวคนเดียว</p>
+    </div>
+</section>
+
+<!-- ── BELIEF ── -->
+<section id="belief">
+    <div class="belief-block">
+        <p class="section-label">สิ่งที่ผมเชื่อ</p>
+        <h2 class="section-title">ทำไมถึงทำสิ่งนี้</h2>
+
+        <div class="belief-quote fade-up">
+            ความรู้ยิ่งแบ่งปัน ยิ่งเติบโต
+        </div>
+
+        <p class="belief-body fade-up">
+            ผมเชื่อว่า <strong style="color: var(--gold-light);">Self-Development · การเงิน · และโซโลพรีเนอร์</strong> ไปด้วยกันได้เสมอ
+            เพราะทั้งสามอย่างต้องการสิ่งเดียวกัน — <em style="color: var(--text);">เป้าหมายที่ชัด และระบบที่มั่นคง</em>
+        </p>
+        <p class="belief-body fade-up">
+            เมื่อคุณรู้ว่าจะไปไหน คุณถึงจะรู้ว่าต้องบริหารเงินยังไง
+            และเมื่อคุณมีรายได้ที่มั่นคง คุณก็มีอิสระที่จะพัฒนาตัวเองต่อไปได้
+            วงจรนี้คือสิ่งที่ผมอยากสร้างให้เกิดขึ้นในชีวิตของทุกคนที่ติดตามผม
+        </p>
+        <p class="belief-body fade-up">
+            เป้าหมายสูงสุดของผมคือการสร้างคอมมูนิตี้ที่เราจะพัฒนาและเติบโตไปด้วยกัน
+            แลกเปลี่ยนความรู้ ลองผิดลองถูกไปด้วยกัน — เพราะผมรู้ดีว่ามันยากแค่ไหน
+            ที่จะหาคนรอบข้างที่คุยเรื่องเดียวกันกับเราได้
+        </p>
+    </div>
+</section>
+
+<!-- ── CTA ── -->
+<section id="cta">
+    <div class="cta-block fade-up">
+        <h2>มาเติบโตไปด้วยกันครับ</h2>
+        <p>
+            ไม่ว่าคุณจะมาจากจุดไหน — ยังหาเป้าหมายอยู่ อยากเริ่มลงทุน หรืออยากสร้างรายได้เป็นของตัวเอง
+            ผมมีพื้นที่สำหรับคุณ
+        </p>
+        <div class="cta-buttons">
+            <a href="https://discord.gg/dXZzUdtunE" target="_blank" rel="noopener" class="btn-primary">เข้าร่วม Simply Dock</a>
+            <a href="https://lin.ee/UTD2Lpo" target="_blank" rel="noopener" class="btn-secondary">ทักมาที่ LINE</a>
+        </div>
+    </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+    <span class="footer-brand">AUDIKUNG</span>
+    <span class="footer-copy">© 2026 AUDIKUNG. All rights reserved.</span>
+    <div class="footer-links">
+        <a href="index.html#products">สินค้า</a>
+        <a href="index.html#articles">บทความ</a>
+        <a href="about.html">เกี่ยวกับ</a>
+        <a href="https://lin.ee/UTD2Lpo" target="_blank" rel="noopener">LINE OA</a>
+    </div>
+</footer>
+
+<script>
+    // Starfield
+    const starfield = document.getElementById('starfield');
+    for (let i = 0; i < 150; i++) {
+        const s = document.createElement('div');
+        s.className = 'star';
+        const size = Math.random() * 2.2 + 0.4;
+        s.style.cssText = `
+            width:${size}px; height:${size}px;
+            top:${Math.random() * 100}%;
+            left:${Math.random() * 100}%;
+            opacity:${Math.random() * 0.65 + 0.1};
+            animation: twinkle ${(Math.random() * 4 + 2).toFixed(1)}s ${(Math.random() * 5).toFixed(1)}s ease-in-out infinite;
+        `;
+        starfield.appendChild(s);
+    }
+
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+
+    document.addEventListener('click', (e) => {
+        if (mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+            mobileMenu.classList.remove('open');
+        }
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+
+    // Fade-up on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
