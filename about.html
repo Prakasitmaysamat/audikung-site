@@ -363,115 +363,6 @@
             margin-bottom: 0 !important;
         }
 
-        /* ── SYSTEM SECTION ── */
-        #system {
-            background: #070d24;
-        }
-
-        .system-intro {
-            font-family: var(--font-body);
-            font-size: 1rem;
-            color: var(--text-muted);
-            line-height: 1.9;
-            max-width: 600px;
-            margin-bottom: 3rem;
-        }
-
-        .system-intro strong { color: var(--blue); }
-
-        .system-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.25rem;
-            max-width: 1000px;
-            margin-bottom: 3rem;
-        }
-
-        .system-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 1.75rem;
-            transition: all 0.25s;
-        }
-
-        .system-card:hover {
-            background: var(--bg-card-hover);
-            border-color: rgba(122, 183, 240, 0.2);
-        }
-
-        .system-icon { font-size: 2rem; margin-bottom: 1rem; }
-
-        .system-name {
-            font-family: var(--font-head);
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: var(--blue);
-            margin-bottom: 0.5rem;
-        }
-
-        .system-desc {
-            font-family: var(--font-body);
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            line-height: 1.75;
-        }
-
-        /* ── PIPELINE ── */
-        .pipeline {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem 2.5rem;
-            max-width: 1000px;
-        }
-
-        .pipeline-label {
-            font-family: var(--font-body);
-            font-size: 0.72rem;
-            font-weight: 600;
-            color: var(--blue);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 1.25rem;
-        }
-
-        .pipeline-steps {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            flex-wrap: wrap;
-        }
-
-        .pipeline-step {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(122, 183, 240, 0.07);
-            border: 1px solid rgba(122, 183, 240, 0.15);
-            border-radius: 8px;
-            padding: 0.5rem 1rem;
-            font-family: var(--font-body);
-            font-size: 0.85rem;
-            color: var(--text);
-        }
-
-        .pipeline-step .step-icon { font-size: 1rem; }
-
-        .pipeline-arrow {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .pipeline-result {
-            margin-top: 1.25rem;
-            font-family: var(--font-body);
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .pipeline-result strong { color: var(--green); }
-
         /* ── BELIEF SECTION ── */
         #belief {
             background: linear-gradient(180deg, #070d24 0%, var(--bg) 100%);
@@ -652,15 +543,10 @@
             .hamburger { display: flex; }
             .story-layout { grid-template-columns: 1fr; gap: 2.5rem; }
             .story-sticky { position: static; }
-            .system-grid { grid-template-columns: repeat(2, 1fr); }
-            .pipeline-steps { flex-direction: column; align-items: flex-start; }
-            .pipeline-arrow { transform: rotate(90deg); }
         }
 
         @media (max-width: 600px) {
             section { padding: 4rem 5%; }
-            .system-grid { grid-template-columns: 1fr; }
-            .pipeline { padding: 1.5rem; }
             footer { flex-direction: column; align-items: flex-start; }
             .quote-block { padding: 1.25rem 1.25rem; }
         }
@@ -765,12 +651,18 @@
 
             <div class="story-chapter">
                 <p class="chapter-label">Chapter 03 — ปัจจุบัน</p>
-                <h3 class="chapter-title">โซโลพรีเนอร์ที่สร้างทุกอย่างด้วยตัวเอง</h3>
+                <h3 class="chapter-title">โซโลพรีเนอร์ที่ใช้ AI เป็นระบบ</h3>
                 <div class="chapter-body">
                     <p>
-                        วันนี้ผมทำงานเป็นโซโลพรีเนอร์เต็มตัว
-                        สร้างคอนเทนต์เรื่อง <strong>ระบบ การเงิน และโซโลพรีเนอร์</strong>
-                        ผ่าน 5 ช่องทางพร้อมกัน ด้วยระบบ AI ที่ผมสร้างและปรับแต่งเอง
+                        วันนี้ผมทำงานเป็นโซโลพรีเนอร์เต็มตัว สร้างคอนเทนต์เรื่อง
+                        <strong>ระบบ การเงิน และโซโลพรีเนอร์</strong> ผ่าน 5 ช่องทางพร้อมกัน
+                        ด้วยตัวคนเดียว
+                    </p>
+                    <p>
+                        สิ่งที่ทำให้ทำได้คือ <strong>ระบบ AI</strong> ที่ผมสร้างและปรับแต่งเอง
+                        ประกอบด้วย Claude Code · Gemini + NotebookLM · Make.com · Obsidian
+                        และ North Star OS — ทุกอย่างทำงานเชื่อมกัน ผลิต output กว่า 50 ชิ้น/สัปดาห์
+                        โดยไม่ต้องทำทุกอย่างด้วยมือ
                     </p>
                     <p>
                         ผมเชื่อว่าการชอบเล่นเกมไม่ใช่ปัญหา — ปัญหาคือการขาดระบบที่ช่วยให้ลงมือทำได้
@@ -779,108 +671,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</section>
-
-<!-- ── SYSTEM ── -->
-<section id="system">
-    <p class="section-label blue">วิธีที่ผมทำงาน</p>
-    <h2 class="section-title">ระบบ AI ที่ผมสร้างเอง</h2>
-    <p class="system-intro">
-        ผมไม่ได้ใช้ AI แค่พิมพ์คำถาม — ผมสร้าง <strong>ระบบอัตโนมัติ</strong> ที่เชื่อมต่อเครื่องมือหลายตัวเข้าหากัน
-        ทำให้สามารถผลิตคอนเทนต์คุณภาพสูงจำนวนมากได้โดยไม่ต้องทำทุกอย่างด้วยมือ
-    </p>
-
-    <div class="system-grid">
-        <div class="system-card fade-up">
-            <div class="system-icon">🧠</div>
-            <div class="system-name">Claude AI + Claude Code</div>
-            <div class="system-desc">
-                ใช้ Claude เป็น "สมองหลัก" ในการคิด เขียน วิเคราะห์ และสร้างคอนเทนต์
-                Claude Code ช่วยให้ผม build ระบบและ automate workflow ด้วย code จริงๆ
-            </div>
-        </div>
-
-        <div class="system-card fade-up">
-            <div class="system-icon">⚙️</div>
-            <div class="system-name">Make.com Automation</div>
-            <div class="system-desc">
-                เส้นเลือดของระบบทั้งหมด — เชื่อม Discord → AI → Google Drive → ช่องทางต่างๆ
-                โดยอัตโนมัติ ลด manual work ลงกว่า 80%
-            </div>
-        </div>
-
-        <div class="system-card fade-up">
-            <div class="system-icon">💎</div>
-            <div class="system-name">Obsidian Second Brain</div>
-            <div class="system-desc">
-                คลัง "ความรู้ที่มีชีวิต" ที่ sync ผ่าน Google Drive
-                ทุก idea บทความ และ insight ถูก capture และเชื่อมกันเป็นระบบ
-            </div>
-        </div>
-
-        <div class="system-card fade-up">
-            <div class="system-icon">📡</div>
-            <div class="system-name">Discord Input Pipeline</div>
-            <div class="system-desc">
-                Discord ทำหน้าที่เป็น "กล่องรับ input" — ผมส่ง idea หรือ rough draft เข้า
-                แล้ว Make.com รับไปประมวลผลกับ AI ต่อโดยอัตโนมัติ
-            </div>
-        </div>
-
-        <div class="system-card fade-up">
-            <div class="system-icon">☁️</div>
-            <div class="system-name">Google Drive Sync</div>
-            <div class="system-desc">
-                ไฟล์ทุกอย่างอยู่บน Google Drive — ทำให้ระบบทำงานได้ทุกที่ทุกเวลา
-                และ backup อัตโนมัติโดยไม่ต้องกังวล
-            </div>
-        </div>
-
-        <div class="system-card fade-up">
-            <div class="system-icon">📊</div>
-            <div class="system-name">North Star OS</div>
-            <div class="system-desc">
-                ระบบออกแบบชีวิตที่ผมสร้างจากประสบการณ์จริง ครอบคลุมทั้งเป้าหมาย
-                การเงิน และคอนเทนต์ — ผมใช้เองก่อน แล้วค่อยแชร์ให้คนอื่น
-            </div>
-        </div>
-    </div>
-
-    <div class="pipeline fade-up">
-        <p class="pipeline-label">Content Pipeline — 50 outputs/week</p>
-        <div class="pipeline-steps">
-            <div class="pipeline-step">
-                <span class="step-icon">💡</span>
-                <span>Idea / Draft</span>
-            </div>
-            <span class="pipeline-arrow">→</span>
-            <div class="pipeline-step">
-                <span class="step-icon">📡</span>
-                <span>Discord Input</span>
-            </div>
-            <span class="pipeline-arrow">→</span>
-            <div class="pipeline-step">
-                <span class="step-icon">⚙️</span>
-                <span>Make.com</span>
-            </div>
-            <span class="pipeline-arrow">→</span>
-            <div class="pipeline-step">
-                <span class="step-icon">🧠</span>
-                <span>Claude AI</span>
-            </div>
-            <span class="pipeline-arrow">→</span>
-            <div class="pipeline-step">
-                <span class="step-icon">💎</span>
-                <span>Obsidian</span>
-            </div>
-            <span class="pipeline-arrow">→</span>
-            <div class="pipeline-step">
-                <span class="step-icon">📤</span>
-                <span>5 ช่องทาง</span>
-            </div>
-        </div>
-        <p class="pipeline-result">ผลลัพธ์: <strong>50+ outputs/week</strong> — YouTube · TikTok (×2) · Instagram · Affiliate — ด้วยตัวคนเดียว</p>
     </div>
 </section>
 
