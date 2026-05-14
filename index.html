@@ -699,6 +699,97 @@
 
         .footer-links a:hover { color: var(--text); }
 
+        /* ── FREE ── */
+        #free { background: linear-gradient(180deg, #070d24 0%, var(--bg) 100%); }
+
+        .free-featured {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            max-width: 900px;
+            margin: 0 auto 1.75rem;
+            background: var(--bg-card);
+            border: 1px solid rgba(74,222,128,0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.25s;
+            box-shadow: 0 0 40px rgba(74,222,128,0.04);
+        }
+
+        .free-featured:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(74,222,128,0.4);
+            box-shadow: 0 12px 48px rgba(74,222,128,0.1);
+            transform: translateY(-4px);
+        }
+
+        .free-featured-icon { font-size: 3.5rem; flex-shrink: 0; }
+
+        .free-badge {
+            display: inline-block;
+            font-family: var(--font-body);
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 0.18rem 0.7rem;
+            border-radius: 4px;
+            margin-bottom: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: rgba(74,222,128,0.12);
+            color: #4ade80;
+            border: 1px solid rgba(74,222,128,0.3);
+        }
+
+        .free-featured h3 {
+            font-family: var(--font-head);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--gold-light);
+            margin-bottom: 0.65rem;
+        }
+
+        .free-featured p {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 1.25rem;
+        }
+
+        .free-featured .product-link { color: #4ade80; }
+
+        .free-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .free-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .free-card-name {
+            font-family: var(--font-head);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 0.6rem;
+        }
+
+        .free-card p {
+            font-family: var(--font-body);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.75;
+        }
+
         /* ── ANIMATIONS ── */
         @keyframes twinkle {
             0%, 100% { opacity: 0.15; }
@@ -723,6 +814,8 @@
             .products-grid { grid-template-columns: 1fr; max-width: 480px; }
             .articles-grid { grid-template-columns: 1fr; max-width: 480px; }
             .channels-grid { grid-template-columns: repeat(2, 1fr); }
+            .free-featured { flex-direction: column; gap: 1.25rem; max-width: 480px; }
+            .free-grid { grid-template-columns: 1fr; max-width: 480px; }
         }
 
         @media (max-width: 600px) {
@@ -743,6 +836,7 @@
     </a>
     <ul class="nav-links">
         <li><a href="#products">สินค้า</a></li>
+        <li><a href="#free">ของฟรี</a></li>
         <li><a href="#articles">บทความ</a></li>
         <li><a href="#channels">ช่องทาง</a></li>
         <li><a href="about.html">เกี่ยวกับ</a></li>
@@ -755,6 +849,7 @@
 
 <div class="mobile-menu" id="mobileMenu">
     <a href="#products">สินค้า</a>
+    <a href="#free">ของฟรี</a>
     <a href="#articles">บทความ</a>
     <a href="#channels">ช่องทาง</a>
     <a href="about.html">เกี่ยวกับ</a>
@@ -838,6 +933,38 @@
             <p class="product-desc">บริการให้คำปรึกษาส่วนตัว สำหรับคนที่อยากสร้างระบบชีวิต วางแผนการเงิน หรือเริ่มต้นธุรกิจโซโลพรีเนอร์อย่างจริงจัง</p>
             <span class="product-link">ติดตามที่ LINE OA →</span>
         </a>
+    </div>
+</section>
+
+<!-- ── FREE ── -->
+<section id="free">
+    <p class="section-label">ของฟรี</p>
+    <h2 class="section-title">เริ่มต้นได้เลย ฟรี 100%</h2>
+    <p class="section-sub">ทดลองใช้ก่อนตัดสินใจ เครื่องมือที่ผมสร้างและใช้เองจริง ให้ฟรีไม่มีเงื่อนไข</p>
+
+    <a href="https://www.notion.so/34f76f6c95968071a747c4669a5414ed?source=copy_link" target="_blank" rel="noopener" class="free-featured fade-up">
+        <div class="free-featured-icon">⭐</div>
+        <div>
+            <span class="free-badge">FREE</span>
+            <h3>North Star OS — Notion Template</h3>
+            <p>เทมเพลต Notion สำหรับออกแบบชีวิต ตั้งเป้าหมาย และจัดระบบความคิด ฟรีทันที ไม่ต้องสมัคร ก็อปไปใช้ได้เลย</p>
+            <span class="product-link">รับฟรีทันที →</span>
+        </div>
+    </a>
+
+    <div class="free-grid">
+        <div class="free-card fade-up">
+            <div class="product-icon">📄</div>
+            <span class="product-badge badge-soon">เร็วๆ นี้</span>
+            <h3 class="free-card-name">E-Book ฟรี</h3>
+            <p>คู่มือย่อฉบับฟรี เรื่องการเงินและการสร้างระบบชีวิต กำลังมา — ติดตามได้ที่ LINE OA</p>
+        </div>
+        <div class="free-card fade-up">
+            <div class="product-icon">🤖</div>
+            <span class="product-badge badge-soon">เร็วๆ นี้</span>
+            <h3 class="free-card-name">AI Prompts Pack</h3>
+            <p>คอลเลกชัน Prompt AI ที่ผมใช้จริงทุกวัน สำหรับสร้างระบบ วางแผน และผลิตคอนเทนต์ กำลังมา</p>
+        </div>
     </div>
 </section>
 
