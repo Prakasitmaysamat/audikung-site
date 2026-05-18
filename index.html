@@ -404,13 +404,41 @@
 
         .product-card.product-featured {
             grid-column: 1 / -1;
-            display: flex;
-            align-items: flex-start;
-            gap: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 180px;
+            gap: 2rem;
+            align-items: center;
+            border-color: rgba(201,168,76,0.22);
+            background: linear-gradient(120deg, rgba(201,168,76,0.06) 0%, rgba(255,255,255,0.03) 100%);
+            box-shadow: 0 0 50px rgba(201,168,76,0.07);
         }
 
-        .product-card.product-featured .product-icon { flex-shrink: 0; }
-        .product-card.product-featured .product-desc { max-width: 480px; }
+        .product-featured-right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
+            border-left: 1px solid rgba(201,168,76,0.15);
+            padding-left: 2rem;
+            text-align: center;
+        }
+
+        .product-featured-price-label {
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .product-featured-price {
+            font-family: var(--font-head);
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--gold-light);
+            line-height: 1;
+        }
 
         .product-card {
             background: var(--bg-card);
@@ -822,7 +850,8 @@
             .nav-links { display: none; }
             .hamburger { display: flex; }
             .products-grid { grid-template-columns: 1fr; max-width: 480px; }
-            .product-card.product-featured { flex-direction: column; gap: 1.5rem; }
+            .product-card.product-featured { grid-template-columns: 1fr; }
+            .product-featured-right { border-left: none; border-top: 1px solid rgba(201,168,76,0.15); padding-left: 0; padding-top: 1.5rem; }
             .articles-grid { grid-template-columns: 1fr; max-width: 480px; }
             .channels-grid { grid-template-columns: repeat(2, 1fr); }
             .free-featured { flex-direction: column; gap: 1.25rem; max-width: 480px; }
@@ -1003,19 +1032,26 @@
 
     <div class="products-grid">
         <a href="northstar.html" class="product-card gold clickable fade-up product-featured">
-            <div class="product-icon"><img src="https://i.ibb.co/fYjrNTH6/LITE-1.png" alt="North Star OS" style="width:48px;height:48px;object-fit:contain;border-radius:8px;"></div>
-            <span class="product-badge badge-live">Live Now</span>
-            <h3 class="product-name">North Star OS</h3>
-            <p class="product-desc">ระบบออกแบบชีวิตสำหรับคนที่อยากหยุด "สุ่ม" และเริ่มใช้ชีวิตแบบมีทิศทาง ตั้งแต่เป้าหมาย การเงิน ไปจนถึงคอนเทนต์</p>
-            <div class="product-tiers">
-                <span class="tier-tag">BASIC ฿590</span>
-                <span class="tier-tag">PRO ฿1,190</span>
-                <span class="tier-tag">VIP ฿4,900</span>
+            <div class="product-featured-left">
+                <div class="product-icon"><img src="https://i.ibb.co/fYjrNTH6/LITE-1.png" alt="North Star OS" style="width:48px;height:48px;object-fit:contain;border-radius:8px;"></div>
+                <span class="product-badge badge-live">Live Now</span>
+                <h3 class="product-name">North Star OS</h3>
+                <p class="product-desc">ระบบออกแบบชีวิตสำหรับคนที่อยากหยุด "สุ่ม" และเริ่มใช้ชีวิตแบบมีทิศทาง ตั้งแต่เป้าหมาย การเงิน ไปจนถึงคอนเทนต์</p>
+                <div class="product-tiers">
+                    <span class="tier-tag">BASIC ฿590</span>
+                    <span class="tier-tag">PRO ฿1,190</span>
+                    <span class="tier-tag">VIP ฿4,900</span>
+                </div>
             </div>
-            <span class="product-link">ดูรายละเอียด →</span>
+            <div class="product-featured-right">
+                <span class="product-featured-price-label">เริ่มต้นที่</span>
+                <span class="product-featured-price">฿590</span>
+                <span class="product-link">ดูรายละเอียด →</span>
+            </div>
         </a>
 
         <a href="https://lin.ee/UTD2Lpo" target="_blank" rel="noopener" class="product-card blue clickable fade-up">
+            <div class="product-icon">📖</div>
             <span class="product-badge badge-soon">เร็วๆ นี้</span>
             <h3 class="product-name">E-Book</h3>
             <p class="product-desc">คู่มือฉบับย่อจากประสบการณ์จริง เรื่องการเงิน การลงทุน และการสร้างระบบชีวิต อ่านจบในครั้งเดียว นำไปใช้ได้เลย</p>
@@ -1023,6 +1059,7 @@
         </a>
 
         <a href="https://lin.ee/UTD2Lpo" target="_blank" rel="noopener" class="product-card purple clickable fade-up">
+            <div class="product-icon">🎓</div>
             <span class="product-badge badge-soon">เร็วๆ นี้</span>
             <h3 class="product-name">Online Course</h3>
             <p class="product-desc">คอร์สออนไลน์แบบ Step-by-Step ที่จะพาคุณจาก 0 ถึงมีระบบ ไม่ว่าจะเรื่องการลงทุน การเงิน หรือการสร้างธุรกิจโซโลพรีเนอร์</p>
@@ -1030,6 +1067,7 @@
         </a>
 
         <a href="https://lin.ee/UTD2Lpo" target="_blank" rel="noopener" class="product-card teal clickable fade-up">
+            <div class="product-icon">🤝</div>
             <span class="product-badge badge-soon">เร็วๆ นี้</span>
             <h3 class="product-name">Consulting</h3>
             <p class="product-desc">บริการให้คำปรึกษาส่วนตัว สำหรับคนที่อยากสร้างระบบชีวิต วางแผนการเงิน หรือเริ่มต้นธุรกิจโซโลพรีเนอร์อย่างจริงจัง</p>
@@ -1064,18 +1102,21 @@
 
     <div class="articles-grid">
         <a href="https://www.notion.so/SELF-IMPROVEMENT-35f76f6c959680c2a9ece4134d1805db" target="_blank" rel="noopener" class="article-card fade-up">
+            <div class="article-icon">🧠</div>
             <h3 class="article-name">Self-Improvement</h3>
             <p class="article-topics">AI Tools & Tactics · Meta-Learning · Productivity · Time Management · Life Optimization</p>
             <span class="article-link">อ่านบทความ →</span>
         </a>
 
         <a href="https://www.notion.so/FINANCE-INVESTING-35f76f6c959680709f16fd151fdc2018" target="_blank" rel="noopener" class="article-card fade-up">
+            <div class="article-icon">📈</div>
             <h3 class="article-name">Finance</h3>
             <p class="article-topics">Personal Finance · การลงทุน · US Stocks · Financial News · ประวัติศาสตร์การเงิน</p>
             <span class="article-link">อ่านบทความ →</span>
         </a>
 
         <a href="https://www.notion.so/SOLOPRENEUR-PERSONAL-BRAND-35f76f6c9596804e97ebdb2af92cbcec" target="_blank" rel="noopener" class="article-card fade-up">
+            <div class="article-icon">🚀</div>
             <h3 class="article-name">Solopreneur & Personal Branding</h3>
             <p class="article-topics">สร้างธุรกิจโซโล · Personal Branding · Content Strategy · หาเงินออนไลน์</p>
             <span class="article-link">อ่านบทความ →</span>
