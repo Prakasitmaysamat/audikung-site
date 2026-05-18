@@ -297,6 +297,7 @@
             .versus-grid { grid-template-columns: 1fr; max-width: 480px; }
             .versus-divider { display: none; }
             .ai-grid { grid-template-columns: repeat(2, 1fr); }
+            .ai-grid .ai-card:last-child:nth-child(odd) { grid-column: 1 / -1; max-width: calc(50% - 0.625rem); margin: 0 auto; }
             .game-wrap { grid-template-columns: 1fr; gap: 2rem; }
         }
         @media (max-width: 600px) {
