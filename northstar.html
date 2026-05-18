@@ -134,18 +134,8 @@
         .versus-divider { display: flex; align-items: center; justify-content: center; padding-top: 3rem; }
         .versus-vs { font-family: var(--font-head); font-size: 0.85rem; font-weight: 800; color: var(--text-muted); background: var(--bg-card); border: 1px solid var(--border); width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; letter-spacing: 1px; }
 
-        /* AI PROMPTS */
-        #ai-prompts { background: linear-gradient(180deg, var(--bg) 0%, #070d24 100%); }
-        .ai-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; max-width: 960px; margin: 0 auto 2rem; }
-        .ai-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem; transition: border-color 0.25s, background 0.25s; }
-        .ai-card:not(.ai-coming):hover { border-color: rgba(201,168,76,0.3); background: var(--bg-card-hover); }
-        .ai-card.ai-coming { opacity: 0.55; }
-        .ai-icon { font-size: 2rem; margin-bottom: 0.65rem; }
-        .ai-badge { display: inline-block; font-family: var(--font-body); font-size: 0.68rem; font-weight: 600; color: var(--gold); background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.25); border-radius: 20px; padding: 0.18rem 0.6rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 0.6rem; }
-        .ai-badge-soon { color: var(--text-muted) !important; background: rgba(255,255,255,0.04) !important; border-color: var(--border) !important; }
-        .ai-name { font-family: var(--font-head); font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.6rem; }
-        .ai-desc { font-family: var(--font-body); font-size: 0.85rem; color: var(--text-muted); line-height: 1.75; }
-        .ai-note { text-align: center; font-family: var(--font-body); font-size: 0.85rem; color: var(--gold); max-width: 600px; margin: 0 auto; background: rgba(201,168,76,0.06); border: 1px solid rgba(201,168,76,0.18); border-radius: 10px; padding: 0.85rem 1.5rem; }
+        /* GUIDE PREVIEW */
+        .guide-preview { display: flex; align-items: center; gap: 1.25rem; max-width: 760px; margin: 1.5rem auto 0; background: var(--bg-card); border: 1px solid rgba(201,168,76,0.18); border-radius: 12px; padding: 1.25rem 1.5rem; }
 
         /* SYSTEMS */
         #systems { background: #070d24; }
@@ -296,14 +286,12 @@
             .compare-grid { grid-template-columns: 1fr; max-width: 480px; }
             .versus-grid { grid-template-columns: 1fr; max-width: 480px; }
             .versus-divider { display: none; }
-            .ai-grid { grid-template-columns: repeat(2, 1fr); }
-            .ai-grid .ai-card:last-child:nth-child(odd) { grid-column: 1 / -1; max-width: calc(50% - 0.625rem); margin: 0 auto; }
             .game-wrap { grid-template-columns: 1fr; gap: 2rem; }
         }
         @media (max-width: 600px) {
             section { padding: 4rem 5%; }
             .systems-grid { grid-template-columns: 1fr; }
-            .ai-grid { grid-template-columns: 1fr; }
+            .guide-preview { flex-direction: column; text-align: center; }
             .proof-grid { gap: 2rem; }
             footer { flex-direction: column; align-items: flex-start; }
         }
@@ -330,7 +318,6 @@
         AUDIKUNG
     </a>
     <ul class="nav-links">
-        <li><a href="#ai-prompts">AI Prompts</a></li>
         <li><a href="#systems">ระบบ</a></li>
         <li><a href="#pricing">ราคา</a></li>
         <li><a href="#testimonials">รีวิว</a></li>
@@ -343,7 +330,6 @@
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
-    <a href="#ai-prompts">AI Prompts</a>
     <a href="#systems">ระบบ</a>
     <a href="#pricing">ราคา</a>
     <a href="#testimonials">รีวิว</a>
@@ -410,16 +396,28 @@
 <section id="video">
     <p class="section-label">ดูก่อนตัดสินใจ</p>
     <h2 class="section-title">เห็นระบบจริงก่อนซื้อ</h2>
-    <p class="section-sub">เปิด Setup Guide ดูทุกหน้า ทุกระบบ ก่อนตัดสินใจ — ไม่ต้องเดาว่าข้างในมีอะไร</p>
-    <div class="video-wrap" style="aspect-ratio:unset;min-height:260px;padding:3rem 2rem;">
+    <p class="section-sub">ดูวิดีโอภาพรวม Dashboard + 3 Tier แล้วเปิด Guide สำรวจทุกหน้า</p>
+
+    <!-- เมื่อมี YouTube Video ID แล้ว ให้แทนที่ div.video-placeholder ด้วย: -->
+    <!-- <iframe width="100%" height="100%" src="https://www.youtube.com/embed/VIDEO_ID_HERE" title="North Star OS" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
+    <div class="video-wrap">
         <div class="video-placeholder">
-            <div style="font-size:2.8rem;margin-bottom:1rem;">📖</div>
-            <p style="font-size:1.05rem;color:var(--text);font-weight:600;margin-bottom:0.5rem;">North Star OS — Setup Guide</p>
-            <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:1.75rem;">ดูทุกหน้า ทุกระบบ และวิธีใช้จริง ก่อนตัดสินใจซื้อ</p>
-            <a href="https://www.notion.so/NORTH-STAR-OS-GUIDE-8a276f6c95968342860181adf80dd40a" target="_blank" rel="noopener" class="btn-primary" style="display:inline-block;">เปิด Setup Guide →</a>
+            <div style="font-size:2rem;margin-bottom:0.75rem;">🎬</div>
+            <p style="font-size:1rem;color:var(--text);font-weight:600;margin-bottom:0.25rem;">วิดีโอ Dashboard & 3 Tier</p>
+            <p style="font-size:0.82rem;color:var(--text-muted);">กำลังมาเร็วๆ นี้</p>
         </div>
     </div>
-    <div style="text-align:center;margin-top:2.5rem;">
+
+    <div class="guide-preview fade-up">
+        <span style="font-size:1.5rem;flex-shrink:0;">📖</span>
+        <div style="flex:1;min-width:0;">
+            <p style="font-family:var(--font-head);font-size:1rem;font-weight:700;color:var(--text);margin-bottom:0.2rem;">Setup Guide ครบ — ดูก่อนซื้อได้เลย</p>
+            <p style="font-family:var(--font-body);font-size:0.85rem;color:var(--text-muted);">ดูทุกหน้า ทุกระบบ และวิธีใช้จริง ก่อนตัดสินใจ</p>
+        </div>
+        <a href="https://www.notion.so/NORTH-STAR-OS-GUIDE-8a276f6c95968342860181adf80dd40a" target="_blank" rel="noopener" class="btn-primary" style="white-space:nowrap;flex-shrink:0;">เปิด Guide →</a>
+    </div>
+
+    <div style="text-align:center;margin-top:2rem;">
         <a href="#pricing" class="btn-secondary">ดูแพ็คเกจและราคา →</a>
     </div>
 </section>
@@ -529,48 +527,6 @@
             </ul>
         </div>
     </div>
-</section>
-
-<!-- AI PROMPTS -->
-<section id="ai-prompts">
-    <p class="section-label">ฟีเจอร์หลัก</p>
-    <h2 class="section-title">AI Prompts พร้อมใช้ — รวมอยู่ในระบบแล้ว</h2>
-    <p class="section-sub">ไม่ต้องเสียเวลาเขียน Prompt เอง — copy แล้ววางใน ChatGPT หรือ Claude ได้เลย</p>
-
-    <div class="ai-grid">
-        <div class="ai-card fade-up">
-            <div class="ai-icon">🧭</div>
-            <div class="ai-badge">Identity</div>
-            <div class="ai-name">Identity & Soul AI</div>
-            <p class="ai-desc">โค้ชที่ถามคำถามลึกกว่าที่คุณถามตัวเองเคย — ผ่าน 8 Phase ได้ Ikigai Statement + Vision Board ใน 1 session</p>
-        </div>
-        <div class="ai-card fade-up">
-            <div class="ai-icon">🎬</div>
-            <div class="ai-badge">Content</div>
-            <div class="ai-name">Content Pipeline AI</div>
-            <p class="ai-desc">เปลี่ยนไอเดียดิบเป็น Script พร้อมโพสต์ — Hook, Story, CTA ครบ ใช้ได้ทุก Platform ทั้ง Short และ Long Form</p>
-        </div>
-        <div class="ai-card fade-up">
-            <div class="ai-icon">📈</div>
-            <div class="ai-badge">Investing</div>
-            <div class="ai-name">Investment Research AI</div>
-            <p class="ai-desc">วิเคราะห์หุ้น ETF Crypto ด้วย Framework มืออาชีพ — Fundamental + Macro + Execution Verdict ในครั้งเดียว</p>
-        </div>
-        <div class="ai-card fade-up">
-            <div class="ai-icon">📊</div>
-            <div class="ai-badge">Trading</div>
-            <div class="ai-name">Trading Journal AI</div>
-            <p class="ai-desc">Review Discipline, Pattern และความผิดพลาดของคุณ — ด้วย AI ที่อ่านและวิเคราะห์เทรดของคุณจริงๆ</p>
-        </div>
-        <div class="ai-card fade-up">
-            <div class="ai-icon">💸</div>
-            <div class="ai-badge">Finance</div>
-            <div class="ai-name">Finance Analyst AI</div>
-            <p class="ai-desc">วิเคราะห์รายรับ-รายจ่าย อัตราการออม และ Budget ของคุณ — ให้คำแนะนำปรับการใช้เงินและหาช่องว่างที่ยังไม่ได้ใช้ประโยชน์</p>
-        </div>
-    </div>
-
-    <p class="ai-note fade-up">✦ AI Prompts อัปเดตฟรีตลอดชีพ — ทุก Prompt ใหม่ที่เพิ่มในอนาคต คุณได้รับอัตโนมัติโดยไม่มีค่าใช้จ่ายเพิ่ม</p>
 </section>
 
 <!-- SYSTEMS -->
