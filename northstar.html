@@ -136,7 +136,7 @@
 
         /* AI PROMPTS */
         #ai-prompts { background: linear-gradient(180deg, var(--bg) 0%, #070d24 100%); }
-        .ai-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; max-width: 1100px; margin: 0 auto 2rem; }
+        .ai-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; max-width: 960px; margin: 0 auto 2rem; }
         .ai-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem; transition: border-color 0.25s, background 0.25s; }
         .ai-card:not(.ai-coming):hover { border-color: rgba(201,168,76,0.3); background: var(--bg-card-hover); }
         .ai-card.ai-coming { opacity: 0.55; }
@@ -408,10 +408,18 @@
 <!-- VIDEO -->
 <section id="video">
     <p class="section-label">ดูก่อนตัดสินใจ</p>
-    <h2 class="section-title">รู้จักผมและระบบนี้ให้มากขึ้น</h2>
-    <p class="section-sub">ดูวิดีโอนี้ก่อนตัดสินใจ เพื่อให้รู้ว่าระบบนี้เหมาะกับคุณไหม</p>
-    <div class="video-wrap">
-        <div class="video-placeholder">[ วิดีโอแนะนำ North Star OS ]<br><small>เพิ่ม YouTube Embed URL ที่นี่</small></div>
+    <h2 class="section-title">เห็นระบบจริงก่อนซื้อ</h2>
+    <p class="section-sub">เปิด Setup Guide ดูทุกหน้า ทุกระบบ ก่อนตัดสินใจ — ไม่ต้องเดาว่าข้างในมีอะไร</p>
+    <div class="video-wrap" style="aspect-ratio:unset;min-height:260px;padding:3rem 2rem;">
+        <div class="video-placeholder">
+            <div style="font-size:2.8rem;margin-bottom:1rem;">📖</div>
+            <p style="font-size:1.05rem;color:var(--text);font-weight:600;margin-bottom:0.5rem;">North Star OS — Setup Guide</p>
+            <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:1.75rem;">ดูทุกหน้า ทุกระบบ และวิธีใช้จริง ก่อนตัดสินใจซื้อ</p>
+            <a href="https://www.notion.so/NORTH-STAR-OS-GUIDE-8a276f6c95968342860181adf80dd40a" target="_blank" rel="noopener" class="btn-primary" style="display:inline-block;">เปิด Setup Guide →</a>
+        </div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;">
+        <a href="#pricing" class="btn-secondary">ดูแพ็คเกจและราคา →</a>
     </div>
 </section>
 
@@ -514,7 +522,7 @@
                 <li class="vgold">+ AI Prompts ช่วยคิดทุกขั้นตอน</li>
                 <li class="vgold">+ Identity & Soul Workshop</li>
                 <li class="vgold">+ Gamification — EXP & Reward System</li>
-                <li>+ database สัมพันธ์และเชื่อมกัน</li>
+                <li>+ Database สัมพันธ์และเชื่อมกัน</li>
                 <li>+ Calendar รวม 7 ระบบในหน้าเดียว</li>
                 <li>+ ออกแบบเพื่อโซโลพรีเนอร์ไทยโดยเฉพาะ</li>
             </ul>
@@ -552,6 +560,12 @@
             <div class="ai-badge">Trading</div>
             <div class="ai-name">Trading Journal AI</div>
             <p class="ai-desc">Review Discipline, Pattern และความผิดพลาดของคุณ — ด้วย AI ที่อ่านและวิเคราะห์เทรดของคุณจริงๆ</p>
+        </div>
+        <div class="ai-card fade-up">
+            <div class="ai-icon">💸</div>
+            <div class="ai-badge">Finance</div>
+            <div class="ai-name">Finance Analyst AI</div>
+            <p class="ai-desc">วิเคราะห์รายรับ-รายจ่าย อัตราการออม และ Budget ของคุณ — ให้คำแนะนำปรับการใช้เงินและหาช่องว่างที่ยังไม่ได้ใช้ประโยชน์</p>
         </div>
     </div>
 
@@ -838,7 +852,7 @@
         <div class="testimonial-card fade-up">
             <div class="testi-header">
                 <div class="testi-avatar">ไ</div>
-                <div><div class="testi-name">ไอซ์</div><div class="testi-tier">BASIC Tier</div></div>
+                <div><div class="testi-name">ไอซ์</div><div class="testi-tier">PRO Tier</div></div>
             </div>
             <div class="testi-bubble">
                 <p class="testi-text">จด Income/Expense ครั้งแรกในชีวิต แล้วตกใจเลยว่าเงินหายไปที่ค่ากาแฟและ Grab เยอะมาก รู้แล้วก็แก้ได้เลย</p>
@@ -861,7 +875,7 @@
                 <div><div class="testi-name">กัน</div><div class="testi-tier">PRO (Upgrade จาก BASIC)</div></div>
             </div>
             <div class="testi-bubble">
-                <p class="testi-text">เริ่ม BASIC ก่อน ใช้อาทิตย์นึงแล้วอัปเกรด PRO ทันที เพราะอยากได้ Video Guide กับ AI Prompts ครับ คุ้มมาก จ่ายแค่ส่วนต่าง</p>
+                <p class="testi-text">เริ่ม BASIC ก่อน ใช้อาทิตย์นึงแล้วอัปเกรด PRO ทันที เพราะอยากได้ Finance System กับ AI Prompts ครับ คุ้มมาก จ่ายแค่ส่วนต่าง</p>
                 <div class="testi-stars">★★★★★</div>
             </div>
         </div>
