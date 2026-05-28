@@ -993,9 +993,33 @@
             0% { opacity: 0.8; transform: scale(1); }
             100% { opacity: 0; transform: scale(0.1) translateY(-14px); }
         }
+
+        /* ── VISUAL ENHANCEMENTS ── */
+        .scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-light)); z-index: 9999; width: 0%; box-shadow: 0 0 10px var(--gold-glow); transition: width 0.08s linear; pointer-events: none; }
+        .btn-primary { position: relative; overflow: hidden; }
+        .btn-primary::after { content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent); animation: btnShimmer 3s ease-in-out infinite; pointer-events: none; }
+        @keyframes btnShimmer { 0% { left: -100%; } 55%, 100% { left: 150%; } }
+        #starfield { transition: transform 1.8s ease-out !important; }
+        .hero-sub { animation: none !important; opacity: 0; }
+
+        /* Platform cards */
+        .platform-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; max-width: 760px; margin: 1.5rem auto 0; }
+        .platform-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; text-decoration: none; color: var(--text); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.55rem; transition: all 0.25s; }
+        .platform-card img { width: 34px; height: 34px; object-fit: contain; }
+        .platform-card-name { font-family: var(--font-head); font-size: 0.95rem; font-weight: 700; }
+        .platform-card-handle { font-family: var(--font-body); font-size: 0.75rem; color: var(--text-muted); }
+        .platform-card-desc { font-family: var(--font-body); font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; flex: 1; }
+        .platform-card-link { font-family: var(--font-body); font-size: 0.82rem; font-weight: 600; margin-top: 0.15rem; }
+        .platform-card.teal:hover { background: var(--bg-card-hover); border-color: rgba(77,210,200,0.4); box-shadow: 0 8px 24px rgba(77,210,200,0.1); transform: translateY(-3px); }
+        .platform-card.teal .platform-card-name, .platform-card.teal .platform-card-link { color: #4DD2C8; }
+        .platform-card.purple:hover { background: var(--bg-card-hover); border-color: rgba(155,127,212,0.4); box-shadow: 0 8px 24px rgba(155,127,212,0.1); transform: translateY(-3px); }
+        .platform-card.purple .platform-card-name, .platform-card.purple .platform-card-link { color: var(--purple); }
+        @media (max-width: 640px) { .platform-cards { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
+
+<div id="scrollProgress" class="scroll-progress"></div>
 
 <!-- ── NAV ── -->
 <nav>
@@ -1129,9 +1153,9 @@
 
 <!-- ── LATEST VIDEO ── -->
 <section id="latest-video" style="background:#070d24;">
-    <p class="section-label">คลิปล่าสุด</p>
-    <h2 class="section-title">ดูคอนเทนต์ล่าสุดของผม</h2>
-    <p class="section-sub">อัปเดตอัตโนมัติทุกครั้งที่มีวิดีโอใหม่</p>
+    <p class="section-label">คอนเทนต์ล่าสุด</p>
+    <h2 class="section-title">ดูคอนเทนต์ล่าสุด ทุกช่องทาง</h2>
+    <p class="section-sub">YouTube อัปเดตอัตโนมัติ · กด TikTok หรือ Instagram ด้านล่างเพื่อดูล่าสุด</p>
     <div id="yt-latest" style="max-width:760px;margin:0 auto;" class="fade-up">
         <div style="border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);aspect-ratio:16/9;background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;">
             <p style="font-family:var(--font-body);color:var(--text-muted);font-size:0.9rem;">กำลังโหลดวิดีโอล่าสุด...</p>
@@ -1139,6 +1163,30 @@
     </div>
     <div style="text-align:center;margin-top:1.5rem;">
         <a href="https://www.youtube.com/@Audikung.official" target="_blank" rel="noopener" class="btn-secondary">ดูทั้งหมดที่ YouTube →</a>
+    </div>
+
+    <div class="platform-cards">
+        <a href="https://www.tiktok.com/@audikung.tk" target="_blank" rel="noopener" class="platform-card teal fade-up">
+            <img src="https://i.ibb.co/mrP1gpqJ/tiktok-logo-tik-tok-logo-icon-png-svg.png" alt="TikTok">
+            <div class="platform-card-name">AUDIKUNG</div>
+            <div class="platform-card-handle">@audikung.tk</div>
+            <div class="platform-card-desc">ระบบ · โซโลพรีเนอร์<br>Build in Public</div>
+            <span class="platform-card-link">ดูล่าสุดที่ TikTok →</span>
+        </a>
+        <a href="https://www.tiktok.com/@audikungfinance" target="_blank" rel="noopener" class="platform-card teal fade-up">
+            <img src="https://i.ibb.co/mrP1gpqJ/tiktok-logo-tik-tok-logo-icon-png-svg.png" alt="TikTok">
+            <div class="platform-card-name">การเงินกุ้งๆ</div>
+            <div class="platform-card-handle">@audikungfinance</div>
+            <div class="platform-card-desc">การเงินส่วนตัว<br>เพื่อคนเริ่มต้น</div>
+            <span class="platform-card-link">ดูล่าสุดที่ TikTok →</span>
+        </a>
+        <a href="https://www.instagram.com/audikung_/" target="_blank" rel="noopener" class="platform-card purple fade-up">
+            <img src="https://i.ibb.co/My7Tmg2w/Instagram-icon.png" alt="Instagram">
+            <div class="platform-card-name">AUDIKUNG</div>
+            <div class="platform-card-handle">@audikung_</div>
+            <div class="platform-card-desc">Solo: From Zero<br>Build in Public</div>
+            <span class="platform-card-link">ดูล่าสุดที่ Instagram →</span>
+        </a>
     </div>
 </section>
 
@@ -1357,6 +1405,60 @@
             })
             .catch(() => {});
     }
+
+    /* ── VISUAL ENHANCEMENTS JS ── */
+
+    // 1. Scroll progress bar
+    (function(){
+        const bar = document.getElementById('scrollProgress');
+        if (!bar) return;
+        window.addEventListener('scroll', () => {
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            bar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+        }, { passive: true });
+    })();
+
+    // 2. Mouse parallax on starfield
+    (function(){
+        const sf = document.getElementById('starfield');
+        if (!sf) return;
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 22;
+            const y = (e.clientY / window.innerHeight - 0.5) * 22;
+            sf.style.transform = `translate(${x}px, ${y}px) scale(1.06)`;
+        });
+    })();
+
+    // 3. Card tilt on hover
+    document.querySelectorAll('.product-card, .channel-card, .free-featured, .platform-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const r = card.getBoundingClientRect();
+            const x = (e.clientX - r.left) / r.width - 0.5;
+            const y = (e.clientY - r.top) / r.height - 0.5;
+            card.style.transform = `perspective(700px) rotateX(${y * -8}deg) rotateY(${x * 8}deg) translateY(-4px)`;
+            card.style.transition = 'transform 0.1s ease';
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+            card.style.transition = 'transform 0.5s ease';
+        });
+    });
+
+    // 4. Typing effect on hero sub
+    (function(){
+        const el = document.querySelector('.hero-sub');
+        if (!el) return;
+        const text = el.textContent.trim();
+        el.textContent = '';
+        setTimeout(() => {
+            el.style.opacity = '1';
+            let i = 0;
+            const t = setInterval(() => {
+                if (i < text.length) el.textContent += text[i++];
+                else clearInterval(t);
+            }, 42);
+        }, 1600);
+    })();
 </script>
 </body>
 </html>

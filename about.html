@@ -566,9 +566,21 @@
             footer { flex-direction: column; align-items: flex-start; }
             .quote-block { padding: 1.25rem 1.25rem; }
         }
+
+        /* ── VISUAL ENHANCEMENTS ── */
+        .scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-light)); z-index: 9999; width: 0%; box-shadow: 0 0 10px var(--gold-glow); transition: width 0.08s linear; pointer-events: none; }
+        .btn-primary { position: relative; overflow: hidden; }
+        .btn-primary::after { content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent); animation: btnShimmer 3s ease-in-out infinite; pointer-events: none; }
+        @keyframes btnShimmer { 0% { left: -100%; } 55%, 100% { left: 150%; } }
+        #starfield { transition: transform 1.8s ease-out !important; }
+        .section-sub { font-family: var(--font-body); font-size: 1rem; color: var(--text-muted); margin: 0 auto 2rem; max-width: 520px; line-height: 1.8; text-align: center; }
+        .quote-block { transition: border-color 0.5s ease, box-shadow 0.5s ease, background 0.5s ease; }
+        .quote-block.glow { border-left-color: var(--gold-light); box-shadow: -4px 0 24px rgba(201,168,76,0.2); background: rgba(201,168,76,0.06); }
     </style>
 </head>
 <body>
+
+<div id="scrollProgress" class="scroll-progress"></div>
 
 <!-- ── NAV ── -->
 <nav>
@@ -814,6 +826,37 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    /* ── VISUAL ENHANCEMENTS JS ── */
+
+    // 1. Scroll progress bar
+    (function(){
+        const bar = document.getElementById('scrollProgress');
+        if (!bar) return;
+        window.addEventListener('scroll', () => {
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            bar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+        }, { passive: true });
+    })();
+
+    // 2. Mouse parallax on starfield
+    (function(){
+        const sf = document.getElementById('starfield');
+        if (!sf) return;
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 22;
+            const y = (e.clientY / window.innerHeight - 0.5) * 22;
+            sf.style.transform = `translate(${x}px, ${y}px) scale(1.06)`;
+        });
+    })();
+
+    // 3. Quote block glow when scrolled into view (replaces card tilt — about page has no cards)
+    (function(){
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('glow'); });
+        }, { threshold: 0.6 });
+        document.querySelectorAll('.quote-block').forEach(el => obs.observe(el));
+    })();
 </script>
 </body>
 </html>

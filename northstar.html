@@ -307,9 +307,21 @@
         .sp-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; flex-shrink: 0; align-self: flex-start; margin-top: 0.25rem; box-shadow: 0 0 6px rgba(74,222,128,0.7); animation: spPulse 2s ease-in-out infinite; }
         @keyframes spPulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
         @media (max-width: 480px) { .sp-popup { max-width: 260px; left: 1rem; bottom: 1rem; } }
+
+        /* ── VISUAL ENHANCEMENTS ── */
+        .scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-light)); z-index: 9999; width: 0%; box-shadow: 0 0 10px var(--gold-glow); transition: width 0.08s linear; pointer-events: none; }
+        .btn-primary { position: relative; overflow: hidden; }
+        .btn-primary::after { content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent); animation: btnShimmer 3s ease-in-out infinite; pointer-events: none; }
+        @keyframes btnShimmer { 0% { left: -100%; } 55%, 100% { left: 150%; } }
+        .pricing-card.pro .pricing-cta { position: relative; overflow: hidden; }
+        .pricing-card.pro .pricing-cta::after { content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent); animation: btnShimmer 3s ease-in-out infinite; pointer-events: none; }
+        #starfield { transition: transform 1.8s ease-out !important; }
+        .hero-tagline { opacity: 0; }
     </style>
 </head>
 <body>
+
+<div id="scrollProgress" class="scroll-progress"></div>
 
 <!-- NAV -->
 <nav>
@@ -1013,6 +1025,86 @@
     }
 
     setTimeout(showNext, 4000);
+
+    /* ── VISUAL ENHANCEMENTS JS ── */
+
+    // 1. Scroll progress bar
+    (function(){
+        const bar = document.getElementById('scrollProgress');
+        if (!bar) return;
+        window.addEventListener('scroll', () => {
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            bar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+        }, { passive: true });
+    })();
+
+    // 2. Mouse parallax on starfield
+    (function(){
+        const sf = document.getElementById('starfield');
+        if (!sf) return;
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 22;
+            const y = (e.clientY / window.innerHeight - 0.5) * 22;
+            sf.style.transform = `translate(${x}px, ${y}px) scale(1.06)`;
+        });
+    })();
+
+    // 3. Card tilt on hover
+    document.querySelectorAll('.system-card, .pricing-card, .avatar-card, .testimonial-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const r = card.getBoundingClientRect();
+            const x = (e.clientX - r.left) / r.width - 0.5;
+            const y = (e.clientY - r.top) / r.height - 0.5;
+            card.style.transform = `perspective(700px) rotateX(${y * -8}deg) rotateY(${x * 8}deg) translateY(-4px)`;
+            card.style.transition = 'transform 0.1s ease';
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+            card.style.transition = 'transform 0.5s ease';
+        });
+    });
+
+    // 4. Counting numbers in proof bar
+    (function(){
+        function animateCounter(el, target, suffix, duration) {
+            const start = performance.now();
+            (function update(now) {
+                const p = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - p, 3);
+                el.textContent = Math.floor(eased * target) + suffix;
+                if (p < 1) requestAnimationFrame(update);
+            })(performance.now());
+        }
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (!e.isIntersecting) return;
+                const num = e.target.querySelector('.proof-number');
+                if (!num || num.dataset.counted) return;
+                num.dataset.counted = 'true';
+                const text = num.textContent.trim();
+                if (text === '∞') return;
+                const m = text.match(/^(\d+)(.*)$/);
+                if (m) animateCounter(num, parseInt(m[1]), m[2], 1600);
+            });
+        }, { threshold: 0.5 });
+        document.querySelectorAll('.proof-item').forEach(el => obs.observe(el));
+    })();
+
+    // 5. Typing effect on hero tagline
+    (function(){
+        const el = document.querySelector('.hero-tagline');
+        if (!el) return;
+        const text = el.textContent.trim();
+        el.textContent = '';
+        setTimeout(() => {
+            el.style.opacity = '1';
+            let i = 0;
+            const t = setInterval(() => {
+                if (i < text.length) el.textContent += text[i++];
+                else clearInterval(t);
+            }, 42);
+        }, 500);
+    })();
 </script>
 </body>
 </html>
