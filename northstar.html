@@ -273,6 +273,12 @@
         .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
         .fade-up.visible { opacity: 1; transform: translateY(0); }
 
+        /* PRICING TIER IMAGES */
+        .pricing-tier-img { width: 100%; height: 140px; object-fit: cover; border-radius: 10px; margin-bottom: 1.25rem; }
+        .pricing-badge-soon { background: rgba(255,255,255,0.08) !important; color: var(--text-muted) !important; }
+        .pricing-cta-soon { background: rgba(255,255,255,0.05) !important; color: var(--text-muted) !important; border-color: rgba(255,255,255,0.1) !important; }
+        .pricing-cta-soon:hover { opacity: 1 !important; transform: none !important; }
+
         /* RESPONSIVE */
         @media (max-width: 960px) {
             .nav-links { display: none; }
@@ -704,7 +710,7 @@
     <h2 class="section-title">ทำไมถึงสร้าง North Star OS</h2>
 
     <div class="founder-block fade-up">
-        <img src="https://i.ibb.co/PGtkZXTM/S-25370627.jpg" alt="Audi" class="founder-photo">
+        <img src="https://i.ibb.co/6JYQ8s8N/S-231014446.jpg" alt="North Star OS" class="founder-photo" style="border-radius:16px;object-position:center;">
         <div>
             <div class="founder-name">AUDIKUNG</div>
             <div class="founder-role">Founder · Solopreneur · Content Creator</div>
@@ -727,24 +733,25 @@
     <div class="pricing-grid">
         <!-- BASIC -->
         <div class="pricing-card fade-up">
-            <div class="pricing-tier">BASIC</div>
+            <img src="https://i.ibb.co/rKtZwgYY/Gemini-Generated-Image-pjwz23pjwz23pjwz.png" alt="BASIC Tier" class="pricing-tier-img">
+            <div class="pricing-tier">BASIC — The Life Organizer</div>
             <div class="pricing-price-old">฿1,290</div>
             <div class="pricing-price">590</div>
             <div class="pricing-currency">บาท · จ่ายครั้งเดียว</div>
-            <p class="pricing-roi">"ราคาเท่ากับกาแฟ 3 แก้ว — แต่ได้ระบบที่ใช้ได้ตลอดชีวิต"</p>
+            <p class="pricing-roi">"เริ่มต้นจัดระเบียบชีวิต จบในที่เดียวแบบ Zero Friction"</p>
             <ul class="pricing-features">
                 <li>⌛ High Priority — บริหารทุกสิ่งที่สำคัญกับชีวิต</li>
-                <li>🎯 Mission Control — เป้าหมายสมองซ้าย (วัดผลได้) + ขวา (ภาพฝัน)</li>
-                <li>💗 Identity & Soul — เข้าใจตัวเองและชีวิต</li>
-                <li>💡 Idea Lab — คลังไอเดียและความคิด</li>
-                <li>🔁 Habit Tracker — สร้างนิสัยที่ดี เลิกนิสัยที่แย่</li>
-                <li>🌴 Leisure & Hobbies — กิจวัตรและข้อมูลคนรอบตัว</li>
-                <li>📱 Mobile Version — ใช้ได้ทุกอุปกรณ์</li>
-                <li>📅 Calendar — ปฏิทินงานและชีวิต</li>
+                <li>🎯 Mission Control — ตั้งเป้าหมายแยกสมองซ้าย (วัดผลได้) + ขวา (ภาพฝัน)</li>
+                <li>💗 Identity & Soul — เข้าใจตัวเอง และความต้องการที่แท้จริง</li>
+                <li>💡 Idea Lab — คลังบันทึกไอเดียและการตกตะกอนความคิด</li>
+                <li>📖 Journal — บันทึกความคิด ความรู้สึก และการสะท้อนตัวเองรายวัน</li>
+                <li>🔁 Habit Tracker — สร้างนิสัยที่ดีและทำลายนิสัยที่แย่</li>
+                <li>🌴 Leisure & Hobbies — บันทึกกิจกรรมยามว่าง กิจวัตร และคนรอบตัว</li>
+                <li>📅 Calendar — ปฏิทินรวมแผนงานและชีวิตส่วนตัว</li>
+                <li>📱 Mobile Version — ระบบหน้าจอที่รองรับการใช้งานผ่านมือถือ</li>
                 <hr class="pricing-divider">
-                <li>North Star Video Guide (Notion)</li>
-                <li>อัปเดตฟรีตลอดชีพ</li>
-                <li class="feat-highlight">ยศพิเศษใน Discord</li>
+                <li>🆓 อัปเดตฟรีตลอดชีพ</li>
+                <li class="feat-highlight">🍤 ยศพิเศษ: กุ้งตามสั่ง ในเซิร์ฟเวอร์</li>
             </ul>
             <a href="https://lin.ee/hUm9gSp" target="_blank" rel="noopener" class="pricing-cta">ซื้อ BASIC</a>
         </div>
@@ -752,44 +759,49 @@
         <!-- PRO -->
         <div class="pricing-card pro fade-up">
             <div class="pricing-badge">🔥 Best Seller</div>
-            <div class="pricing-tier">PRO</div>
+            <img src="https://i.ibb.co/B2h09jVL/Gemini-Generated-Image-fszr45fszr45fszr.png" alt="PRO Tier" class="pricing-tier-img">
+            <div class="pricing-tier">PRO — The Growth Engine</div>
             <div class="pricing-price-old">฿2,590</div>
             <div class="pricing-price">1,190</div>
             <div class="pricing-currency">บาท · จ่ายครั้งเดียว</div>
-            <p class="pricing-roi">"สำหรับครีเอเตอร์และคนอยากจัดการเงิน — ได้ทั้งระบบเต็มและ AI ช่วยคิดทุกขั้นตอน"</p>
+            <p class="pricing-roi">"เครื่องจักรทำคอนเทนต์ + ระบบการเงินครบวงจร เปลี่ยนเวลาว่างให้เป็นรายได้"</p>
             <ul class="pricing-features">
                 <li>ทุกอย่างใน BASIC</li>
-                <li>💰 Finance & Wealth — ระบบทำบัญชี กราฟรายปี และจัดการหนี้สิน/ซับสคริปชัน</li>
-                <li>🎬 Creator Pipeline — ท่อผลิตคอนเทนต์</li>
-                <li>🕹️ Gamification — ระบบล่าแต้ม EXP แลกของรางวัล</li>
-                <li>🥑 Vocab Review — ท่องศัพท์ 5 ภาษาแบบ Spaced Repetition</li>
-                <li>🧠 Knowledge Hub — คลังเก็บความรู้และสมองที่สอง</li>
-                <li>📚 Study — บทเรียนและคอร์สเรียน</li>
+                <li>💰 Finance & Wealth — ระบบบัญชีรายรับ-รายจ่ายส่วนตัว กราฟสรุปรายปี และเครื่องมือจัดการหนี้/ซับสคริปชัน</li>
+                <li>🎬 Creator Pipeline — บอร์ดวางแผนและท่อผลิตคอนเทนต์สำหรับครีเอเตอร์</li>
+                <li>📈 Trading Journal — กระดานบันทึกการซื้อขาย วิเคราะห์ผลการเทรด และ Mistake Tracker</li>
+                <li>📉 Investment Research — AI Framework วิเคราะห์หุ้น ETF และ Crypto ฉบับมือใหม่ถึงกลาง</li>
+                <li>🕹️ Gamification — ระบบสะสมคะแนน EXP แลกของรางวัล ช่วยให้การใช้ชีวิตสนุกเหมือนเล่นเกม</li>
+                <li>🥑 Vocab Review — ระบบท่องศัพท์ 5 ภาษา ด้วยเทคนิค Spaced Repetition</li>
+                <li>🧠 Knowledge Hub — คลังเก็บความรู้และสมองที่สอง (Second Brain)</li>
                 <hr class="pricing-divider">
-                <li class="feat-highlight">ยศพิเศษใน Discord</li>
+                <li class="feat-highlight">📚 Exclusive Ebooks 2 เล่ม: ค้นหาดาวเหนือ + เข้าใจเงินก่อนมีเงิน</li>
+                <li class="feat-highlight">🌊 ยศพิเศษ: กุ้งแม่น้ำ + เข้าถึงโซนลับ Deep Ocean</li>
             </ul>
             <a href="https://lin.ee/hUm9gSp" target="_blank" rel="noopener" class="pricing-cta">ซื้อ PRO — แนะนำ</a>
         </div>
 
         <!-- VIP -->
         <div class="pricing-card fade-up">
-            <div class="pricing-tier">VIP</div>
+            <div class="pricing-badge pricing-badge-soon">🔒 เปิดรับเร็วๆ นี้</div>
+            <img src="https://i.ibb.co/978YMk1/Gemini-Generated-Image-9v6v619v6v619v6v.png" alt="VIP Tier" class="pricing-tier-img" style="opacity:0.65;">
+            <div class="pricing-tier">VIP — The Empire Builder</div>
             <div class="pricing-price-old">฿9,900</div>
             <div class="pricing-price">4,900</div>
             <div class="pricing-currency">บาท · จ่ายครั้งเดียว</div>
-            <p class="pricing-roi">"ไม่ใช่แค่ Template — คุณได้ออดี้มาช่วย set ระบบให้คุณโดยตรง"</p>
+            <p class="pricing-roi">"สถาปนิกส่วนตัว ออกแบบระบบธุรกิจโซโลพรีเนอร์ให้คุณตั้งแต่ศูนย์"</p>
             <ul class="pricing-features">
                 <li>ทุกอย่างใน PRO</li>
-                <li>💼 Solopreneur Command Center — ระบบ CRM จัดการลูกค้า, คำนวณกำไร, และโปรเจกต์บอร์ด</li>
-                <li>📈 Trading Journal — กระดานเทรด บันทึกการซื้อขาย และ Mistake Tracker</li>
-                <li>📉 Investment Research — AI Framework วิเคราะห์หุ้น ETF Crypto</li>
-                <li>💬 30-Day Priority Support — ช่วยดูแลตลอด 1 เดือนเต็ม ใช้เป็นแน่นอน</li>
+                <li>💼 Solopreneur Command Center — ระบบ CRM จัดการลูกค้า คำนวณกำไร และบอร์ดโปรเจกต์ธุรกิจ</li>
+                <li>📞 Kickoff Call (30–60 นาที) — ตั้งเป้าหมาย ออกแบบ Roadmap และวางระบบเริ่มต้นร่วมกัน</li>
+                <li>📋 Homework Check-in — ส่ง Progress Template รายสัปดาห์ รับ Feedback โดยตรง</li>
+                <li>🔁 Follow-up Call (30–60 นาที) — นัดคุยครั้งที่ 2 หลัง 30–45 วัน Review ผล ปรับระบบ</li>
+                <li>🧑‍💻 Solopreneur Course — คอร์สสร้างธุรกิจโซโลพรีเนอร์ตั้งแต่ศูนย์ (VIP ได้สิทธิ์ก่อนใคร)</li>
                 <hr class="pricing-divider">
-                <li class="feat-highlight">🎓 ปรึกษา 30-60 นาที เลือกหัวข้อได้เอง (การเงิน/ระบบ/solopreneur/creator)</li>
-                <li class="feat-highlight">🎁 ส่วนลดพิเศษผลิตภัณฑ์ทั้งหมดในอนาคต</li>
-                <li class="feat-highlight">👑 Discord VIP — Captain's Circle + ห้องลับ</li>
+                <li class="feat-highlight">🎁 ส่วนลดพิเศษตลอดชีพ: ทุกผลิตภัณฑ์ในอนาคต</li>
+                <li class="feat-highlight">🌟 ยศพิเศษ: กุ้งล็อบสเตอร์ + VIP Lounge + สายตรง LINE ส่วนตัว</li>
             </ul>
-            <a href="https://lin.ee/hUm9gSp" target="_blank" rel="noopener" class="pricing-cta">ซื้อ VIP</a>
+            <a href="https://lin.ee/UTD2Lpo" target="_blank" rel="noopener" class="pricing-cta pricing-cta-soon">แจ้งเตือนเมื่อเปิดรับ →</a>
         </div>
     </div>
 </section>
