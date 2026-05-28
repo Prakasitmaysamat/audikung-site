@@ -10,14 +10,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0A0B10;
+            --bg: #030712;
             --bg-card: rgba(255,255,255,0.04);
             --bg-card-hover: rgba(255,255,255,0.07);
             --border: rgba(255,255,255,0.08);
             --gold: #c9a84c;
-            --gold-light: #f0d080;
+            --gold-light: #E5C586;
             --gold-glow: rgba(201,168,76,0.5);
-            --blue: #5090F0;
+            --blue: #7AB7F0;
             --purple: #9b7fd4;
             --green: #4ade80;
             --red: #ff6b6b;
@@ -310,12 +310,12 @@
 
         /* ── VISUAL ENHANCEMENTS ── */
         .scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-light)); z-index: 9999; width: 0%; box-shadow: 0 0 10px var(--gold-glow); transition: width 0.08s linear; pointer-events: none; }
-        .btn-primary { position: relative; overflow: hidden; }
+        .btn-primary { position: relative; overflow: hidden; isolation: isolate; }
         .btn-primary::after { content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent); animation: btnShimmer 3s ease-in-out infinite; pointer-events: none; }
         @keyframes btnShimmer { 0% { left: -100%; } 55%, 100% { left: 150%; } }
         .btn-primary::after { animation-play-state: paused; }
         .btn-primary:hover::after { animation-play-state: running; }
-        .pricing-card.pro .pricing-cta { position: relative; overflow: hidden; }
+        .pricing-card.pro .pricing-cta { position: relative; overflow: hidden; isolation: isolate; }
         .pricing-card.pro .pricing-cta::after { content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent); animation: btnShimmer 3s ease-in-out infinite; animation-play-state: paused; pointer-events: none; }
         .pricing-card.pro .pricing-cta:hover::after { animation-play-state: running; }
         #starfield { transition: transform 0.5s ease-out !important; }

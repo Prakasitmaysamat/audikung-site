@@ -567,9 +567,31 @@
             .quote-block { padding: 1.25rem 1.25rem; }
         }
 
+        /* ── COMMUNITY BUTTON ── */
+        .btn-community {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            background: var(--purple);
+            padding: 0.8rem 2.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            transition: background 0.2s, box-shadow 0.25s, transform 0.15s;
+            display: inline-block;
+        }
+        .btn-community:hover {
+            background: #b494e8;
+            box-shadow: 0 6px 28px var(--purple-glow);
+            transform: translateY(-3px);
+        }
+
         /* ── VISUAL ENHANCEMENTS ── */
         .scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--gold), var(--gold-light)); z-index: 9999; width: 0%; box-shadow: 0 0 10px var(--gold-glow); transition: width 0.08s linear; pointer-events: none; }
-        .btn-primary { position: relative; overflow: hidden; }
+        .btn-primary { position: relative; overflow: hidden; isolation: isolate; }
         .btn-primary::after { content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent); animation: btnShimmer 3s ease-in-out infinite; pointer-events: none; }
         @keyframes btnShimmer { 0% { left: -100%; } 55%, 100% { left: 150%; } }
         .btn-primary::after { animation-play-state: paused; }
@@ -768,7 +790,7 @@
             ผมมีพื้นที่สำหรับคุณ
         </p>
         <div class="cta-buttons">
-            <a href="https://discord.gg/dXZzUdtunE" target="_blank" rel="noopener" class="btn-primary">เข้าร่วม Simply Dock</a>
+            <a href="https://discord.gg/dXZzUdtunE" target="_blank" rel="noopener" class="btn-community">เข้าร่วม Simply Dock</a>
             <a href="https://www.instagram.com/audikung_/" target="_blank" rel="noopener" class="btn-secondary">ติดตาม @audikung_</a>
             <a href="https://lin.ee/UTD2Lpo" target="_blank" rel="noopener" class="btn-secondary">ทักมาที่ LINE</a>
         </div>
