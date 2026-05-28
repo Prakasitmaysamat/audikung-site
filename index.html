@@ -999,7 +999,9 @@
         .btn-primary { position: relative; overflow: hidden; }
         .btn-primary::after { content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent); animation: btnShimmer 3s ease-in-out infinite; pointer-events: none; }
         @keyframes btnShimmer { 0% { left: -100%; } 55%, 100% { left: 150%; } }
-        #starfield { transition: transform 1.8s ease-out !important; }
+        .btn-primary::after { animation-play-state: paused; }
+        .btn-primary:hover::after { animation-play-state: running; }
+        #starfield { transition: transform 0.5s ease-out !important; }
         .hero-sub { animation: none !important; opacity: 0; }
 
         /* Platform cards */
@@ -1153,9 +1155,9 @@
 
 <!-- ── LATEST VIDEO ── -->
 <section id="latest-video" style="background:#070d24;">
-    <p class="section-label">คอนเทนต์ล่าสุด</p>
-    <h2 class="section-title">ดูคอนเทนต์ล่าสุด ทุกช่องทาง</h2>
-    <p class="section-sub">YouTube อัปเดตอัตโนมัติ · กด TikTok หรือ Instagram ด้านล่างเพื่อดูล่าสุด</p>
+    <p class="section-label">คลิปล่าสุด</p>
+    <h2 class="section-title">ดูคอนเทนต์ล่าสุดของผม</h2>
+    <p class="section-sub">อัปเดตอัตโนมัติทุกครั้งที่มีวิดีโอใหม่</p>
     <div id="yt-latest" style="max-width:760px;margin:0 auto;" class="fade-up">
         <div style="border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);aspect-ratio:16/9;background:rgba(255,255,255,0.03);display:flex;align-items:center;justify-content:center;">
             <p style="font-family:var(--font-body);color:var(--text-muted);font-size:0.9rem;">กำลังโหลดวิดีโอล่าสุด...</p>
@@ -1165,29 +1167,6 @@
         <a href="https://www.youtube.com/@Audikung.official" target="_blank" rel="noopener" class="btn-secondary">ดูทั้งหมดที่ YouTube →</a>
     </div>
 
-    <div class="platform-cards">
-        <a href="https://www.tiktok.com/@audikung.tk" target="_blank" rel="noopener" class="platform-card teal fade-up">
-            <img src="https://i.ibb.co/mrP1gpqJ/tiktok-logo-tik-tok-logo-icon-png-svg.png" alt="TikTok">
-            <div class="platform-card-name">AUDIKUNG</div>
-            <div class="platform-card-handle">@audikung.tk</div>
-            <div class="platform-card-desc">ระบบ · โซโลพรีเนอร์<br>Build in Public</div>
-            <span class="platform-card-link">ดูล่าสุดที่ TikTok →</span>
-        </a>
-        <a href="https://www.tiktok.com/@audikungfinance" target="_blank" rel="noopener" class="platform-card teal fade-up">
-            <img src="https://i.ibb.co/mrP1gpqJ/tiktok-logo-tik-tok-logo-icon-png-svg.png" alt="TikTok">
-            <div class="platform-card-name">การเงินกุ้งๆ</div>
-            <div class="platform-card-handle">@audikungfinance</div>
-            <div class="platform-card-desc">การเงินส่วนตัว<br>เพื่อคนเริ่มต้น</div>
-            <span class="platform-card-link">ดูล่าสุดที่ TikTok →</span>
-        </a>
-        <a href="https://www.instagram.com/audikung_/" target="_blank" rel="noopener" class="platform-card purple fade-up">
-            <img src="https://i.ibb.co/My7Tmg2w/Instagram-icon.png" alt="Instagram">
-            <div class="platform-card-name">AUDIKUNG</div>
-            <div class="platform-card-handle">@audikung_</div>
-            <div class="platform-card-desc">Solo: From Zero<br>Build in Public</div>
-            <span class="platform-card-link">ดูล่าสุดที่ Instagram →</span>
-        </a>
-    </div>
 </section>
 
 <!-- ── COMMUNITY ── -->
@@ -1423,14 +1402,14 @@
         const sf = document.getElementById('starfield');
         if (!sf) return;
         document.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 22;
-            const y = (e.clientY / window.innerHeight - 0.5) * 22;
-            sf.style.transform = `translate(${x}px, ${y}px) scale(1.06)`;
+            const x = (e.clientX / window.innerWidth - 0.5) * 30;
+            const y = (e.clientY / window.innerHeight - 0.5) * 30;
+            sf.style.transform = `translate(${x}px, ${y}px) scale(1.08)`;
         });
     })();
 
     // 3. Card tilt on hover
-    document.querySelectorAll('.product-card, .channel-card, .free-featured, .platform-card').forEach(card => {
+    document.querySelectorAll('.product-card, .channel-card, .free-featured').forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const r = card.getBoundingClientRect();
             const x = (e.clientX - r.left) / r.width - 0.5;

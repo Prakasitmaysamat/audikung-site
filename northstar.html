@@ -313,9 +313,12 @@
         .btn-primary { position: relative; overflow: hidden; }
         .btn-primary::after { content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent); animation: btnShimmer 3s ease-in-out infinite; pointer-events: none; }
         @keyframes btnShimmer { 0% { left: -100%; } 55%, 100% { left: 150%; } }
+        .btn-primary::after { animation-play-state: paused; }
+        .btn-primary:hover::after { animation-play-state: running; }
         .pricing-card.pro .pricing-cta { position: relative; overflow: hidden; }
-        .pricing-card.pro .pricing-cta::after { content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent); animation: btnShimmer 3s ease-in-out infinite; pointer-events: none; }
-        #starfield { transition: transform 1.8s ease-out !important; }
+        .pricing-card.pro .pricing-cta::after { content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent); animation: btnShimmer 3s ease-in-out infinite; animation-play-state: paused; pointer-events: none; }
+        .pricing-card.pro .pricing-cta:hover::after { animation-play-state: running; }
+        #starfield { transition: transform 0.5s ease-out !important; }
         .hero-tagline { opacity: 0; }
     </style>
 </head>
@@ -1043,9 +1046,9 @@
         const sf = document.getElementById('starfield');
         if (!sf) return;
         document.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 22;
-            const y = (e.clientY / window.innerHeight - 0.5) * 22;
-            sf.style.transform = `translate(${x}px, ${y}px) scale(1.06)`;
+            const x = (e.clientX / window.innerWidth - 0.5) * 30;
+            const y = (e.clientY / window.innerHeight - 0.5) * 30;
+            sf.style.transform = `translate(${x}px, ${y}px) scale(1.08)`;
         });
     })();
 

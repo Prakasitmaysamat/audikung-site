@@ -232,8 +232,8 @@
         }
 
         .hero-photo {
-            width: 120px;
-            height: 120px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             object-fit: cover;
             object-position: center top;
@@ -572,7 +572,9 @@
         .btn-primary { position: relative; overflow: hidden; }
         .btn-primary::after { content: ''; position: absolute; top: 0; left: -100%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent); animation: btnShimmer 3s ease-in-out infinite; pointer-events: none; }
         @keyframes btnShimmer { 0% { left: -100%; } 55%, 100% { left: 150%; } }
-        #starfield { transition: transform 1.8s ease-out !important; }
+        .btn-primary::after { animation-play-state: paused; }
+        .btn-primary:hover::after { animation-play-state: running; }
+        #starfield { transition: transform 0.5s ease-out !important; }
         .section-sub { font-family: var(--font-body); font-size: 1rem; color: var(--text-muted); margin: 0 auto 2rem; max-width: 520px; line-height: 1.8; text-align: center; }
         .quote-block { transition: border-color 0.5s ease, box-shadow 0.5s ease, background 0.5s ease; }
         .quote-block.glow { border-left-color: var(--gold-light); box-shadow: -4px 0 24px rgba(201,168,76,0.2); background: rgba(201,168,76,0.06); }
@@ -713,7 +715,7 @@
 <section id="first-video" style="background:#070d24;text-align:center;">
     <p class="section-label">คลิปแรกของผม</p>
     <h2 class="section-title">ทำไมต้องเป็น Solopreneur ตอนนี้</h2>
-    <p class="section-sub">Solo: From Zero — สร้างธุรกิจ Solopreneur คนเดียว เริ่มจาก 0 Follower จริงๆ ไม่มีเงื่อนไข<br>ติดตามได้ที่ Instagram @audikung_</p>
+    <p class="section-sub">Solo: From Zero — สร้างธุรกิจ Solopreneur คนเดียว เริ่มจาก 0 Follower<br>ติดตามได้ที่ Instagram @audikung_</p>
 
     <div class="fade-up" style="max-width:480px;margin:0 auto;">
         <a href="https://www.instagram.com/audikung_/" target="_blank" rel="noopener"
@@ -723,7 +725,7 @@
             <div style="font-size:2.5rem;margin-bottom:1rem;">🎬</div>
             <div style="display:inline-block;font-family:var(--font-body);font-size:0.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:0.2rem 0.7rem;border-radius:4px;background:rgba(201,168,76,0.1);color:var(--gold);border:1px solid rgba(201,168,76,0.25);margin-bottom:1rem;">เร็วๆ นี้</div>
             <p style="font-family:var(--font-head);font-size:1.15rem;font-weight:700;color:var(--gold-light);margin-bottom:0.75rem;">ทำไมคนที่ไม่มีอะไรเลย ถึงควรเริ่มทำ Solopreneur ตอนนี้</p>
-            <p style="font-family:var(--font-body);font-size:0.9rem;color:var(--text-muted);line-height:1.75;margin-bottom:1.5rem;">คลิปแรก · 0 Follower · ไม่มีเงื่อนไข<br>Instagram @audikung_</p>
+            <p style="font-family:var(--font-body);font-size:0.9rem;color:var(--text-muted);line-height:1.75;margin-bottom:1.5rem;">คลิปแรก · 0 Follower<br>Instagram @audikung_</p>
             <span style="font-family:var(--font-body);font-size:0.9rem;font-weight:600;color:var(--gold);">ติดตามได้เลย →</span>
         </a>
     </div>
@@ -844,9 +846,9 @@
         const sf = document.getElementById('starfield');
         if (!sf) return;
         document.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 22;
-            const y = (e.clientY / window.innerHeight - 0.5) * 22;
-            sf.style.transform = `translate(${x}px, ${y}px) scale(1.06)`;
+            const x = (e.clientX / window.innerWidth - 0.5) * 30;
+            const y = (e.clientY / window.innerHeight - 0.5) * 30;
+            sf.style.transform = `translate(${x}px, ${y}px) scale(1.08)`;
         });
     })();
 
