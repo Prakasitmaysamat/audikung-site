@@ -960,6 +960,39 @@
         @media (max-width: 480px) {
             .sp-popup { max-width: 260px; left: 1rem; bottom: 1rem; }
         }
+
+        /* ── HERO ENTRANCE ── */
+        .hero-eyebrow { animation: heroReveal 0.7s ease 0.2s both; }
+        .hero-brand { animation: brandReveal 1s ease 0.45s both; }
+        .hero-tagline { animation: heroReveal 0.6s ease 1s both; }
+        .hero-sub { animation: heroReveal 0.6s ease 1.35s both; }
+        .hero-buttons { animation: heroReveal 0.6s ease 1.6s both; }
+
+        @keyframes heroReveal {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes brandReveal {
+            from { opacity: 0; transform: scale(0.94) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* ── CURSOR PARTICLES ── */
+        .cursor-particle {
+            position: fixed;
+            width: 5px;
+            height: 5px;
+            background: var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: 0 0 8px rgba(201,168,76,0.6);
+            animation: particleFade 0.65s ease-out forwards;
+        }
+        @keyframes particleFade {
+            0% { opacity: 0.8; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0.1) translateY(-14px); }
+        }
     </style>
 </head>
 <body>
@@ -1033,7 +1066,7 @@
     <div class="products-grid">
         <a href="northstar.html" class="product-card gold clickable fade-up product-featured">
             <div class="product-featured-left">
-                <div class="product-icon"><img src="https://i.ibb.co/fYjrNTH6/LITE-1.png" alt="North Star OS" style="width:48px;height:48px;object-fit:contain;border-radius:8px;"></div>
+                <div class="product-icon"><img src="https://i.ibb.co/fYjrNTH6/LITE-1.png" alt="North Star OS" style="width:76px;height:76px;object-fit:contain;border-radius:12px;"></div>
                 <span class="product-badge badge-live">Live Now</span>
                 <h3 class="product-name">North Star OS</h3>
                 <p class="product-desc">ระบบออกแบบชีวิตสำหรับคนที่อยากหยุด "สุ่ม" และเริ่มใช้ชีวิตแบบมีทิศทาง ตั้งแต่เป้าหมาย การเงิน ไปจนถึงคอนเทนต์</p>
@@ -1235,9 +1268,9 @@
         { name: 'มิน',        action: 'สั่ง North Star OS PRO เรียบร้อยแล้ว!' },
         { name: 'ก้อง',       action: 'เพิ่งเข้าร่วม Simply Dock เมื่อกี้!' },
         { name: 'แนน',        action: 'ก็อป Notion Template ฟรีไปใช้แล้ว!' },
-        { name: 'บิ้ว',       action: 'อัปเกรดเป็น North Star OS VIP แล้ว!' },
+        { name: 'บิ้ว',       action: 'กดซื้อ North Star OS PRO แล้ว ไม่ลังเลเลย!' },
         { name: 'เฟิร์น',    action: 'กดซื้อ North Star OS BASIC แล้ว เริ่มเลย!' },
-        { name: 'โต้ง',       action: 'ทักมาถามเรื่อง VIP ที่ LINE OA แล้ว' },
+        { name: 'โต้ง',       action: 'ทักมาถามเรื่อง North Star OS ที่ LINE OA แล้ว' },
         { name: 'พลอย',       action: 'เริ่มออกแบบชีวิตด้วย North Star OS แล้ว!' },
         { name: 'นิว',        action: 'subscribe YouTube AUDIKUNG แล้ว!' },
         { name: 'บีม',        action: 'อัปเกรดจาก BASIC เป็น PRO เมื่อกี้!' },
@@ -1246,13 +1279,13 @@
         { name: 'จ๋า',        action: 'สั่ง North Star OS PRO ไปแล้ว พร้อมลุย!' },
         { name: 'ณัฐ',        action: 'เพิ่งดูคลิป YouTube AUDIKUNG จบแล้ว เปิดมุมมองมากเลย!' },
         { name: 'ปิ๊ก',       action: 'follow TikTok @audikung.tk แล้ว!' },
-        { name: 'มิ้ว',       action: 'สั่ง North Star OS VIP แล้ว รอรับเลย!' },
+        { name: 'มิ้ว',       action: 'เพิ่งดู Setup Guide แล้ว เข้าใจระบบมากขึ้นมาก!' },
         { name: 'ฝน',         action: 'เข้าร่วม Simply Dock และตั้งตารอ E-Book!' },
         { name: 'กาย',        action: 'ก็อป Notion Template ไปลองดูแล้ว ดีมาก!' },
         { name: 'แป้ง',       action: 'สั่ง North Star OS BASIC เตรียมเริ่มพรุ่งนี้!' },
         { name: 'เต้',        action: 'เพิ่งเข้าร่วมคอมมูนิตี้ Simply Dock แล้ว!' },
         { name: 'ฟ้า',        action: 'กำลังดูคลิปการเงินกุ้งๆ บน TikTok อยู่เลย!' },
-        { name: 'ต้น',        action: 'อัปเกรดเป็น North Star OS VIP เมื่อกี้เลย!' },
+        { name: 'ต้น',        action: 'กด follow Instagram @audikung_ แล้ว รอคลิปแรกอยู่!' },
         { name: 'ใหม่',       action: 'ทักมา LINE OA แล้ว ถามเรื่อง North Star OS' },
         { name: 'ขวัญ',       action: 'สั่ง North Star OS PRO แล้ว ขอบคุณพี่อ้วย!' },
         { name: 'เจ',         action: 'เพิ่งกด follow Instagram @audikung_ แล้ว!' },
@@ -1290,6 +1323,19 @@
     }
 
     setTimeout(showNext, 3000);
+
+    // Cursor gold particles
+    let lastP = 0;
+    document.addEventListener('mousemove', (e) => {
+        const now = Date.now();
+        if (now - lastP < 45) return;
+        lastP = now;
+        const p = document.createElement('div');
+        p.className = 'cursor-particle';
+        p.style.cssText = `left:${e.clientX}px;top:${e.clientY}px;`;
+        document.body.appendChild(p);
+        setTimeout(() => p.remove(), 700);
+    });
 
     // Auto-fetch latest YouTube video — no manual update needed
     // Replace CHANNEL_ID below with your actual YouTube Channel ID
